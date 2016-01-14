@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import pl.engine.GameContext;
@@ -26,19 +24,10 @@ public class MainActivity extends AppCompatActivity {
         tv = (TextView)findViewById(R.id.showIpText);
         tv.setText(ip);
 
-        Button btn = (Button)findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                process();
-            }
-        });
-
-
-    }
-    public void process(){
         GameContext gc = new GameContext(ip, 5566, 2);
         gc.begin();
+
+
     }
 
 }
