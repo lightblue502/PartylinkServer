@@ -37,7 +37,8 @@ public class RegistrarActivity extends GameActivity{
     public void onGameEvent(String event, String[] params) {
         Log.d("REGIS", "event: " + event);
         if(event.equals("change_engine")){
-            Intent intent = new Intent(this, ShakeActivity.class);
+//            Intent intent = new Intent(this, ShakeActivity.class);
+            Intent intent = new Intent(this, NumericActivity.class);
             startActivity(intent);
         }
     }
