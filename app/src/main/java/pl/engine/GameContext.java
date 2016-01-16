@@ -1,5 +1,7 @@
 package pl.engine;
 
+import com.partylinkserver.GameCommunicationListener;
+
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.concurrent.ExecutorService;
 public class GameContext implements CommunicationListener{
 	private int engineIndex;
 	private int playerAmount;
+    private GameCommunicationListener gameLister;
 	private static final String[] BLANK_PARAMS = new String[0];
 	private GameEngine currentGameEngine;
 	private List<SocketPlayer> socketplayers = new ArrayList<SocketPlayer>();
@@ -15,30 +18,53 @@ public class GameContext implements CommunicationListener{
 	private List<GameEngine> engines = new ArrayList<GameEngine>();
 	private List<Team> teams = new ArrayList<Team>();
 	private CommunicationManager cm;
-	
-	public GameContext(String address, int port, int playerAmount){
+
+	public static GameContext instance;
+	public static GameContext getInstance() {
+		if (instance == null)
+			instance = new GameContext();
+		return instance;
+	}
+
+	private boolean isInitialized = false;
+	public void init(String address, int port, int playerAmount, GameCommunicationListener gameListener) {
+        this.gameLister = gameListener;
+		if (isInitialized)
+			return;
+
+		isInitialized = true;
+
 		this.playerAmount = playerAmount;
 		engineIndex = 0;
 		engines.add(new RegistrarEngine(this, playerAmount));
 		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE"));
 		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER"));
 		engines.add(new EndEngine(this));
-		cm = new CommunicationManager(address , port, this);
+		cm = new CommunicationManager(address , port, this, gameListener);
 		cm.start();
 	}
 	
+	private GameContext(){
+
+	}
+
+	public List<SocketPlayer> getSocketPlayer(){
+		return socketplayers;
+	}
 	public void setPlayerAmount(int playerAmount){
 		this.playerAmount = playerAmount;
 	}
 	
 	public void begin(){
+        Utils.debug("Game Context is begining");
 		currentGameEngine = engines.get(engineIndex);
 	}
 
 	public void nextEngine(){
-		currentGameEngine = engines.get(++engineIndex); 
+		currentGameEngine = engines.get(++engineIndex);
 		currentGameEngine.startEngine();
-	}
+        gameLister.onIncommingEvent("change_engine", new String[0]);
+    }
 	
 	public void onIncomingData(int clientId, String line){
 		if(currentGameEngine != null){
@@ -113,7 +139,9 @@ public class GameContext implements CommunicationListener{
 		}
 		return null;
 	}
-	
+	public GameEngine getCurrentGameEngine(){
+		return currentGameEngine;
+	}
 	public Team getTeamByClientId(int clientId){
 		Player player = getPlayerByClientID(clientId);
 		for(Team team: teams){
@@ -155,7 +183,16 @@ public class GameContext implements CommunicationListener{
 
 	@Override
 	public void addSocketPlayer(SocketPlayer socketplayer) {
-		socketplayers.add(socketplayer);	
+		socketplayers.add(socketplayer);
 	}
-	
+
+	@Override
+	public boolean socketPlayerReady() {
+		if (socketplayers.size() == playerAmount) {
+			return true;
+		}
+		return false;
+	}
+
+
 }

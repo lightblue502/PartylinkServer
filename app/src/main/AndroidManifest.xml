@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ShakeActivity" />
+        <activity android:name=".RegistrarActivity" />
+        <activity android:name=".GameActivity" />
+
+        <service
+            android:name=".GameCommunicationService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>

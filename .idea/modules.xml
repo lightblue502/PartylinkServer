@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PartylinkServer.iml" filepath="$PROJECT_DIR$/PartylinkServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PartyLinkServer.iml" filepath="$PROJECT_DIR$/PartyLinkServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

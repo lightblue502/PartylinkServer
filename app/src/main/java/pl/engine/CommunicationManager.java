@@ -1,5 +1,9 @@
 package pl.engine;
 
+import android.util.Log;
+
+import com.partylinkserver.GameCommunicationListener;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -14,7 +18,7 @@ import java.util.concurrent.Executors;
 
 public class CommunicationManager extends Thread {
 	private static int currentClientId = 1;
-	
+	private GameCommunicationListener gameListener;
 	private String address;
 	private int port;
 	private boolean closed = false;
@@ -23,10 +27,11 @@ public class CommunicationManager extends Thread {
 	private CommunicationListener listener;
 	
 	private ExecutorService es = Executors.newFixedThreadPool(10);
-	public CommunicationManager(String address, int port, CommunicationListener listener) {		
+	public CommunicationManager(String address, int port, CommunicationListener listener, GameCommunicationListener gameListener) {
 		this.address = address;
 		this.port = port;
 		this.listener = listener;
+		this.gameListener = gameListener;
 	}
 
 	public void run(){
@@ -36,6 +41,7 @@ public class CommunicationManager extends Thread {
 			Utils.debug("Waiting for new connection");
 			while(!closed){
 				Socket socket = serverSocket.accept();
+
 				String androidId = null;
 				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 //				Utils.debug("=============================================================");
@@ -50,6 +56,9 @@ public class CommunicationManager extends Thread {
 					Utils.debug("Client hanlder has been created for client id = " + clientId);
 					clients.put(clientId, handler);
 					listener.addSocketPlayer((new SocketPlayer(handler, androidId, es)));
+					if(listener.socketPlayerReady()){
+						gameListener.onIncommingEvent("socketplayers_ready", new String[0]);
+					}
 				}else{
 					listener.editPlayerSocket(androidId, socket);
 				}
@@ -102,7 +111,7 @@ public class CommunicationManager extends Thread {
 			this.socket = socket;
 			this.clientId = clientId;
 		}
-		
+
 		public void sendData(String line){
 			writer.println(line);
 			writer.flush();
@@ -122,7 +131,7 @@ public class CommunicationManager extends Thread {
 				writer = new PrintWriter(socket.getOutputStream());
 				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String line = null;
-//				Utils.debug("read line commmu: " + reader);
+				Utils.debug("read line commmu: " + reader);
 				while(!closed && (line = reader.readLine()) != null){
 					onIncomingData(clientId, line);
 				}

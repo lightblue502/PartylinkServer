@@ -9,6 +9,7 @@ import java.util.TimerTask;
 public class GameShakeEngine extends GameEngine{
 	private int playerAmount;
 	private int cntPlayer = 0;
+	private Player playerA;
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
 	private ResultScore resultScore = new ResultScore();
@@ -83,13 +84,16 @@ public class GameShakeEngine extends GameEngine{
 		gameManager.countdown("change_shake", randomTime, true);
 		cntPlayer = 0;
 	}
-	
+	public Player getCurrentPlayer(){
+		return playerA;
+	}
 	public void sendEventToTeam(Team team, int randomPlayerAmount){
 		for (int i = 0; i < randomPlayerAmount; i++) {
 			int randomPlayers = new Random().nextInt(team.getPlayerAmount());
 			Utils.debug("send to randomPlayerAmount: " + randomPlayerAmount );
 			Utils.debug("send to randomPlayers: " + randomPlayers );
-			gc.sendGameEvent(team.getPlayers().get(randomPlayers), "this_shake");
+			playerA = team.getPlayers().get(randomPlayers);
+			gc.sendGameEvent(playerA, "this_shake");
 		}
 		
 	}
