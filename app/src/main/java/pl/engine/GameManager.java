@@ -42,6 +42,20 @@ public class GameManager {
 			}
 		}
 	}
+	public int getCurrentScoreByTeam(char team){
+		if(team == 'A'){
+			return teamA.get("currentScore");
+		}else {
+			return teamB.get("currentScore");
+		}
+	}
+	public int getWinRoundByTeam(char team){
+		if(team == 'A'){
+			return teamA.get("winRound");
+		}else{
+			return teamB.get("winRound");
+		}
+	}
 	
 	public boolean checkGameRound(){
 		currentNumber++;
@@ -114,9 +128,17 @@ public class GameManager {
 	}
 	
 	public void printScoreToNumber() {
+		gc.getGameLister().onIncommingEvent("getCurrentScore",new String[]{
+				String.valueOf(teamA.get("currentScore")),
+				String.valueOf(teamB.get("currentScore"))
+		});
 		Utils.debug("TEAM A : " + teamA.get("currentScore") + " ====== TEAM B : " + teamB.get("currentScore"));
 	}
 	public void printScoreToWIN() {
+		gc.getGameLister().onIncommingEvent("getWinRound",new String[]{
+				String.valueOf(teamA.get("winRound")),
+				String.valueOf(teamB.get("winRound"))
+		});
 		Utils.debug("======================ToWIN========================");
 		Utils.debug("TEAM A -> WIN : " + teamA.get("winRound") );
 		Utils.debug("TEAM B -> WIN : " + teamB.get("winRound") );

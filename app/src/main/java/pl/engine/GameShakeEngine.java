@@ -73,7 +73,9 @@ public class GameShakeEngine extends GameEngine{
 	
 	
 	public void sendEventToTeams(){
-		int playerAmount = teams.get(0).getPlayerAmount();
+		int playerAmountTeamA = teams.get(0).getPlayerAmount();
+		int playerAmountTeamB = teams.get(1).getPlayerAmount();
+		int playerAmount =  (playerAmountTeamA != 0 )?playerAmountTeamA : playerAmountTeamB;
 		int randomPlayerAmount = new Random().nextInt(playerAmount) + 1;
 		Utils.debug("randomPlayerAmount :" + randomPlayerAmount );
 		

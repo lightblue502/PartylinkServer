@@ -53,7 +53,7 @@ public class MainActivity extends GameActivity {
             if (gc.getCurrentGameEngine() instanceof RegistrarEngine) {
                 Intent intent = new Intent(this, RegistrarActivity.class);
                 startActivity(intent);
-            } else {
+            }else {
                 Log.d("MAIN", "cannot get instance");
             }
         }

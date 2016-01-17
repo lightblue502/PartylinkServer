@@ -7,7 +7,7 @@ import android.util.Log;
 
 import pl.engine.GameShakeEngine;
 
-public class ShakeActivity extends MainActivity {
+public class ShakeActivity extends GameActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +20,10 @@ public class ShakeActivity extends MainActivity {
 //        }else{
 //            Log.d("SHAKE", "gc is null");
 //        }
+    }
+
+    @Override
+    public void onGameEvent(String event, String[] params) {
+
     }
 }

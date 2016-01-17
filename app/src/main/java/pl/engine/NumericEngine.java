@@ -53,7 +53,6 @@ public class NumericEngine extends GameEngine{
 			}else{
 				gameManager.scoreManage(clientId, -50);
 			}
-				
 		}
 	}
 
@@ -80,7 +79,9 @@ public class NumericEngine extends GameEngine{
 	}
 	
 	public void sendEventToTeams(){
-		int playerAmount = teams.get(0).getPlayerAmount();
+		int playerAmountTeamA = teams.get(0).getPlayerAmount();
+		int playerAmountTeamB = teams.get(1).getPlayerAmount();
+		int playerAmount =  (playerAmountTeamA != 0 )?playerAmountTeamA : playerAmountTeamB;
 		String[] ans = randomQuestion();
 		for (Team team : teams) {
 			sendEventToTeam(team, playerAmount, ans);
@@ -93,7 +94,8 @@ public class NumericEngine extends GameEngine{
 	public void sendEventToTeam(Team team, int PlayerAmount, String[] ans){
 		
 		for (int i = 0; i < PlayerAmount; i++) {
-			gc.sendGameEvent(team.getPlayers().get(i), "numeric_question", ans);
+			if(team.getPlayers().size() != 0)
+				gc.sendGameEvent(team.getPlayers().get(i), "numeric_question", ans);
 		}
 		
 	}
