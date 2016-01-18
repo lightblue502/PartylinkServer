@@ -30,22 +30,15 @@ public class GameCommunicationService extends Service implements GameCommunicati
     }
     @Override
     public void onIncommingEvent(String event, String[] params) {
-        Log.d("DEBUG_gcs.onIncome", "event--->" + event + ":" + "params" + params);
+//        Log.d("DEBUG_gcs.onIncome", "event--->" + event + ":" + "params" + params);
         sendEvent(event, params);
     }
 
-    private void sendEvent(String name, String[] params){
-        StringBuilder sb = new StringBuilder(name);
-        sb.append('|');
-        for(int i = 0; i < params.length; i++){
-            sb.append(params[i]);
-            if(i != params.length - 1){
-                sb.append(',');
-            }
-        }
+    private void sendEvent(String event, String[] params){
         Intent intent = new Intent("game-event");
-        intent.putExtra("name", sb.toString());
-        Log.d("DEBUG_gcs.sendEvent", "broadcasting game event: " + name);
+        intent.putExtra("event", event);
+        intent.putExtra("params", params);
+//        Log.d("DEBUG_gcs.sendEvent", "broadcasting game event: " + event);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 

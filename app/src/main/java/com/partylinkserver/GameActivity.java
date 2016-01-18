@@ -40,35 +40,14 @@ public abstract class GameActivity extends AppCompatActivity {
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                String event = intent.getStringExtra("name");
-                IncomingData(event);
-//                onGameEvent(event, new HashMap<String, Object>());
+                String event = intent.getStringExtra("event");
+                String[] params = intent.getStringArrayExtra("params");
+                onGameEvent(event,  params);
             }
         };
 
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
                 new IntentFilter("game-event"));
-    }
-
-    public void IncomingData(String line){
-
-        Log.d("DEBUG_gameActivity","line --->"+line);
-        if(line != null){
-            int idx = line.indexOf('|');
-            String event = null;
-            String[] params = null;
-            if(idx > 0){
-                event = line.substring(0,idx);
-                params = line.substring(idx+1).split(",");
-            }else if(idx < 0 && line.length() > 0){
-                event = line;
-            }
-            if(event != null){
-                Log.d("DEBUG_gameActivity",event+ " "+params);
-                onGameEvent(event, params);
-            }
-        }
-
     }
 
     public abstract void onGameEvent(String event, String[] params);
