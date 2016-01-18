@@ -13,7 +13,7 @@ public class NumericActivity extends GameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numeric);
-
+        initialServiceBinding();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             WebView.setWebContentsDebuggingEnabled(true);
         }
@@ -26,10 +26,13 @@ public class NumericActivity extends GameActivity {
     }
     @Override
     public void onGameEvent(String event, String[] params) {
-        if(event.equals("getCurrentScore")){
-            Log.d("DEBUG"," "+params);
+        Log.d("DEBUG","(onGameEvent--Numeric)"+event + " "+params);
+        if(event.equals("getCurrentScore") && params!= null){
             wv.loadUrl("javascript:getCurrentScore("+params[0]+",'A')");
             wv.loadUrl("javascript:getCurrentScore("+params[1]+",'B')");
+        }
+        if(event.equals("getQuestion") && params!= null){
+            wv.loadUrl("javascript:getQuestion("+params[0]+")");
         }
     }
 }

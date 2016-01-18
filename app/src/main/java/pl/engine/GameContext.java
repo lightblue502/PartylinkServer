@@ -1,5 +1,7 @@
 package pl.engine;
 
+import android.util.Log;
+
 import com.partylinkserver.GameCommunicationListener;
 
 import java.net.Socket;
@@ -26,6 +28,10 @@ public class GameContext implements CommunicationListener{
 		return instance;
 	}
 
+	public GameCommunicationListener getGameLister(){
+		Log.d("DEBUG_context","gameLister getted!!");
+		return gameLister;
+	}
 	private boolean isInitialized = false;
 	public void init(String address, int port, int playerAmount, GameCommunicationListener gameListener) {
         this.gameLister = gameListener;
@@ -37,7 +43,7 @@ public class GameContext implements CommunicationListener{
 		this.playerAmount = playerAmount;
 		engineIndex = 0;
 		engines.add(new RegistrarEngine(this, playerAmount));
-		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE"));
+//		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE"));
 		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER"));
 		engines.add(new EndEngine(this));
 		cm = new CommunicationManager(address , port, this, gameListener);
@@ -56,7 +62,7 @@ public class GameContext implements CommunicationListener{
 	}
 	
 	public void begin(){
-        Utils.debug("Game Context is begining");
+        Utils.debug("(GameContext) is begining");
 		currentGameEngine = engines.get(engineIndex);
 	}
 

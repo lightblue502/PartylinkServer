@@ -27,8 +27,10 @@ public class MainActivity extends GameActivity {
         initialServiceBinding();
         Log.d("MAIN", "hello party link server");
         setContentView(R.layout.activity_main);
+
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        Log.d("DEBUG_MAIN","ipAddress --- >"+ip);
         tv = (TextView)findViewById(R.id.showIpText);
         tv.setText(ip);
 

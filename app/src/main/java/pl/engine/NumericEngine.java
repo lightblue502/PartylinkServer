@@ -2,6 +2,7 @@ package pl.engine;
 
 import java.util.List;
 import java.util.Random;
+import java.util.SimpleTimeZone;
 
 public class NumericEngine extends GameEngine{
 	private int playerAmount;
@@ -122,6 +123,9 @@ public class NumericEngine extends GameEngine{
 			break;
 		}
 		answer = ans;
+        gc.getGameLister().onIncommingEvent("getQuestion",new String[]{
+                String.valueOf(number1),String.valueOf(number2), String.valueOf(symbol), String.valueOf(ans)
+        });
 		Utils.debug(number1+ " "+symbol+" "+number2+" = ?? --- > ans =="+ans + " -- "+answer);
 		return randomAnswer(ans);
 	}

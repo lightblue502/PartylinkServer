@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 public abstract class GameActivity extends AppCompatActivity {
     protected GameCommunicationService gcs;
@@ -48,11 +49,14 @@ public abstract class GameActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
                 new IntentFilter("game-event"));
     }
+
     public void IncomingData(String line){
+
+        Log.d("DEBUG_gameActivity","line --->"+line);
         if(line != null){
             int idx = line.indexOf('|');
             String event = null;
-            String params[] = null;
+            String[] params = null;
             if(idx > 0){
                 event = line.substring(0,idx);
                 params = line.substring(idx+1).split(",");
@@ -60,6 +64,7 @@ public abstract class GameActivity extends AppCompatActivity {
                 event = line;
             }
             if(event != null){
+                Log.d("DEBUG_gameActivity",event+ " "+params);
                 onGameEvent(event, params);
             }
         }

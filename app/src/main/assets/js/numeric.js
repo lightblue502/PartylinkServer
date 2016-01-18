@@ -19,16 +19,12 @@
 
 var app = angular.module("myApp", []);
 app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval){
+  console.log("hello NumericCtrl");
   $scope.displayCSS = "display center"
-  var time
-  var number1  = 123;
-  var number2 = 432;
-  var symbol = "+";
-  var ans = number1 + number2;
-
+  var time;
   $scope.blueScore = 8;
   $scope.redScore = 2;
-  $scope.display = number1 + " "+ symbol + " " + number2 + " = ?";
+
 
   var playing = function(){
     $scope.viewer = "open";
@@ -36,10 +32,10 @@ app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval)
     time = $interval( function(){ 
       if($scope.countdown <= 0){
         $scope.displayCSS = "display center bigFont"
-        $scope.display = ans;
+        // $scope.display = ans;
 
         if($scope.countdown <= -5){
-          $scope.viewer = "close";
+          // $scope.viewer = "close";
           $interval.cancel(time);
         }
 
@@ -50,3 +46,40 @@ app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval)
   };
   playing();
 }]);
+
+function getCurrentScore(score ,team){
+  console.log("hello getCurrentScore");
+  angular.element(document.body).scope().$apply(function($scope){
+        if(team == 'A'){
+          $scope.blueScore = score;
+        }else{
+          $scope.redScore = score;
+        }
+  })
+  console.log("score :" + score + " ---- "+team);
+}
+function getQuestion(value , params){
+  var number1  = "";
+  var number2 = "";
+  var symbol = "";
+  console.log("hello getQuestion");
+  angular.element(document.body).scope().$apply(function($scope){
+    switch(params) {
+      case 'number1':
+         number1 = params;
+      break;
+      case 'number2':
+         number2 = params ;
+      break;
+      case 'symbol':
+         symbol = params ;
+      break; 
+      case 'ans':
+         ans = params ;
+      break;
+    }
+    $scope.display = number1 + " "+ symbol + " " + number2 + " = ?";
+  });
+  console.log(number1 + " "+ symbol + " " + number2 + " = ?");
+}
+  // scoreA , socreB , number1, number2, symbol , ans
