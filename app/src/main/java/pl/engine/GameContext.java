@@ -1,5 +1,6 @@
 package pl.engine;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.partylinkserver.GameCommunicationListener;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 public class GameContext implements CommunicationListener{
+	private Context context;
 	private int engineIndex;
 	private int playerAmount;
     private GameCommunicationListener gameLister;
@@ -33,8 +35,9 @@ public class GameContext implements CommunicationListener{
 		return gameLister;
 	}
 	private boolean isInitialized = false;
-	public void init(String address, int port, int playerAmount, GameCommunicationListener gameListener) {
+	public void init(String address, int port, int playerAmount, GameCommunicationListener gameListener, Context context) {
         this.gameLister = gameListener;
+		this.context = context;
 		if (isInitialized)
 			return;
 
@@ -44,7 +47,8 @@ public class GameContext implements CommunicationListener{
 		engineIndex = 0;
 		engines.add(new RegistrarEngine(this, playerAmount));
 //		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE"));
-		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER"));
+//		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER"));
+		engines.add(new QAEngine(this, playerAmount, "GAME QA", context));
 		engines.add(new EndEngine(this));
 		cm = new CommunicationManager(address , port, this, gameListener);
 		cm.start();
@@ -69,8 +73,8 @@ public class GameContext implements CommunicationListener{
 	public void nextEngine(){
 		currentGameEngine = engines.get(++engineIndex);
 		currentGameEngine.startEngine();
-        gameLister.onIncommingEvent("change_engine", new String[0]);
-    }
+		gameLister.onIncommingEvent("change_engine", new String[0]);
+	}
 	
 	public void onIncomingData(int clientId, String line){
 		if(currentGameEngine != null){

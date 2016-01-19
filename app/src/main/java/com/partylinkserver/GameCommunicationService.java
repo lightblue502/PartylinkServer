@@ -1,6 +1,7 @@
 package com.partylinkserver;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
@@ -23,9 +24,9 @@ public class GameCommunicationService extends Service implements GameCommunicati
         return binder;
     }
 
-    public GameContext startGameContext(String ip, int playerAmount){
+    public GameContext startGameContext(String ip, int playerAmount, Context context){
         gc = GameContext.getInstance();
-        gc.init(ip, 5566, playerAmount, this);
+        gc.init(ip, 5566, playerAmount, this, context);
         return gc;
     }
     @Override
