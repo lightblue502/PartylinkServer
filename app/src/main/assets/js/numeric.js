@@ -25,8 +25,13 @@ app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval)
   $scope.round = 1;
   $scope.blueScore = 0;
   $scope.redScore = 0;
-  $scope.display = " 1 + 2 = ? ";
-  
+  $scope.display = "";
+  $scope.iconRed = ["glyphicon glyphicon-tower iconRedDark", 
+  "glyphicon glyphicon-tower iconRedDark" ,
+  "glyphicon glyphicon-tower iconRedDark"];
+  $scope.iconBlue = ["glyphicon glyphicon-tower iconBlueDark", 
+  "glyphicon glyphicon-tower iconBlueDark", 
+  "glyphicon glyphicon-tower iconBlueDark"]
 
   var playing = function(){
     $scope.viewer = "open";
@@ -51,16 +56,14 @@ app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval)
     $scope.showStatus = "ready";
   }
   playing();
+ 
 }]);
 
-function getCurrentScore(score ,team){
+function getCurrentScore(scoreA ,scoreB){
   console.log("hello getCurrentScore");
   angular.element(document.body).scope().$apply(function($scope){
-        if(team == 'A'){
-          $scope.blueScore = score;
-        }else{
-          $scope.redScore = score;
-        }
+          $scope.blueScore = scoreA;
+          $scope.redScore = scoreB;
   });
   console.log("score :" + score + " ---- "+team);
 };
@@ -82,4 +85,35 @@ function getRound(round){
     $scope.round = round;
   });
 };
+
+function getWinRound(winRoundA, winRoundB){
+  angular.element(document.body).scope().$apply(function($scope){
+    console.log("winRoundA :"+winRoundA );
+    console.log("winRoundB :"+winRoundB );
+    var maxRound = 3;
+    var iconClass =  "glyphicon glyphicon-tower "
+    $scope.iconRed = [];
+    $scope.iconBlue = [];
+
+    for (var i = 1; i <= maxRound;) { 
+      if(i <= winRoundA){
+        $scope.iconBlue.push(iconClass+"iconBlueLight");
+      }else{
+        $scope.iconBlue.push(iconClass+"iconBlueDark");
+      }
+      i++;
+    }
+
+    for (var j = 1; j <= maxRound;) { 
+     if(j <= winRoundB){
+        $scope.iconRed.push(iconClass+"iconRedLight");
+      }else{
+        $scope.iconRed.push(iconClass+"iconRedDark");
+      }
+      j++;
+    }
+    console.log($scope.iconRed);
+    console.log($scope.iconBlue);
+  });
+}
   // scoreA , socreB , number1, number2, symbol , ans

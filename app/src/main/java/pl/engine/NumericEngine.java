@@ -11,6 +11,7 @@ public class NumericEngine extends GameEngine{
 	private Integer answer;
 	private int cntPlayer = 0;
 	private int topicPerPlayer = 2;
+    private boolean firstTime = false;
 	private boolean isPlaying = false;
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
@@ -48,6 +49,7 @@ public class NumericEngine extends GameEngine{
 	
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
+//        gameManager.GameReady(5);
 		if(event.equals("numeric_ready")){
 			cntPlayer++;
 			Log.d("debug", "\t\tonIncomingEvent: " + cntPlayer);
@@ -96,7 +98,7 @@ public class NumericEngine extends GameEngine{
 		Character[] chars = {'+', '-'};
 		int randomSymbol = new Random().nextInt(chars.length);
 		char symbol = chars[randomSymbol];
-		int maxRandQuestion = 20;
+		int maxRandQuestion = 10;
 		int number1 = new Random().nextInt(maxRandQuestion)+1;
 		int number2 = new Random().nextInt(maxRandQuestion)+1;
 		int ans = 0;

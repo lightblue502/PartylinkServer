@@ -24,11 +24,22 @@ body {
 
   opacity: 0;
 }
+.iconRedDark{
+ color:#4E0404;
+}
+.iconRedLight{
+ color:#F55;
+}
+.iconBlueDark{
+ color:#0B2B46;
+}
+.iconBlueLight{
+ color:#5096FF;
+}
 .headertext{
   color: white;
   background-color: gray;
   font-size: 5em;
-  font-family: cursive;
   white-space: pre-wrap;
 }
 .headertextBox{
@@ -49,7 +60,7 @@ body {
 
 #myInput .display {
   z-index: -1;
-  font-size: 120px;
+  font-size: 12em;
   font-weight: 300;
   text-shadow: 3px 3px #555;
   border: 0px;
@@ -70,27 +81,37 @@ div.centerline{
 
 .score{
   text-align: center;
-  margin-bottom: -3vh;
   font-size: 14vh
+}
+.textTeam{
+  white-space: pre-wrap;
+  background-color: black;
+  text-align:center;
+}
+.icon{
+  padding: 1vh;
+  background-color: black;
 }
 .red{
   position: absolute;
-  bottom: 35vh;
+  bottom: 30vh;
   left: 2vw;
   color: #F55;
   z-index: -2;
   font-size: 8vh;
   border: 0px;
+  background-color: gray;
 }
 
 .blue{
   position: absolute;
-  bottom: 35vh;
+  bottom: 30vh;
   right: 2vw;
   color: #5096FF;
   z-index: -2;
   font-size: 8vh;
   border: 0px;
+  background-color: gray;
 }
 .center {
   margin: 0;
@@ -117,4 +138,22 @@ div.centerline{
   opacity: 1;
   padding: 10px 17px;
   font-size: 27px;
+}
+div.boxleft{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 50%;
+  background-color: #faa;
+  z-index: -5;
+}
+div.boxright{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 0;
+  background-color: #acf;
+  z-index: -5;
 }

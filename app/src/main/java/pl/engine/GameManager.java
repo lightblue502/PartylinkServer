@@ -1,9 +1,11 @@
 package pl.engine;
 
+import android.os.Handler;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,11 +32,20 @@ public class GameManager {
 		teamB.put("winRound", 0);
 	}
 	
-	public void gameReady(){
-		Utils.debug("GAME READY ...");
-		countdown("", 3, false);
+	public void GameReady(final int times){
+        Utils.debug("GAME READY ...");
+        final int i =0;
+        final Handler timerHandler = new Handler();
+        Runnable timerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d("DEBUG_gameReady","hello");
+                timerHandler.postDelayed(this, times*1000);
+            }
+        };
+//        timerHandler.removeCallbacks(timerRunnable);
 	}
-	
+
 	public void scoreManage(int clientId, int score){
 		Team team = gc.getTeamByClientId(clientId);
 		if(team != null){
@@ -45,21 +56,6 @@ public class GameManager {
 			}
 		}
 	}
-	public int getCurrentScoreByTeam(char team){
-		if(team == 'A'){
-			return teamA.get("currentScore");
-		}else {
-			return teamB.get("currentScore");
-		}
-	}
-	public int getWinRoundByTeam(char team){
-		if(team == 'A'){
-			return teamA.get("winRound");
-		}else{
-			return teamB.get("winRound");
-		}
-	}
-	
 
 	public void printReportRound(){
 		Utils.debug("### ROUND : "+(currentRound) + " ####");
