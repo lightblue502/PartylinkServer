@@ -31,7 +31,7 @@ public class GameContext implements CommunicationListener{
 	}
 
 	public GameCommunicationListener getGameLister(){
-		Log.d("DEBUG_context","gameLister getted!!");
+//		Log.d("DEBUG_context","gameLister getted!!");
 		return gameLister;
 	}
 	private boolean isInitialized = false;
@@ -104,6 +104,19 @@ public class GameContext implements CommunicationListener{
 	
 	public void sendGameEvent(String event){
 		cm.broadcastData(event);
+	}
+
+	public void sendGameEvent(String event, String[] params){
+		StringBuilder sb = new StringBuilder(event);
+		sb.append('|');
+		for(int i = 0; i < params.length; i++){
+			sb.append(params[i]);
+			if(i != params.length - 1){
+				sb.append(',');
+			}
+		}
+//        Log.d("DEBUG_gc.sendGameEvent","params --->"+sb.toString());
+		cm.broadcastData(sb.toString());
 	}
 	
 	public void sendGameEvent(Player player, String event){

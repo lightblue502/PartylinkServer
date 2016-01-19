@@ -26,13 +26,29 @@ public class NumericActivity extends GameActivity {
     }
     @Override
     public void onGameEvent(String event, String[] params) {
-        Log.d("DEBUG","(onGameEvent--Numeric)"+event + " "+params);
-        if(event.equals("getCurrentScore") && params!= null){
-            wv.loadUrl("javascript:getCurrentScore("+params[0]+",'A')");
+//        Log.d("DEBUG","(onGameEvent--Numeric)"+event + " "+params);
+        if(params ==  null){
+            return;
+        }
+        else if(event.equals("getCurrentScore")){
+            wv.loadUrl("javascript:getCurrentScore(" + params[0]+",'A')");
             wv.loadUrl("javascript:getCurrentScore("+params[1]+",'B')");
         }
-        if(event.equals("getQuestion") && params!= null){
-            wv.loadUrl("javascript:getQuestion("+params[0]+")");
+        else if(event.equals("getQuestion")){
+//            Log.d("DEBUG_inGetQuestion", "hello params" + params[0] + params[1] + params[2]);
+            String strs = "['";
+            for(int i = 0; i < params.length; i++){
+                strs += params[i];
+                if(i != params.length - 1){
+                    strs += "','";
+                }else{
+                    strs += "']";
+                }
+            }
+            wv.loadUrl("javascript:getQuestion("+strs+")");
+        }
+        else if(event.equals("getRound")){
+            wv.loadUrl("javascript:getRound("+params[0]+")");
         }
     }
 }

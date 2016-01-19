@@ -11,8 +11,9 @@ import java.util.TimerTask;
 public class GameManager {
 	private int round;
 	private int number;
-	private int currentRound = 0;
-	private int currentNumber = 0;
+	private int currentRound = 1;
+	private int currentNumber = 1;
+    private boolean isGameEnd = false;
 	private Timer timer;
 	private GameContext gc;
 	private HashMap<String, Integer> teamA ;
@@ -59,25 +60,15 @@ public class GameManager {
 		}
 	}
 	
-	public boolean checkGameRound(){
-		currentNumber++;
-		Utils.debug("==============================================");
-		Utils.debug("number : "+currentNumber + " ");
-		Utils.debug("==============================================");
-		if(currentNumber > number){
-			Utils.debug("### ROUND : "+(currentRound+1) + " ####");
-			currentNumber = 0;
-			currentRound++;
-			
-			// calc winRound
-			versus();
-			printScoreToWIN();
-			resetScore();
-			
-		}
-		return currentRound < round;
+
+	public void printReportRound(){
+		Utils.debug("### ROUND : "+(currentRound) + " ####");
+        Utils.debug("==============================================");
+        Utils.debug("number : "+currentNumber + " ");
+        Utils.debug("==============================================");
+		gc.getGameLister().onIncommingEvent("getRound",new String[]{String.valueOf(currentRound)});
 	}
-	
+
 	public void versus(){
 		if(teamA.get("currentScore") >= teamB.get("currentScore")){
 			teamA.put("winRound", teamA.get("winRound") + 1);
@@ -107,33 +98,55 @@ public class GameManager {
 		teamB.put("currentScore", 0);
 	}
 	public void stopTimer(){
-		timer.cancel();
+        timer.cancel();
+		if(!isInRound())
+            gc.getCurrentGameEngine().endEngine();
+
 	}
 	
 	public void countdown(final String changeEvent,final int randomTime,final boolean isEvent){
 		timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int i = randomTime;
+
             public void run() {
-            	Utils.print(i + " ");
-            	i--;
-                if (i< 0){
-                	if(isEvent)
-                		gc.sendGameEvent(changeEvent);
-        			Utils.debug("");
-        			i = randomTime;
-        			timer.cancel();
+                Utils.print(i + " ");
+                i--;
+                if (i < 0) {
+                    if (isInRound()) {
+                        if (isEvent) {
+                            gc.sendGameEvent(changeEvent);
+                        }
+                    }else{
+                        gc.getCurrentGameEngine().endEngine();
+                    }
+                    Utils.debug("");
+                    i = randomTime;
+                    timer.cancel();
                 }
-                	
+
             }
         }, 0, 1000);
 	}
-	
+
+    public boolean isInRound(){
+        currentNumber++;
+        if(currentNumber > number){
+            currentRound++;
+            versus();
+            resetScore();
+            printScoreToWIN();
+            currentNumber = 1;
+        }
+        return currentRound <= round;
+    }
+
+
 	public void printScoreToNumber() {
 		gc.getGameLister().onIncommingEvent("getCurrentScore",new String[]{
-				String.valueOf(teamA.get("currentScore")),
-				String.valueOf(teamB.get("currentScore"))
-		});
+                String.valueOf(teamA.get("currentScore")),
+                String.valueOf(teamB.get("currentScore"))
+        });
 		Utils.debug("TEAM A : " + teamA.get("currentScore") + " ====== TEAM B : " + teamB.get("currentScore"));
 	}
 	public void printScoreToWIN() {

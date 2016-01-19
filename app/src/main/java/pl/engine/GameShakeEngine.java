@@ -54,7 +54,7 @@ public class GameShakeEngine extends GameEngine{
 	public void onPlayerReady(int playerAmount) {
 		if(cntPlayer == playerAmount){
 			
-			if(gameManager.checkGameRound()){
+			if(gameManager.isInRound()){
 				sendEventToTeams();
 			}
 			else{

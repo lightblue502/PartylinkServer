@@ -22,28 +22,34 @@ app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval)
   console.log("hello NumericCtrl");
   $scope.displayCSS = "display center"
   var time;
-  $scope.blueScore = 8;
-  $scope.redScore = 2;
-
+  $scope.round = 1;
+  $scope.blueScore = 0;
+  $scope.redScore = 0;
+  $scope.display = " 1 + 2 = ? ";
+  
 
   var playing = function(){
     $scope.viewer = "open";
-    $scope.countdown = 3;
-    time = $interval( function(){ 
-      if($scope.countdown <= 0){
-        $scope.displayCSS = "display center bigFont"
-        // $scope.display = ans;
+    $scope.showStatus = "playing";
+    // $scope.countdown = 3;
+    // time = $interval( function(){ 
+    //   if($scope.countdown <= 0){
+    //     $scope.displayCSS = "display center bigFont"
+    //     // $scope.display = ans;
 
-        if($scope.countdown <= -5){
-          // $scope.viewer = "close";
-          $interval.cancel(time);
-        }
+    //     if($scope.countdown <= -5){
+    //       // $scope.viewer = "close";
+    //       $interval.cancel(time);
+    //     }
 
-      }
+    //   }
       
-        $scope.countdown--;
-    }, 1000);
+    //     $scope.countdown--;
+    // }, 1000);
   };
+  var ready =function(){
+    $scope.showStatus = "ready";
+  }
   playing();
 }]);
 
@@ -55,31 +61,25 @@ function getCurrentScore(score ,team){
         }else{
           $scope.redScore = score;
         }
-  })
+  });
   console.log("score :" + score + " ---- "+team);
-}
-function getQuestion(value , params){
-  var number1  = "";
-  var number2 = "";
-  var symbol = "";
+};
+
+function getQuestion(params){
   console.log("hello getQuestion");
   angular.element(document.body).scope().$apply(function($scope){
-    switch(params) {
-      case 'number1':
-         number1 = params;
-      break;
-      case 'number2':
-         number2 = params ;
-      break;
-      case 'symbol':
-         symbol = params ;
-      break; 
-      case 'ans':
-         ans = params ;
-      break;
-    }
-    $scope.display = number1 + " "+ symbol + " " + number2 + " = ?";
+    $scope.showStatus = "NEW QUESTION";
+    var number1  =  params[0];
+    var number2 = params[1];
+    var symbol = params[2];
+    var ans = params[3];
+    $scope.display = number1 + " "+ symbol + " " + number2 + " = "+ans;
   });
-  console.log(number1 + " "+ symbol + " " + number2 + " = ?");
-}
+};
+
+function getRound(round){
+  angular.element(document.body).scope().$apply(function($scope){
+    $scope.round = round;
+  });
+};
   // scoreA , socreB , number1, number2, symbol , ans
