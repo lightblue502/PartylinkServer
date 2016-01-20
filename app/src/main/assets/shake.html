@@ -1,0 +1,66 @@
+<html ng-app="PartyApp">
+<head>
+  	<script src="lib/angular/angular.js"></script>
+  	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<script type="text/javascript" src="js/shake_ctrl.js"></script>
+	<script type="text/javascript" src="js/shake_link.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/shakeCSS.css">
+	<title>Party link - shake</title>
+</head>
+<body ng-controller="BodyController">
+	<div class="centerline"></div>
+	<div class="headertextBox">
+		<span class="headertext"> ROUND {{round}} </span>
+	</div>
+
+
+	<div class="boxleft">
+		<div class="progress progressleft">
+		  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" ng-style="{'width': ((score.A)*100/scoreMax)+'%'}">
+		  </div>
+		</div>
+
+		<div id="showleft" class="showbox closeleft">
+			<div ng-style="showleftbox">
+				<div ng-repeat="person in showleft" class="showPersonBox floatleft">
+					<div class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
+					<span class="personName label label-success">{{person.name}}</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="personRow">
+			<div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft">
+				<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
+				<span class="personName label label-success">{{person.name}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="boxright">
+		<div class="progress progressright">
+		  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+		  </div>
+		</div>
+
+		
+		<div id="showright" class="showbox closeright">
+			<div ng-style="showrightbox">
+				<div ng-repeat="person in showright" class="showPersonBox floatright">
+					<div class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
+					<span class="personName label label-success">{{person.name}}</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="personRow" style="right:0;">
+			<div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatright">
+				<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
+				<span class="personName label label-success">{{person.name}}</span>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

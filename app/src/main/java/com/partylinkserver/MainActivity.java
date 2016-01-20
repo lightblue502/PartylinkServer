@@ -76,7 +76,7 @@ public class MainActivity extends GameActivity {
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
-        gc = gcs.startGameContext(ip, playerAmount);
+        gc = gcs.startGameContext(ip, playerAmount, this);
 
     }
 }
