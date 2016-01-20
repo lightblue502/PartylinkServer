@@ -1,0 +1,128 @@
+div.centerline{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	z-index: 1;
+	outline: 5px solid gray;
+}
+.headertextBox{
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+}
+.headertext{
+	color: white;
+	background-color: gray;
+	font-size: 8vh;
+	font-family: cursive;
+	white-space: pre-wrap;
+}
+
+div.boxleft{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 50%;
+	background-color: #faa;
+}
+div.boxright{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	right: 0;
+	background-color: #acf;
+}
+
+.progress{
+	position: absolute;
+	bottom: 38vh;
+  	width: 80vh;
+  	height: 2vw;
+  	transform: rotate(-90deg);
+} 
+.progressleft{
+	right: -35vh;
+}
+.progressright{
+	left: -35vh;
+}
+
+.showbox{
+	position: absolute;
+	top: 15%;
+	width: 90%;
+	height: 55%;
+	text-align: center;
+}
+.showPersonBox{
+	width: 30vh;
+	height: 40vh;
+	bottom: 0;
+	margin: auto;
+	/*overflow: hidden;*/
+	text-align: center;
+	font-family: cursive;
+	font-size: 3vh;
+	font-weight: bolder;
+}
+.showPersonPic{
+	width: 	100%;
+	height: 75%;
+	border-radius: 100%;
+	
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-size: 100%;
+	overflow: hidden;
+	border: 0.5vh solid gray;
+}
+
+.personPic{
+	width: 	15vh;
+	height: 15vh;
+	border-radius: 100%;
+	
+
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-size: 100%;
+	overflow: hidden;
+	border: 0.5vh solid gray;
+}
+.personRow{
+	position: absolute;
+	bottom: 0;
+	margin: 2vh 5vh;
+
+}
+.personBox{
+	width: 	15vh;
+	height: 20vh;
+	/*overflow: hidden;*/
+	margin: 2vh;
+	text-align: center;
+	font-family: cursive;
+	font-size: 3vh;
+	font-weight: bolder;
+}
+.personName{
+	word-wrap:break-word;
+}
+
+.floatleft{
+	float: left;
+}
+.floatright{
+	float: right;
+}
+.closeleft{
+	left: 0;
+}
+.closeright{
+	right: 0;
+}
