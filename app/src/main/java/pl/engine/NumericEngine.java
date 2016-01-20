@@ -10,7 +10,7 @@ public class NumericEngine extends GameEngine{
 	private int playerAmount;
 	private Integer answer;
 	private int cntPlayer = 0;
-	private int topicPerPlayer = 2;
+	private int topicPerPlayer = 4;
     private boolean firstTime = false;
 	private boolean isPlaying = false;
 	private List<Team> teams = gc.getTeams();
@@ -49,8 +49,8 @@ public class NumericEngine extends GameEngine{
 	
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
-//        gameManager.GameReady(5);
-		if(event.equals("numeric_ready")){
+
+		if(event.equals("numeric_again")){
 			cntPlayer++;
 			Log.d("debug", "\t\tonIncomingEvent: " + cntPlayer);
 			onPlayerReady(playerAmount);
@@ -74,26 +74,42 @@ public class NumericEngine extends GameEngine{
 	@Override
 	public void onPlayerReady(int playerAmount) {
 		if(cntPlayer == playerAmount){
-			gameManager.printReportRound();
-			sendEventToTeams();
+
+            if(gameManager.getNumber() == 1){
+                gc.sendGameEvent("numeric_newRound", new String[]{});
+                gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
+                gameManager.countDownGameReady();
+                gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+                    @Override
+                    public void ready() {
+						gc.sendGameEvent("numeric_ready", new String[]{});
+                        gameManager.printReportRound();
+                        sendEventToTeams();
+                    }
+                });
+            }else{
+				gc.sendGameEvent("numeric_ready", new String[]{});
+                gameManager.printReportRound();
+                sendEventToTeams();
+            }
+
 
 		}
 	}
 	
 	public void sendEventToTeams(){
 		String[] ans = randomQuestion();
-
-		sendEventToTeam(ans);
+        sendEventToTeam(ans);
 
 		gameManager.countdown("numeric_change", 5, true);
 		cntPlayer = 0;
 		isPlaying = true;
 	}
-	
+
 	public void sendEventToTeam(String[] ans){
 		gc.sendGameEvent("numeric_question", ans);
 	}
-	
+
 	public String[] randomQuestion(){
 		Character[] chars = {'+', '-'};
 		int randomSymbol = new Random().nextInt(chars.length);

@@ -16,7 +16,10 @@ public class GameManager {
 	private int currentRound = 1;
 	private int currentNumber = 1;
     private boolean isGameEnd = false;
-	private Timer timer;
+    private boolean isReady = false;
+    private Handler customHandler = new Handler();
+    private Runnable updateTimerThread;
+    private Timer timer;
 	private GameContext gc;
 	private HashMap<String, Integer> teamA ;
 	private HashMap<String, Integer> teamB ;
@@ -32,19 +35,35 @@ public class GameManager {
 		teamB.put("winRound", 0);
 	}
 	
-	public void GameReady(final int times){
+	public void countDownGameReady(){
         Utils.debug("GAME READY ...");
-        final int i =0;
-        final Handler timerHandler = new Handler();
-        Runnable timerRunnable = new Runnable() {
+        customHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d("DEBUG_gameReady","hello");
-                timerHandler.postDelayed(this, times*1000);
+//                Utils.debug("processs .....");
+                processReady(true);
             }
-        };
-//        timerHandler.removeCallbacks(timerRunnable);
+        }, 5000);
+
+
 	}
+
+    public static interface OnGameReadyListener {
+        public void ready();
+    }
+
+    private OnGameReadyListener listener;
+    public void setOnGameReadyListener(OnGameReadyListener listener) {
+        this.listener = listener;
+    }
+
+    public void processReady(boolean isEnd){
+        Utils.debug("isEnd ..... "+ isEnd);
+        isReady = isEnd;
+        if (listener != null) {
+            listener.ready();
+        }
+    }
 
 	public void scoreManage(int clientId, int score){
 		Team team = gc.getTeamByClientId(clientId);
@@ -56,6 +75,9 @@ public class GameManager {
 			}
 		}
 	}
+    public int getNumber(){
+        return currentNumber;
+    }
 
 	public void printReportRound(){
 		Utils.debug("### ROUND : "+(currentRound) + " ####");
