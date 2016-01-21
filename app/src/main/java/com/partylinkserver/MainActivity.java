@@ -19,7 +19,7 @@ public class MainActivity extends GameActivity {
     private TextView tv;
     private String ip;
     private GameContext gc;
-    private int playerAmount = 1;
+    private int playerAmount = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

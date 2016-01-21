@@ -76,17 +76,17 @@ public class NumericEngine extends GameEngine{
 		if(cntPlayer == playerAmount){
 
             if(gameManager.getNumber() == 1){
-                gc.sendGameEvent("numeric_newRound", new String[]{});
-                gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
-                gameManager.countDownGameReady();
-                gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
-                    @Override
-                    public void ready() {
-						gc.sendGameEvent("numeric_ready", new String[]{});
-                        gameManager.printReportRound();
-                        sendEventToTeams();
-                    }
-                });
+					gc.sendGameEvent("numeric_newRound", new String[]{});
+					gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
+					gameManager.countDownGameReady();
+					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+						@Override
+						public void ready() {
+							gc.sendGameEvent("numeric_ready", new String[]{});
+							gameManager.printReportRound();
+							sendEventToTeams();
+						}
+					});
             }else{
 				gc.sendGameEvent("numeric_ready", new String[]{});
                 gameManager.printReportRound();

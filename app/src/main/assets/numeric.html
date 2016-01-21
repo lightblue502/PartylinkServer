@@ -12,8 +12,8 @@
 
 </head>
 <body ng-controller="NumericCtrl">
-  <div id="myInput" ng-class="viewer">
-    <button type="button" class="close" id="time">{{showStatus}}</button>
+  <!-- <div id="myInput" ng-class="viewer"> -->
+   <!--  <button type="button" class="close" id="time">{{showStatus}}</button> -->
 
   <div class="headertextBox">
     <span class="headertext"> ROUND {{round}} </span>
@@ -21,19 +21,20 @@
     <div ng-class="display"> 
         {{displayText}}
     </div>
+
+
     <div class="red">
       <div class="textTeam"><b>RED</b></div>
-      <div class="score">{{score.A}}</div>
+      <div class="score redScorePosition">{{score.A}}</div>
       <div class="icon" >
           <a ng-repeat="icon in iconScore.red track by $index">
             <span class="glyphicon glyphicon-tower" ng-style="{'color': icon.color}"></span>
           </a>
       </div>
-      
     </div>
     <div class="blue">
       <div class="textTeam"><b>BLUE</b></div>
-      <div class="score">{{score.B}}</div>
+      <div class="score blueScorePosition">{{score.B}}</div>
       <div class="icon" >
           <a ng-repeat="icon in iconScore.blue track by $index">
             <span class="glyphicon glyphicon-tower" ng-style="{'color': icon.color}"></span>
@@ -41,8 +42,22 @@
       </div>
     </div>
 
+    <div class="personRow">
+      <div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft">
+        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
+        <span class="personName label label-success">{{person.name}}</span>
+      </div>
+    </div>
     
-  </div>
+    <div class="personRow" style="right:0;">
+      <div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatright">
+        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
+        <span class="personName label label-success">{{person.name}}</span>
+      </div>
+    </div>
+
+    
+  <!-- </div> -->
     
 </body>
 </html>
