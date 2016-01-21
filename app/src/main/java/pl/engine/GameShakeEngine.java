@@ -1,5 +1,7 @@
 package pl.engine;
 
+import android.util.Log;
+
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -16,7 +18,7 @@ public class GameShakeEngine extends GameEngine{
 	public GameShakeEngine(GameContext gc, int playerAmount, String name) {
 		super(gc, name);
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, 1, 3);
+		this.gameManager = new GameManager(resultScore, gc, 3, 3);
 	}
 	
 	@Override
@@ -41,6 +43,14 @@ public class GameShakeEngine extends GameEngine{
 			team.printPlayers();
 		}
 		gc.sendGameEvent("shake-start");
+
+//		gameManager.countDownGameReady();
+//		gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+//			@Override
+//			public void ready() {
+//				initPlayerstoUI();
+//			}
+//		});
 	}
 
 	@Override
@@ -53,9 +63,31 @@ public class GameShakeEngine extends GameEngine{
 	@Override
 	public void onPlayerReady(int playerAmount) {
 		if(cntPlayer == playerAmount){
-			
-			if(gameManager.isInRound()){
-				sendEventToTeams();
+
+			if(gameManager.getNumber() == 1){
+//				gc.sendGameEvent("numeric_newRound", new String[]{});
+//				gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
+				gameManager.countDownGameReady();
+				gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+					@Override
+					public void ready() {
+						if(gameManager.getRound() == 1) {
+							initPlayerstoUI();
+							gameManager.countDownGameReady();
+							gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+								@Override
+								public void ready() {
+									gameManager.printReportRound();
+									sendEventToTeams();
+								}
+							});
+						}
+						else {
+							gameManager.printReportRound();
+							sendEventToTeams();
+						}
+					}
+				});
 			}
 			else{
 				Utils.debug("END GAME..");
@@ -98,6 +130,27 @@ public class GameShakeEngine extends GameEngine{
 			gc.sendGameEvent(playerA, "this_shake");
 		}
 		
+	}
+
+	private void initPlayerstoUI(){
+        Log.d("DEBUG_init_PL", "send leaw");
+
+		String strs = "[";
+		for (Team team: teams) {
+			strs += "[";
+			for(Player player : team.getPlayers()){
+				strs += "{'id':" + player.getCliendId();
+				strs += ",'name':'" + player.getName();
+				strs += "'},";
+			}
+			strs = strs.substring(0,strs.length()-1);
+			strs += "],";
+		}
+		strs = strs.substring(0,strs.length()-1);
+		strs += "]";
+        Log.d("DEBUG_init_PL",strs+"");
+		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
+		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{"ABC"});
 	}
 	
 	

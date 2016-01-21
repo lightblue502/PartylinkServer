@@ -58,7 +58,7 @@ public class GameManager {
     }
 
     public void processReady(boolean isEnd){
-        Utils.debug("isEnd ..... "+ isEnd);
+        Utils.debug("isEnd ..... " + isEnd);
         isReady = isEnd;
         if (listener != null) {
             listener.ready();
@@ -75,9 +75,12 @@ public class GameManager {
 			}
 		}
 	}
-    public int getNumber(){
-        return currentNumber;
-    }
+	public int getNumber(){
+		return currentNumber;
+	}
+	public int getRound(){
+		return currentRound;
+	}
 
 	public void printReportRound(){
 		Utils.debug("### ROUND : "+(currentRound) + " ####");
