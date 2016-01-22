@@ -12,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import pl.engine.GameContext;
+
 public abstract class GameActivity extends AppCompatActivity {
     protected GameCommunicationService gcs;
+    protected GameContext gc = GameContext.getInstance();
     protected boolean bound = false;
     private ServiceConnection serviceConnection;
     private BroadcastReceiver broadcastReceiver;
@@ -48,6 +51,14 @@ public abstract class GameActivity extends AppCompatActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
                 new IntentFilter("game-event"));
+    }
+
+    public void sendGameEvent(String event){
+        gc.sendGameEvent(event);
+    }
+
+    public void sendGameEvent(String event, String[] params){
+        gc.sendGameEvent(event, params);
     }
 
     public abstract void onGameEvent(String event, String[] params);
