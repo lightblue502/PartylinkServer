@@ -101,6 +101,7 @@ div.centerline{
   width: 25vh;
   top: 0vh;
   z-index: -2;
+  background: black;
 }
 .score{
   line-height: 11.5vh;

@@ -67,13 +67,13 @@ public class GameShakeEngine extends GameEngine{
 			if(gameManager.getNumber() == 1){
 //				gc.sendGameEvent("numeric_newRound", new String[]{});
 //				gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
-				gameManager.countDownGameReady();
+				gameManager.countDownGameReady(5);
 				gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
 					@Override
 					public void ready() {
 						if(gameManager.getRound() == 1) {
-							initPlayerstoUI();
-							gameManager.countDownGameReady();
+							gameManager.initPlayerstoUI(teams);
+							gameManager.countDownGameReady(5);
 							gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
 								@Override
 								public void ready() {
@@ -132,26 +132,6 @@ public class GameShakeEngine extends GameEngine{
 		
 	}
 
-	private void initPlayerstoUI(){
-        Log.d("DEBUG_init_PL", "send leaw");
-
-		String strs = "[";
-		for (Team team: teams) {
-			strs += "[";
-			for(Player player : team.getPlayers()){
-				strs += "{'id':" + player.getCliendId();
-				strs += ",'name':'" + player.getName();
-				strs += "'},";
-			}
-			strs = strs.substring(0,strs.length()-1);
-			strs += "],";
-		}
-		strs = strs.substring(0,strs.length()-1);
-		strs += "]";
-        Log.d("DEBUG_init_PL",strs+"");
-		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
-		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{"ABC"});
-	}
 	
 	
 	

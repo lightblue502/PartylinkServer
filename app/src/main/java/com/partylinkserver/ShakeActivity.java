@@ -25,7 +25,11 @@ public class ShakeActivity extends GameActivity {
 //        wv.loadData("<h3> Hello world</h3>", "text/html","UTF-8");
         wv.loadUrl("file:///android_asset/shake.html");
         wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
-        wv.addJavascriptInterface(new JavaScriptInterface(this), "Android");
+
+        JavaScriptInterface javaScriptInterface = JavaScriptInterface.getInstance();
+        javaScriptInterface.init(this);
+
+        wv.addJavascriptInterface(javaScriptInterface, "Android");
         Log.d("SHAKE", "This is shake activity");
 //        if(gc != null) {
 //            gc.getCurrentGameEngine().toString();

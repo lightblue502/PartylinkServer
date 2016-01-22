@@ -54,11 +54,19 @@ public abstract class GameActivity extends AppCompatActivity {
     }
 
     public void sendGameEvent(String event){
-        gc.sendGameEvent(event);
+        gc.onIncomingData(0, event);
     }
 
     public void sendGameEvent(String event, String[] params){
-        gc.sendGameEvent(event, params);
+        StringBuilder line = new StringBuilder(event);
+        line.append('|');
+        for(int i = 0; i < params.length; i++){
+            line.append(params[i]);
+            if(i != params.length - 1){
+                line.append(',');
+            }
+        }
+        gc.onIncomingData(0, line.toString());
     }
 
     public abstract void onGameEvent(String event, String[] params);
