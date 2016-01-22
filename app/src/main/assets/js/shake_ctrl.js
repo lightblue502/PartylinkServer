@@ -3,15 +3,15 @@ var app = angular.module('PartyApp',[]);
 app.controller('BodyController', ['$scope', function($scope) {
 
 	var a1 = new Person(1,"John",0,"img/637.jpg");
-	var a2 = new Person(3,"Jane",0);
+	// var a2 = new Person(3,"Jane",0);
 	var b1 = new Person(2,"Sam",1,"img/coby.jpg");
-	var b2 = new Person(4,"",1);
+	// var b2 = new Person(4,"",1);
 
-	$scope.allPlayers=[a1,a2,b1,b2];
+	$scope.allPlayers=[a1,b1];
 	$scope.teamA= $scope.allPlayers.filter(function(p){return p.team==0;});
 	$scope.teamB= $scope.allPlayers.filter(function(p){return p.team==1;});
 	$scope.score={"A":0, "B":0};
-	$scope.scoreMax = 1000;
+	$scope.scoreMax = 500;
 	$scope.round = 1;
 
 	$scope.showleft = [];

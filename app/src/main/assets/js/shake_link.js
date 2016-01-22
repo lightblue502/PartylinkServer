@@ -4,7 +4,6 @@ function getCurrentScore(scoreA ,scoreB){
           $scope.score.A = scoreA;
           $scope.score.B = scoreB;
   });
-  console.log("score :" + score + " ---- "+team);
 };
 
 function getRound(round){
@@ -39,7 +38,23 @@ function getWinRound(winRoundA, winRoundB){
       }
       j++;
     }
-    console.log($scope.iconRed);
-    console.log($scope.iconBlue);
+    // console.log($scope.iconRed);
+    // console.log($scope.iconBlue);
+  });
+}
+
+function initPlayer(teams){
+  console.log(teams);
+  angular.element(document.body).scope().$apply(function($scope){
+    teams.forEach(function(team, index){
+      team.forEach(function(player){
+        if(index == 0){
+          $scope.teamA.push(new Person(player.id, player.name, 'A') );
+        }
+        else{
+          $scope.teamB.push(new Person(player.id, player.name, 'B') );
+        }
+      });
+    });
   });
 }
