@@ -15,10 +15,10 @@ public class GameShakeEngine extends GameEngine{
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
 	private ResultScore resultScore = new ResultScore();
-	public GameShakeEngine(GameContext gc, int playerAmount, String name) {
-		super(gc, name);
+	public GameShakeEngine(GameContext gc, int playerAmount, String name, String activityName) {
+		super(gc, name,activityName);
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, 5, 3);
+		this.gameManager = new GameManager(resultScore, gc, 3, 3);
 	}
 	
 	@Override
