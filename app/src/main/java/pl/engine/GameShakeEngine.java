@@ -18,7 +18,7 @@ public class GameShakeEngine extends GameEngine{
 	public GameShakeEngine(GameContext gc, int playerAmount, String name) {
 		super(gc, name);
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, 3, 3);
+		this.gameManager = new GameManager(resultScore, gc, 5, 3);
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ public class GameShakeEngine extends GameEngine{
 		}
 		else if(event.equals("shake_game")){
 			gameManager.printScoreToNumber();
-			gameManager.scoreManage(clientId, Integer.parseInt(params[1]) );
+			gameManager.scoreManage(clientId, 10 );
 		}
 //		Utils.debug("clientId " + clientId + ", event" + event);
 	}
@@ -44,13 +44,6 @@ public class GameShakeEngine extends GameEngine{
 		}
 		gc.sendGameEvent("shake-start");
 
-//		gameManager.countDownGameReady();
-//		gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
-//			@Override
-//			public void ready() {
-//				initPlayerstoUI();
-//			}
-//		});
 	}
 
 	@Override
@@ -62,32 +55,36 @@ public class GameShakeEngine extends GameEngine{
 	
 	@Override
 	public void onPlayerReady(int playerAmount) {
+		resetPlayerShaketoUI();
 		if(cntPlayer == playerAmount){
 
-			if(gameManager.getNumber() == 1){
-//				gc.sendGameEvent("numeric_newRound", new String[]{});
-//				gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
-				gameManager.countDownGameReady();
-				gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
-					@Override
-					public void ready() {
-						if(gameManager.getRound() == 1) {
-							initPlayerstoUI();
-							gameManager.countDownGameReady();
-							gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
-								@Override
-								public void ready() {
-									gameManager.printReportRound();
-									sendEventToTeams();
-								}
-							});
+			if(gameManager.getRound() <= 3) {
+				if (gameManager.getNumber() == 1) {
+					gameManager.countDownGameReady();
+					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+						@Override
+						public void ready() {
+							if (gameManager.getRound() == 1) {
+								initPlayerstoUI();
+								gameManager.countDownGameReady();
+								gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+									@Override
+									public void ready() {
+										gameManager.printReportRound();
+										sendEventToTeams();
+									}
+								});
+							} else {
+								gameManager.printReportRound();
+								sendEventToTeams();
+							}
 						}
-						else {
-							gameManager.printReportRound();
-							sendEventToTeams();
-						}
-					}
-				});
+					});
+				}
+				else{
+					gameManager.printReportRound();
+					sendEventToTeams();
+				}
 			}
 			else{
 				Utils.debug("END GAME..");
@@ -128,12 +125,15 @@ public class GameShakeEngine extends GameEngine{
 			Utils.debug("send to randomPlayers: " + randomPlayers );
 			playerA = team.getPlayers().get(randomPlayers);
 			gc.sendGameEvent(playerA, "this_shake");
+			//change UI
+			gc.getGameLister().onIncommingEvent("shake", new String[]{ 
+				String.valueOf(playerA.getCliendId()), team.getName()
+			});
 		}
 		
 	}
 
-	private void initPlayerstoUI(){
-        Log.d("DEBUG_init_PL", "send leaw");
+	public void initPlayerstoUI(){
 
 		String strs = "[";
 		for (Team team: teams) {
@@ -143,14 +143,25 @@ public class GameShakeEngine extends GameEngine{
 				strs += ",'name':'" + player.getName();
 				strs += "'},";
 			}
-			strs = strs.substring(0,strs.length()-1);
+			if(strs.charAt(strs.length()-1) == ',')
+				strs = strs.substring(0,strs.length()-1);
 			strs += "],";
 		}
-		strs = strs.substring(0,strs.length()-1);
+		if(strs.charAt(strs.length()-1) == ',')
+			strs = strs.substring(0,strs.length()-1);
 		strs += "]";
-        Log.d("DEBUG_init_PL",strs+"");
+        Log.d("DEBUG_init_PL", strs + "");
 		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
-		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{"ABC"});
+	}
+
+	public void resetPlayerShaketoUI(){
+		if(cntPlayer <= 1){
+			if(gameManager.getRound() <=1 && gameManager.getNumber()<=1 )
+				return;
+
+	        Log.d("DEBUG_reset_player_UI", "reset leaw");
+			gc.getGameLister().onIncommingEvent("resetStage", new String[]{});
+		}
 	}
 	
 	

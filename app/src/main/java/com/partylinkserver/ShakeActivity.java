@@ -36,7 +36,6 @@ public class ShakeActivity extends GameActivity {
 
     @Override
     public void onGameEvent(String event, String[] params) {
-        Log.d("DEBUG_initPLAYER","event: "+event);
 
         if(params ==  null){
             return;
@@ -53,9 +52,15 @@ public class ShakeActivity extends GameActivity {
             wv.loadUrl("javascript:getRound("+params[0]+")");
         }
         else if(event.equals("initPlayer")){
-            Log.d("DEBUG_initPLAYER","send leaw");
             Log.d("DEBUG_initPLAYER",params[0]+"");
             wv.loadUrl("javascript:initPlayer("+params[0]+")");
+        }
+        else if(event.equals("shake")){
+            Log.d("DEBUG_shake_inShakeAct ", params[0]+" , "+params[1]);
+            wv.loadUrl("javascript:shake(" + params[0]+",'"+ params[1]+"')");
+        }
+        else if(event.equals("resetStage")){
+            wv.loadUrl("javascript:resetStage()");
         }
     }
 }
