@@ -19,6 +19,8 @@ app.controller('BodyController', ['$scope', function($scope) {
 
 	$scope.showleftbox = {'position':'absolute', 'left':(100-40*($scope.showleft.length+1))/2+'%'};
 	$scope.showrightbox = {'position':'absolute', 'right':(100-40*($scope.showright.length+1))/2+'%'};
+
+	Android.onUiReady();
 }]);
 
 function Person(id, name, team, icon) {

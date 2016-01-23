@@ -4,6 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.partylinkserver.GameCommunicationListener;
+import com.partylinkserver.NumericActivity;
+import com.partylinkserver.QAActivity;
+import com.partylinkserver.RegistrarActivity;
+import com.partylinkserver.ShakeActivity;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -45,10 +49,10 @@ public class GameContext implements CommunicationListener{
 
 		this.playerAmount = playerAmount;
 		engineIndex = 0;
-		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" ,"RegistrarActivity"));
-		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", "ShakeActivity"));
-		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", "NumericActivity"));
-//		engines.add(new QAEngine(this, playerAmount, "GAME QA", context));
+		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class));
+		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class));
+		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class));
+		engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class));
 		engines.add(new EndEngine(this));
 		cm = new CommunicationManager(address , port, this, gameListener);
 		cm.start();

@@ -38,7 +38,7 @@ public class RegistrarActivity extends GameActivity{
     public void onGameEvent(String event, String[] params) throws ClassNotFoundException {
         Log.d("REGIS", "event: " + event);
         if(event.equals("change_engine")){
-            Intent intent = new Intent(this, Class.forName("com.partylinkserver." + gc.getCurrentGameEngine().getActivityName()));
+            Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             startActivity(intent);
         }
     }

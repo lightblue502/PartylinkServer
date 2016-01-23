@@ -50,7 +50,7 @@ public class NumericActivity extends GameActivity {
             return;
         }
         else if(event.equals("change_engine")){
-            Intent intent = new Intent(this, Class.forName("com.partylinkserver." + gc.getCurrentGameEngine().getActivityName()));
+            Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             startActivity(intent);
         }
         else if(event.equals("getCurrentScore")){

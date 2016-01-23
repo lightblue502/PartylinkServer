@@ -15,15 +15,18 @@ public class GameShakeEngine extends GameEngine{
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
 	private ResultScore resultScore = new ResultScore();
-	public GameShakeEngine(GameContext gc, int playerAmount, String name, String activityName) {
-		super(gc, name,activityName);
+	public GameShakeEngine(GameContext gc, int playerAmount, String name, Class activityClass) {
+		super(gc, name,activityClass);
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, 3, 3);
+		this.gameManager = new GameManager(resultScore, gc, 3, 1);
 	}
 	
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
-		if(event.equals("shake_ready")){
+		if(event.equals("shakeUI_Start")){
+			initPlayerstoUI();
+		}
+		else if(event.equals("shake_ready")){
 			cntPlayer++;
 			onPlayerReady(playerAmount);
 		}
@@ -64,20 +67,8 @@ public class GameShakeEngine extends GameEngine{
 					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
 						@Override
 						public void ready() {
-							if (gameManager.getRound() == 1) {
-								initPlayerstoUI();
-								gameManager.countDownGameReady(5);
-								gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
-									@Override
-									public void ready() {
-										gameManager.printReportRound();
-										sendEventToTeams();
-									}
-								});
-							} else {
-								gameManager.printReportRound();
-								sendEventToTeams();
-							}
+							gameManager.printReportRound();
+							sendEventToTeams();
 						}
 					});
 				}
