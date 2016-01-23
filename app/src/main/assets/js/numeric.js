@@ -23,17 +23,18 @@ app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval)
   console.log("===== NumericCtrl =====");
 
   var a1 = new Person(1,"John",0,"img/637.jpg");
-  var a2 = new Person(3,"Jane",0);
+  // var a2 = new Person(3,"Jane",0);
   var b1 = new Person(2,"Sam",1,"img/coby.jpg");
-  var b2 = new Person(4,"",1);
+  // var b2 = new Person(4,"",1);
 
-  $scope.allPlayers=[a1,a2,b1,b2];
+  $scope.allPlayers=[a1,b1];
+  $scope.allPlayers=[];
   $scope.teamA= $scope.allPlayers.filter(function(p){return p.team==0;});
   $scope.teamB= $scope.allPlayers.filter(function(p){return p.team==1;});
   $scope.display = "display center"
 
   var time;
-  $scope.score = {'A':0, 'B':0};
+  $scope.score = {'A':10, 'B':10};
   $scope.round = 1;
   $scope.displayText = "Ready !!";
 
@@ -63,7 +64,10 @@ app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval)
     $scope.showStatus = "Ready";
   }
   playing();
- 
+
+  //web call android UI Ready;
+  Android.onUiReady();
+
 }]);
   
 function generateIconScore(maxIcon, winRoundA, winRoundB){
@@ -143,4 +147,20 @@ function getWinRound(winRoundA, winRoundB){
     console.log($scope.iconBlue);
   });
 }
-  // scoreA , socreB , number1, number2, symbol , ans
+
+function initPlayer(teams){
+  console.log("initPlayer webbbbbbbb");
+  console.log(teams);
+  angular.element(document.body).scope().$apply(function($scope){
+    teams.forEach(function(team, index){
+      team.forEach(function(player){
+        if(index == 0){
+          $scope.teamA.push(new Person(player.id, player.name, 'A') );
+        }
+        else{
+          $scope.teamB.push(new Person(player.id, player.name, 'B') );
+        }
+      });
+    });
+  });
+}

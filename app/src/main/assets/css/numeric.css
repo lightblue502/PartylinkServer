@@ -70,37 +70,42 @@ div.centerline{
   text-decoration: underline;
 }
 
-
+/*.right{
+  padding-left: 16vh;
+}*/
 .textTeam{
-  width: 22vh;
+  width: 24vh;
   white-space: pre-wrap;
   background-color: black;
   text-align:center;
+  font-size: 8vh;
 }
 .icon{
   position: fixed;
   font-size: 6vh;
+  right: inherit;
 }
 .red{
   position: absolute;
   color: #F55;
   z-index: -2;
   top: 0vh;
-  width: 38vh;
-  font-size: 8vh;
+  width: 24vh;
+  
 }
 
 .blue{
   position: absolute;
   color: #5096FF;
   right: 0vh;
+  width: 25vh;
   top: 0vh;
   z-index: -2;
-  font-size: 8vh;
+  background: black;
 }
 .score{
   line-height: 11.5vh;
-  font-size: 13vh;
+  font-size: 11vh;
   text-shadow: 3px 3px #555;
   position: inherit;
   top:0vh;
@@ -109,10 +114,10 @@ div.centerline{
   width: 16vh;
 }
 .score.redScorePosition{
- left: 22vh;
+ left: 24vh;
 }
 .score.blueScorePosition{
- right: 22vh;
+ right:25vh;
 }
 .center {
   margin: 0;

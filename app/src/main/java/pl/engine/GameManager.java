@@ -34,8 +34,28 @@ public class GameManager {
 		teamB.put("currentScore", 0);
 		teamB.put("winRound", 0);
 	}
-	
-	public void countDownGameReady(){
+
+	public void initPlayerstoUI(List<Team> teams){
+		Log.d("DEBUG_init_PL", "send leaw");
+
+		String strs = "[";
+		for (Team team: teams) {
+			strs += "[";
+			for(Player player : team.getPlayers()){
+				strs += "{'id':" + player.getCliendId();
+				strs += ",'name':'" + player.getName();
+				strs += "'},";
+			}
+			strs = strs.substring(0,strs.length()-1);
+			strs += "],";
+		}
+		strs = strs.substring(0,strs.length()-1);
+		strs += "]";
+		Log.d("DEBUG_init_PL", strs + "");
+		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
+	}
+
+	public void countDownGameReady(int times){
         Utils.debug("GAME READY ...");
         customHandler.postDelayed(new Runnable() {
             @Override
@@ -43,7 +63,7 @@ public class GameManager {
 //                Utils.debug("processs .....");
                 processReady(true);
             }
-        }, 5000);
+        }, 1000* times);
 
 
 	}
@@ -51,7 +71,6 @@ public class GameManager {
     public static interface OnGameReadyListener {
         public void ready();
     }
-
     private OnGameReadyListener listener;
     public void setOnGameReadyListener(OnGameReadyListener listener) {
         this.listener = listener;

@@ -60,13 +60,13 @@ public class GameShakeEngine extends GameEngine{
 
 			if(gameManager.getRound() <= 3) {
 				if (gameManager.getNumber() == 1) {
-					gameManager.countDownGameReady();
+					gameManager.countDownGameReady(5);
 					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
 						@Override
 						public void ready() {
 							if (gameManager.getRound() == 1) {
 								initPlayerstoUI();
-								gameManager.countDownGameReady();
+								gameManager.countDownGameReady(5);
 								gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
 									@Override
 									public void ready() {
@@ -163,7 +163,6 @@ public class GameShakeEngine extends GameEngine{
 			gc.getGameLister().onIncommingEvent("resetStage", new String[]{});
 		}
 	}
-	
 	
 	
 }

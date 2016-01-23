@@ -31,7 +31,6 @@ public class NumericEngine extends GameEngine{
 		for (Team team: teams) {
 			team.printPlayers();
 		}
-		gc.sendGameEvent("numeric_start");
 	}
 
 	@Override
@@ -49,8 +48,12 @@ public class NumericEngine extends GameEngine{
 	
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
-
-		if(event.equals("numeric_again")){
+		if (event.equals("NumericServerUI_Start")){
+            Log.d("DEBUG_onincome ", "numereic start");
+            gameManager.initPlayerstoUI(teams);
+            gc.sendGameEvent("numeric_start");
+		}
+		else if(event.equals("numeric_again")){
 			cntPlayer++;
 			Log.d("debug", "\t\tonIncomingEvent: " + cntPlayer);
 			onPlayerReady(playerAmount);
@@ -74,17 +77,16 @@ public class NumericEngine extends GameEngine{
 	@Override
 	public void onPlayerReady(int playerAmount) {
 		if(cntPlayer == playerAmount){
-
             if(gameManager.getNumber() == 1){
 					gc.sendGameEvent("numeric_newRound", new String[]{});
 					gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
-					gameManager.countDownGameReady();
-					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
-						@Override
-						public void ready() {
-							gc.sendGameEvent("numeric_ready", new String[]{});
-							gameManager.printReportRound();
-							sendEventToTeams();
+                gameManager.countDownGameReady(5);
+                gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+                    @Override
+                    public void ready() {
+                        gc.sendGameEvent("numeric_ready", new String[]{});
+                        gameManager.printReportRound();
+                        sendEventToTeams();
 						}
 					});
             }else{
