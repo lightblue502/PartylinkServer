@@ -12,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import pl.engine.GameContext;
+
 public abstract class GameActivity extends AppCompatActivity {
     protected GameCommunicationService gcs;
+    protected GameContext gc = GameContext.getInstance();
     protected boolean bound = false;
     private ServiceConnection serviceConnection;
     private BroadcastReceiver broadcastReceiver;
@@ -42,7 +45,11 @@ public abstract class GameActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 String event = intent.getStringExtra("event");
                 String[] params = intent.getStringArrayExtra("params");
-                onGameEvent(event,  params);
+                try {
+                    onGameEvent(event,  params);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         };
 
@@ -50,7 +57,23 @@ public abstract class GameActivity extends AppCompatActivity {
                 new IntentFilter("game-event"));
     }
 
-    public abstract void onGameEvent(String event, String[] params);
+    public void sendGameEvent(String event){
+        gc.onIncomingData(0, event);
+    }
+
+    public void sendGameEvent(String event, String[] params){
+        StringBuilder line = new StringBuilder(event);
+        line.append('|');
+        for(int i = 0; i < params.length; i++){
+            line.append(params[i]);
+            if(i != params.length - 1){
+                line.append(',');
+            }
+        }
+        gc.onIncomingData(0, line.toString());
+    }
+
+    public abstract void onGameEvent(String event, String[] params) throws ClassNotFoundException;
 
     @Override
     protected void onResume() {

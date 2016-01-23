@@ -45,10 +45,10 @@ public class GameContext implements CommunicationListener{
 
 		this.playerAmount = playerAmount;
 		engineIndex = 0;
-		engines.add(new RegistrarEngine(this, playerAmount));
-//		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE"));
-//		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER"));
-		engines.add(new QAEngine(this, playerAmount, "GAME QA", context));
+		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" ,"RegistrarActivity"));
+		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", "ShakeActivity"));
+		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", "NumericActivity"));
+//		engines.add(new QAEngine(this, playerAmount, "GAME QA", context));
 		engines.add(new EndEngine(this));
 		cm = new CommunicationManager(address , port, this, gameListener);
 		cm.start();

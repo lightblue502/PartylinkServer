@@ -10,13 +10,14 @@ public class NumericEngine extends GameEngine{
 	private int playerAmount;
 	private Integer answer;
 	private int cntPlayer = 0;
-	private int topicPerPlayer = 2;
+	private int topicPerPlayer = 4;
+    private boolean firstTime = false;
 	private boolean isPlaying = false;
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
 	private ResultScore resultScore = new ResultScore();
-	public NumericEngine(GameContext gc,int playerAmount, String name) {
-		super(gc, name);
+	public NumericEngine(GameContext gc,int playerAmount, String name, String activityName) {
+		super(gc, name, activityName);
 		this.answer = null;
 		this.playerAmount = playerAmount;
 		this.gameManager = new GameManager(resultScore, gc, topicPerPlayer*playerAmount, 3);
@@ -30,7 +31,6 @@ public class NumericEngine extends GameEngine{
 		for (Team team: teams) {
 			team.printPlayers();
 		}
-		gc.sendGameEvent("numeric_start");
 	}
 
 	@Override
@@ -48,9 +48,14 @@ public class NumericEngine extends GameEngine{
 	
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
-		if(event.equals("numeric_ready")){
+		if (event.equals("NumericServerUI_Start")){
+            gameManager.initPlayerstoUI(teams);
+
+            //send event to client;
+            gc.sendGameEvent("numeric_start");
+		}
+		else if(event.equals("numeric_ready")){
 			cntPlayer++;
-			Log.d("debug", "\t\tonIncomingEvent: " + cntPlayer);
 			onPlayerReady(playerAmount);
 		}
 		else if(event.equals("numeric_ans") && isPlaying){
@@ -60,7 +65,7 @@ public class NumericEngine extends GameEngine{
 				isPlaying = false;
 				gameManager.scoreManage(clientId, 2);
 				gameManager.stopTimer();
-				gc.sendGameEvent("numeric_change");
+				gc.sendGameEvent("numeric_again");
 				
 			}else{
 				gameManager.scoreManage(clientId, -1);
@@ -72,31 +77,44 @@ public class NumericEngine extends GameEngine{
 	@Override
 	public void onPlayerReady(int playerAmount) {
 		if(cntPlayer == playerAmount){
-			gameManager.printReportRound();
-			sendEventToTeams();
+            if(gameManager.getNumber() == 1){
+					gc.sendGameEvent("numeric_newRound", new String[]{});
+					gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
+                gameManager.countDownGameReady(5);
+                gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+                    @Override
+                    public void ready() {
+                        gameManager.printReportRound();
+                        sendEventToTeams();
+						}
+					});
+            }else{
+                gameManager.printReportRound();
+                sendEventToTeams();
+            }
+
 
 		}
 	}
 	
 	public void sendEventToTeams(){
 		String[] ans = randomQuestion();
+        sendEventToTeam(ans);
 
-		sendEventToTeam(ans);
-
-		gameManager.countdown("numeric_change", 5, true);
+		gameManager.countdown("numeric_again", 5, true);
 		cntPlayer = 0;
 		isPlaying = true;
 	}
-	
+
 	public void sendEventToTeam(String[] ans){
 		gc.sendGameEvent("numeric_question", ans);
 	}
-	
+
 	public String[] randomQuestion(){
 		Character[] chars = {'+', '-'};
 		int randomSymbol = new Random().nextInt(chars.length);
 		char symbol = chars[randomSymbol];
-		int maxRandQuestion = 20;
+		int maxRandQuestion = 10;
 		int number1 = new Random().nextInt(maxRandQuestion)+1;
 		int number2 = new Random().nextInt(maxRandQuestion)+1;
 		int ans = 0;

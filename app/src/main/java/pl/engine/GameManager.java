@@ -1,9 +1,11 @@
 package pl.engine;
 
+import android.os.Handler;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,7 +16,10 @@ public class GameManager {
 	private int currentRound = 1;
 	private int currentNumber = 1;
     private boolean isGameEnd = false;
-	private Timer timer;
+    private boolean isReady = false;
+    private Handler customHandler = new Handler();
+    private Runnable updateTimerThread;
+    private Timer timer;
 	private GameContext gc;
 	private HashMap<String, Integer> teamA ;
 	private HashMap<String, Integer> teamB ;
@@ -29,12 +34,56 @@ public class GameManager {
 		teamB.put("currentScore", 0);
 		teamB.put("winRound", 0);
 	}
-	
-	public void gameReady(){
-		Utils.debug("GAME READY ...");
-		countdown("", 3, false);
+
+	public void initPlayerstoUI(List<Team> teams){
+		Log.d("DEBUG_init_PL", "send leaw");
+
+		String strs = "[";
+		for (Team team: teams) {
+			strs += "[";
+			for(Player player : team.getPlayers()){
+				strs += "{'id':" + player.getCliendId();
+				strs += ",'name':'" + player.getName();
+				strs += "'},";
+			}
+			strs = strs.substring(0,strs.length()-1);
+			strs += "],";
+		}
+		strs = strs.substring(0,strs.length()-1);
+		strs += "]";
+		Log.d("DEBUG_init_PL", strs + "");
+		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
 	}
-	
+
+	public void countDownGameReady(int times){
+        Utils.debug("GAME READY ...");
+        customHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                Utils.debug("processs .....");
+                processReady(true);
+            }
+        }, 1000* times);
+
+
+	}
+
+    public static interface OnGameReadyListener {
+        public void ready();
+    }
+    private OnGameReadyListener listener;
+    public void setOnGameReadyListener(OnGameReadyListener listener) {
+        this.listener = listener;
+    }
+
+    public void processReady(boolean isEnd){
+        Utils.debug("isEnd ..... " + isEnd);
+        isReady = isEnd;
+        if (listener != null) {
+            listener.ready();
+        }
+    }
+
 	public void scoreManage(int clientId, int score){
 		Team team = gc.getTeamByClientId(clientId);
 		if(team != null){
@@ -45,21 +94,12 @@ public class GameManager {
 			}
 		}
 	}
-	public int getCurrentScoreByTeam(char team){
-		if(team == 'A'){
-			return teamA.get("currentScore");
-		}else {
-			return teamB.get("currentScore");
-		}
+	public int getNumber(){
+		return currentNumber;
 	}
-	public int getWinRoundByTeam(char team){
-		if(team == 'A'){
-			return teamA.get("winRound");
-		}else{
-			return teamB.get("winRound");
-		}
+	public int getRound(){
+		return currentRound;
 	}
-	
 
 	public void printReportRound(){
 		Utils.debug("### ROUND : "+(currentRound) + " ####");
