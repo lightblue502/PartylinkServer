@@ -75,6 +75,7 @@ public class RegistrarEngine extends GameEngine{
 
 	@Override
 	public void endEngine() {
+		gc.sendGameEvent("qa_start");
 		gc.nextEngine();
 	}
 	

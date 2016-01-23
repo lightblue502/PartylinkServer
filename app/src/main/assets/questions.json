@@ -1,0 +1,169 @@
+ {
+    "questions": [
+      {
+        "question": "What is the colour of apple?",
+        "choices": [ 
+                      {"choice" : "Red", "isTrue": "true"},
+                      {"choice" : "Yellow", "isTrue": "false" },
+                      {"choice" : "Blue", "isTrue": "false" },
+                      {"choice" : "Green", "isTrue": "false" }
+                    ]
+                   
+      },
+      {
+        "question": "What is the colour of banana?",
+        "choices": [ 
+                      {"choice" : "Red", "isTrue": "false"},
+                      {"choice" : "Yellow", "isTrue": "true" },
+                      {"choice" : "Blue", "isTrue": "false" },
+                      {"choice" : "Green", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "What is the colour of orange?",
+        "choices": [ 
+                      {"choice" : "Red", "isTrue": "false"},
+                      {"choice" : "Orange", "isTrue": "true" },
+                      {"choice" : "Blue", "isTrue": "false" },
+                      {"choice" : "Green", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "What is the colour of grass?",
+        "choices": [ 
+                      {"choice" : "Red", "isTrue": "false"},
+                      {"choice" : "Yellow", "isTrue": "false" },
+                      {"choice" : "Blue", "isTrue": "false" },
+                      {"choice" : "Green", "isTrue": "true" }
+                    ]
+      },
+      {
+        "question": "What is the colour of coffee?",
+        "choices": [ 
+                      {"choice" : "Red", "isTrue": "false"},
+                      {"choice" : "Yellow", "isTrue": "false" },
+                      {"choice" : "Brown", "isTrue": "true" },
+                      {"choice" : "Green", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "Who is lightblue?",
+        "choices": [ 
+                      {"choice" : "John", "isTrue": "false"},
+                      {"choice" : "New", "isTrue": "true" },
+                      {"choice" : "Jane", "isTrue": "false" },
+                      {"choice" : "Jr.", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "Which hero is a normal human?",
+        "choices": [ 
+                      {"choice" : "Ironman", "isTrue": "true"},
+                      {"choice" : "Hulk", "isTrue": "false" },
+                      {"choice" : "The Flash", "isTrue": "false" },
+                      {"choice" : "Superman", "isTrue": "false" }
+                    ]
+                   
+      },
+      {
+        "question": "Which hero made by DC?",
+        "choices": [ 
+                      {"choice" : "Ironman", "isTrue": "false"},
+                      {"choice" : "Batman", "isTrue": "true" },
+                      {"choice" : "Hulk", "isTrue": "false" },
+                      {"choice" : "Spiderman", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "What is the skill of Alchemist in DOTA2?",
+        "choices": [ 
+                      {"choice" : "Acid Spray", "isTrue": "true"},
+                      {"choice" : "Sleight of Fist", "isTrue": "false" },
+                      {"choice" : "Waveform", "isTrue": "false" },
+                      {"choice" : "Aftershock", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "What is the skill of Winter Wyvern in DOTA2?",
+        "choices": [ 
+                      {"choice" : "Adaptive Strike", "isTrue": "false"},
+                      {"choice" : "Searing Chains", "isTrue": "false" },
+                      {"choice" : "Unstable Concoction", "isTrue": "false" },
+                      {"choice" : "Cold Embrace", "isTrue": "true" }
+                    ]
+      },
+      {
+        "question": "Which character of DOTA2 is the green one?",
+        "choices": [ 
+                      {"choice" : "Invoker", "isTrue": "false"},
+                      {"choice" : "Alchemist", "isTrue": "false" },
+                      {"choice" : "Earth Spirit", "isTrue": "true" },
+                      {"choice" : "Morphling", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "Which character of DOTA2 in the choices is the tallest?",
+        "choices": [ 
+                      {"choice" : "Nyx Assassin", "isTrue": "false"},
+                      {"choice" : "Morphling", "isTrue": "true" },
+                      {"choice" : "Slark", "isTrue": "false" },
+                      {"choice" : "Riki.", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "What is the place that you can find a car?",
+        "choices": [ 
+                      {"choice" : "Garage", "isTrue": "true"},
+                      {"choice" : "Toilet", "isTrue": "false" },
+                      {"choice" : "Bed room", "isTrue": "false" },
+                      {"choice" : "Kitchen", "isTrue": "false" }
+                    ]
+                   
+      },
+      {
+        "question": "What is the place that you can find some food?",
+        "choices": [ 
+                      {"choice" : "Garden", "isTrue": "false"},
+                      {"choice" : "Canteen", "isTrue": "true" },
+                      {"choice" : "Garage", "isTrue": "false" },
+                      {"choice" : "Restroom", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "What is the place that you can find a History book?",
+        "choices": [ 
+                      {"choice" : "Road", "isTrue": "false"},
+                      {"choice" : "Library", "isTrue": "true" },
+                      {"choice" : "Swimming pool", "isTrue": "false" },
+                      {"choice" : "Hospital", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "'Adaptive Strike' is a skill of ...?",
+        "choices": [ 
+                      {"choice" : "Ember Spirit", "isTrue": "false"},
+                      {"choice" : "Alchemist", "isTrue": "false" },
+                      {"choice" : "Slark", "isTrue": "false" },
+                      {"choice" : "Morphling", "isTrue": "true" }
+                    ]
+      },
+      {
+        "question": "'Fissure' is a skill of ...?",
+        "choices": [ 
+                      {"choice" : "Invoker", "isTrue": "false"},
+                      {"choice" : "Nyx Assassin", "isTrue": "false" },
+                      {"choice" : "Earthshaker", "isTrue": "true" },
+                      {"choice" : "Alchemist", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "'Dark Pact' is a skill of ...?",
+        "choices": [ 
+                      {"choice" : "Winter Wyvern", "isTrue": "false"},
+                      {"choice" : "Slark", "isTrue": "true" },
+                      {"choice" : "Drow Ranger", "isTrue": "false" },
+                      {"choice" : "Queen of Pain", "isTrue": "false" }
+                    ]
+      }
+  ]
+}

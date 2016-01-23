@@ -38,7 +38,8 @@ public class RegistrarActivity extends GameActivity{
         Log.d("REGIS", "event: " + event);
         if(event.equals("change_engine")){
 //            Intent intent = new Intent(this, ShakeActivity.class);
-            Intent intent = new Intent(this, NumericActivity.class);
+//            Intent intent = new Intent(this, NumericActivity.class);
+            Intent intent = new Intent(this, QAActivity.class);
             startActivity(intent);
         }
     }
