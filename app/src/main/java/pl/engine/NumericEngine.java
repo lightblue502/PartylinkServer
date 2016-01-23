@@ -65,7 +65,7 @@ public class NumericEngine extends GameEngine{
 				isPlaying = false;
 				gameManager.scoreManage(clientId, 2);
 				gameManager.stopTimer();
-				gc.sendGameEvent("numeric_change");
+				gc.sendGameEvent("numeric_again");
 				
 			}else{
 				gameManager.scoreManage(clientId, -1);
@@ -84,13 +84,11 @@ public class NumericEngine extends GameEngine{
                 gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
                     @Override
                     public void ready() {
-                        gc.sendGameEvent("numeric_vibrate", new String[]{});
                         gameManager.printReportRound();
                         sendEventToTeams();
 						}
 					});
             }else{
-				gc.sendGameEvent("numeric_vibrate", new String[]{});
                 gameManager.printReportRound();
                 sendEventToTeams();
             }
