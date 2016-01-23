@@ -49,13 +49,13 @@ public class NumericEngine extends GameEngine{
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
 		if (event.equals("NumericServerUI_Start")){
-            Log.d("DEBUG_onincome ", "numereic start");
             gameManager.initPlayerstoUI(teams);
+
+            //send event to client;
             gc.sendGameEvent("numeric_start");
 		}
-		else if(event.equals("numeric_again")){
+		else if(event.equals("numeric_ready")){
 			cntPlayer++;
-			Log.d("debug", "\t\tonIncomingEvent: " + cntPlayer);
 			onPlayerReady(playerAmount);
 		}
 		else if(event.equals("numeric_ans") && isPlaying){
@@ -84,13 +84,13 @@ public class NumericEngine extends GameEngine{
                 gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
                     @Override
                     public void ready() {
-                        gc.sendGameEvent("numeric_ready", new String[]{});
+                        gc.sendGameEvent("numeric_vibrate", new String[]{});
                         gameManager.printReportRound();
                         sendEventToTeams();
 						}
 					});
             }else{
-				gc.sendGameEvent("numeric_ready", new String[]{});
+				gc.sendGameEvent("numeric_vibrate", new String[]{});
                 gameManager.printReportRound();
                 sendEventToTeams();
             }
@@ -103,7 +103,7 @@ public class NumericEngine extends GameEngine{
 		String[] ans = randomQuestion();
         sendEventToTeam(ans);
 
-		gameManager.countdown("numeric_change", 5, true);
+		gameManager.countdown("numeric_again", 5, true);
 		cntPlayer = 0;
 		isPlaying = true;
 	}

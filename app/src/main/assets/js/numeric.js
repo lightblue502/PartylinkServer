@@ -34,7 +34,7 @@ app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval)
   $scope.display = "display center"
 
   var time;
-  $scope.score = {'A':10, 'B':10};
+  $scope.score = {'A':0, 'B':0};
   $scope.round = 1;
   $scope.displayText = "Ready !!";
 
@@ -108,12 +108,10 @@ function getCurrentScore(scoreA ,scoreB){
   angular.element(document.body).scope().$apply(function($scope){
           $scope.score = {'A':scoreA, 'B':scoreB};
   });
-  console.log("score :" + score + " ---- "+team);
 };
 
 function getQuestion(params){
   console.log("hello getQuestion");
-  console.log(params);
   angular.element(document.body).scope().$apply(function($scope){
     if(params == "ready"){
       $scope.showStatus = "ready";
@@ -143,14 +141,10 @@ function getWinRound(winRoundA, winRoundB){
 
     $scope.iconScore = generateIconScore(3, winRoundA, winRoundB);
     
-    console.log($scope.iconRed);
-    console.log($scope.iconBlue);
   });
 }
 
 function initPlayer(teams){
-  console.log("initPlayer webbbbbbbb");
-  console.log(teams);
   angular.element(document.body).scope().$apply(function($scope){
     teams.forEach(function(team, index){
       team.forEach(function(player){

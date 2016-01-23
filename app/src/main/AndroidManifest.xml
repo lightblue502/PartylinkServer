@@ -21,7 +21,10 @@
         <activity android:name=".ShakeActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape" />
-        <activity android:name=".RegistrarActivity" />
+        <activity android:name=".RegistrarActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
+            />
         <activity android:name=".GameActivity" />
 
         <service
