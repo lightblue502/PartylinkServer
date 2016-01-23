@@ -10,8 +10,8 @@ public class RegistrarEngine extends GameEngine{
 	private int numOfTeam;
 	private List<Team> teams = gc.getTeams();
 	private List<Player> players = new ArrayList<Player>();
-	public RegistrarEngine(GameContext gc, int playerAmount){
-		super(gc);
+	public RegistrarEngine(GameContext gc, int playerAmount, String name, String activityName){
+		super(gc,name,activityName);
 		this.playerAmount = playerAmount;
 		this.numOfTeam = 2;
 		int maxPlayerAmount =  (playerAmount+1)/numOfTeam;

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import pl.engine.GameContext;
 import pl.engine.GameShakeEngine;
 import pl.engine.Main;
+import pl.engine.RegistrarEngine;
 
 public class RegistrarActivity extends GameActivity{
     private GameContext gc;
@@ -34,11 +35,10 @@ public class RegistrarActivity extends GameActivity{
 
 
     @Override
-    public void onGameEvent(String event, String[] params) {
+    public void onGameEvent(String event, String[] params) throws ClassNotFoundException {
         Log.d("REGIS", "event: " + event);
         if(event.equals("change_engine")){
-//            Intent intent = new Intent(this, ShakeActivity.class);
-            Intent intent = new Intent(this, NumericActivity.class);
+            Intent intent = new Intent(this, Class.forName("com.partylinkserver." + gc.getCurrentGameEngine().getActivityName()));
             startActivity(intent);
         }
     }

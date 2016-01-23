@@ -1,5 +1,6 @@
 package com.partylinkserver;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,9 +45,13 @@ public class NumericActivity extends GameActivity {
 
     }
     @Override
-    public void onGameEvent(String event, String[] params) {
+    public void onGameEvent(String event, String[] params) throws ClassNotFoundException {
         if(params ==  null){
             return;
+        }
+        else if(event.equals("change_engine")){
+            Intent intent = new Intent(this, Class.forName("com.partylinkserver." + gc.getCurrentGameEngine().getActivityName()));
+            startActivity(intent);
         }
         else if(event.equals("getCurrentScore")){
             //params[0] -> 'A' : params[1] -> 'B'

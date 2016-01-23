@@ -1,6 +1,7 @@
 package com.partylinkserver;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,11 +40,14 @@ public class ShakeActivity extends GameActivity {
     }
 
     @Override
-    public void onGameEvent(String event, String[] params) {
-        Log.d("DEBUG_initPLAYER","event: "+event);
+    public void onGameEvent(String event, String[] params) throws ClassNotFoundException {
 
         if(params ==  null){
             return;
+        }
+        else if(event.equals("change_engine")){
+            Intent intent = new Intent(this, Class.forName("com.partylinkserver." + gc.getCurrentGameEngine().getActivityName()));
+            startActivity(intent);
         }
         else if(event.equals("getCurrentScore")){
             //params[0] -> 'A' : params[1] -> 'B'
@@ -57,9 +61,15 @@ public class ShakeActivity extends GameActivity {
             wv.loadUrl("javascript:getRound("+params[0]+")");
         }
         else if(event.equals("initPlayer")){
-            Log.d("DEBUG_initPLAYER","send leaw");
             Log.d("DEBUG_initPLAYER",params[0]+"");
             wv.loadUrl("javascript:initPlayer("+params[0]+")");
+        }
+        else if(event.equals("shake")){
+            Log.d("DEBUG_shake_inShakeAct ", params[0]+" , "+params[1]);
+            wv.loadUrl("javascript:shake(" + params[0]+",'"+ params[1]+"')");
+        }
+        else if(event.equals("resetStage")){
+            wv.loadUrl("javascript:resetStage()");
         }
     }
 }
