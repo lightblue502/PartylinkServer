@@ -43,6 +43,7 @@ public class NumericEngine extends GameEngine{
 			gc.addResultScore(resultScore);
 		}
 		gameManager.resetWinRound();
+        gc.sendGameEvent("qa_start");
 		gc.nextEngine();
 	}
 	
