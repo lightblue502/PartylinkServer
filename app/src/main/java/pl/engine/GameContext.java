@@ -49,10 +49,10 @@ public class GameContext implements CommunicationListener{
 
 		this.playerAmount = playerAmount;
 		engineIndex = 0;
-		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class));
-		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class));
-		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class));
-		engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class));
+		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class,""));
+		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
+		engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class, "qa_start"));
+		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start"));
 		engines.add(new EndEngine(this));
 		cm = new CommunicationManager(address , port, this, gameListener);
 		cm.start();
@@ -77,6 +77,7 @@ public class GameContext implements CommunicationListener{
 	public void nextEngine(){
 		currentGameEngine = engines.get(++engineIndex);
 		currentGameEngine.startEngine();
+		gc.sendGameEvent(currentGameEngine.getClientStart());
 		gameLister.onIncommingEvent("change_engine", new String[0]);
 	}
 	

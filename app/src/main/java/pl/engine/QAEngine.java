@@ -31,8 +31,8 @@ public class QAEngine extends GameEngine{
     private List<Team> teams = gc.getTeams();
     public GameManager gameManager;
     private ResultScore resultScore = new ResultScore();
-    public QAEngine(GameContext gc, int playerAmount, String name, Context context, Class activityClass) {
-        super(gc, name, activityClass);
+    public QAEngine(GameContext gc, int playerAmount, String name, Context context, Class activityClass, String clientStart) {
+        super(gc, name, activityClass,clientStart);
         this.playerAmount = playerAmount;
         this.context = context;
         this.gameManager = new GameManager(resultScore, gc, playerAmount, 3);
@@ -46,7 +46,7 @@ public class QAEngine extends GameEngine{
         for (Team team: teams) {
             team.printPlayers();
         }
-        gc.sendGameEvent("qa_start");
+        // gc.sendGameEvent("qa_start");
 
         readJson();
     }

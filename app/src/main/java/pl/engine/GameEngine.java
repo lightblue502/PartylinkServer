@@ -4,14 +4,16 @@ public abstract class GameEngine {
 	protected GameContext gc;
 	private String name;
 	private Class activityClass;
+	private String clientStart;
 	public GameEngine(GameContext gc){
 		this.gc = gc;		
 	}
 	
-	public GameEngine(GameContext gc, String name, Class activityClass){
+	public GameEngine(GameContext gc, String name, Class activityClass, String clientStart){
 		this.gc = gc;		
 		this.name = name;
 		this.activityClass = activityClass;
+		this.clientStart = clientStart;
 	}
 
 	public String getName(){
@@ -19,6 +21,9 @@ public abstract class GameEngine {
 	}
 	public Class getActivityClass(){
 		return activityClass;
+	}
+	public String getClientStart(){
+		return clientStart; 
 	}
 	public abstract void startEngine();
 	public abstract void endEngine();

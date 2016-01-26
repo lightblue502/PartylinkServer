@@ -16,8 +16,8 @@ public class NumericEngine extends GameEngine{
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
 	private ResultScore resultScore = new ResultScore();
-	public NumericEngine(GameContext gc,int playerAmount, String name, Class activityClass) {
-		super(gc, name, activityClass);
+	public NumericEngine(GameContext gc,int playerAmount, String name, Class activityClass,String clientStart) {
+		super(gc, name, activityClass,clientStart);
 		this.answer = null;
 		this.playerAmount = playerAmount;
 		this.gameManager = new GameManager(resultScore, gc, topicPerPlayer*playerAmount, 3);
@@ -43,7 +43,7 @@ public class NumericEngine extends GameEngine{
 			gc.addResultScore(resultScore);
 		}
 		gameManager.resetWinRound();
-        gc.sendGameEvent("qa_start");
+        // gc.sendGameEvent("qa_start");
 		gc.nextEngine();
 	}
 	
