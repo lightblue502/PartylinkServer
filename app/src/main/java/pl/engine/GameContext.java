@@ -77,7 +77,7 @@ public class GameContext implements CommunicationListener{
 	public void nextEngine(){
 		currentGameEngine = engines.get(++engineIndex);
 		currentGameEngine.startEngine();
-		gc.sendGameEvent(currentGameEngine.getClientStart());
+		sendGameEvent(currentGameEngine.getClientStart());
 		gameLister.onIncommingEvent("change_engine", new String[0]);
 	}
 	
