@@ -1,0 +1,28 @@
+<html ng-app="myApp">
+<head>
+  <title>Game Lobby</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="lib/angular/angular.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/shakeCSS.css">
+  <link rel="stylesheet" href="css/gameLobby.css">
+  <script src="js/gameLobby.js"></script>
+</head>
+<body ng-controller="GameLobbyCtrl">
+	<div class="headertextBox">
+    	<span class="headertext"> Register </span>
+  	</div>
+
+  	<div class="personRow">
+		<div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft">
+			<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
+			<span class="personName label label-success">{{person.name}}</span>
+		</div>
+  	</div>
+ 
+
+   
+</body>
+</html>
