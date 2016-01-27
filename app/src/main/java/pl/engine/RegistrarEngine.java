@@ -10,8 +10,8 @@ public class RegistrarEngine extends GameEngine{
 	private int numOfTeam;
 	private List<Team> teams = gc.getTeams();
 	private List<Player> players = new ArrayList<Player>();
-	public RegistrarEngine(GameContext gc, int playerAmount, String name, String activityName){
-		super(gc,name,activityName);
+	public RegistrarEngine(GameContext gc, int playerAmount, String name, Class activityClass,String clientStart){
+		super(gc,name,activityClass,clientStart);
 		this.playerAmount = playerAmount;
 		this.numOfTeam = 2;
 		int maxPlayerAmount =  (playerAmount+1)/numOfTeam;
@@ -26,15 +26,20 @@ public class RegistrarEngine extends GameEngine{
 	public void onIncomingEvent(int clientId, String event, String[] params){		
 		if("register".equals(event)){
 			Player player = new Player(clientId, params[0]);
+			sendPlayerToUI(player);
 			players.add(player);
 			gc.sendGameEvent(player, "register_ok");
-			
 		}
-		
 		onPlayerReady(playerAmount);
 		
 	}
-	
+
+	public void sendPlayerToUI(Player player){
+		String cliendId = String.valueOf(player.getCliendId());
+		String name = String.valueOf(player.getName());
+		gc.getGameLister().onIncommingEvent("setPlayer",new String[]{cliendId, name});
+	}
+
 	public void randomTeam(List<Player> players){
 		List<Player> playerHaveTeam = new ArrayList<Player>();
 		do{
@@ -75,7 +80,7 @@ public class RegistrarEngine extends GameEngine{
 
 	@Override
 	public void endEngine() {
-		gc.sendGameEvent("qa_start");
+		// gc.sendGameEvent("shake_start");
 		gc.nextEngine();
 	}
 	

@@ -32,11 +32,13 @@ public class ShakeActivity extends GameActivity {
 
         wv.addJavascriptInterface(javaScriptInterface, "Android");
         Log.d("SHAKE", "This is shake activity");
-//        if(gc != null) {
-//            gc.getCurrentGameEngine().toString();
-//        }else{
-//            Log.d("SHAKE", "gc is null");
-//        }
+
+        javaScriptInterface.setOnGameReadyListener(new JavaScriptInterface.onUiReadyListener() {
+            @Override
+            public void ready() {
+                sendGameEvent("shakeUI_Start");
+            }
+        });
     }
 
     @Override
@@ -46,7 +48,7 @@ public class ShakeActivity extends GameActivity {
             return;
         }
         else if(event.equals("change_engine")){
-            Intent intent = new Intent(this, Class.forName("com.partylinkserver." + gc.getCurrentGameEngine().getActivityName()));
+            Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             startActivity(intent);
         }
         else if(event.equals("getCurrentScore")){

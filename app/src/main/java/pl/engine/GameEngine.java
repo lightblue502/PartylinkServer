@@ -3,22 +3,27 @@ package pl.engine;
 public abstract class GameEngine {
 	protected GameContext gc;
 	private String name;
-	private String activityName;
+	private Class activityClass;
+	private String clientStart;
 	public GameEngine(GameContext gc){
 		this.gc = gc;		
 	}
 	
-	public GameEngine(GameContext gc, String name, String activityName){
+	public GameEngine(GameContext gc, String name, Class activityClass, String clientStart){
 		this.gc = gc;		
 		this.name = name;
-		this.activityName = activityName;
+		this.activityClass = activityClass;
+		this.clientStart = clientStart;
 	}
 
 	public String getName(){
 		return name;
 	}
-	public String getActivityName(){
-		return activityName;
+	public Class getActivityClass(){
+		return activityClass;
+	}
+	public String getClientStart(){
+		return clientStart; 
 	}
 	public abstract void startEngine();
 	public abstract void endEngine();

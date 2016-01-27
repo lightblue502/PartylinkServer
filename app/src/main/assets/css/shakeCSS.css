@@ -19,6 +19,7 @@ div.centerline{
 	font-size: 8vh;
 	font-family: cursive;
 	white-space: pre-wrap;
+	
 }
 
 div.boxleft{
@@ -28,6 +29,7 @@ div.boxleft{
 	left: 0;
 	right: 50%;
 	background-color: #faa;
+	background-image: url("../img/noise_paper.png");
 }
 div.boxright{
 	position: absolute;
@@ -36,6 +38,8 @@ div.boxright{
 	left: 50%;
 	right: 0;
 	background-color: #acf;
+	background-image: url("../img/noise_paper.png");
+
 }
 
 .progress{

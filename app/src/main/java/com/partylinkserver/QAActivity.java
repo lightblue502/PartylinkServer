@@ -1,6 +1,7 @@
 package com.partylinkserver;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -22,6 +23,10 @@ public class QAActivity extends GameActivity {
         Utils.debug("onGameEvent" + event);
         if(event.equals("qa_asking")){
             tv.setText(params[0]);
+        }
+        else if(event.equals("change_engine")){
+            Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
+            startActivity(intent);
         }
     }
 }
