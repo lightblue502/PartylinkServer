@@ -31,6 +31,7 @@ public class QAEngine extends GameEngine{
     private List<Team> teams = gc.getTeams();
     public GameManager gameManager;
     private ResultScore resultScore = new ResultScore();
+    private boolean isInit = false;
 
     public QAEngine(GameContext gc, int playerAmount, String name, Context context, Class activityClass, String clientStart) {
         super(gc, name, activityClass,clientStart);
@@ -95,7 +96,7 @@ public class QAEngine extends GameEngine{
     @Override
     public void onPlayerReady(int playerAmount) {
         int length = json_array.length();
-        if(cntPlayer == playerAmount){
+        if(cntPlayer == playerAmount && isInit){
             Utils.debug("Player ready");
             gameManager.printReportRound();
             if(length > 0) {
@@ -130,6 +131,8 @@ public class QAEngine extends GameEngine{
 
         if(event.equals("qaUI_Start")){
             initPlayerstoUI();
+            isInit = true;
+            onPlayerReady(playerAmount);
         }
         else if(event.equals("qa_ready")){
             Utils.debug("Ready");
