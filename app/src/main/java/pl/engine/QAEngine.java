@@ -111,7 +111,11 @@ public class QAEngine extends GameEngine{
         int randomPlayers = new Random().nextInt(team.getPlayerAmount());
         Player ask_player = team.getPlayers().get(randomPlayers);
         Utils.debug("Question is : " + question);
-        gc.getGameLister().onIncommingEvent("qa_asking", new String[]{ask_player.getName()});
+//        gc.getGameLister().onIncommingEvent("qa_asking", new String[]{ask_player.getName()});
+        //change UI
+        gc.getGameLister().onIncommingEvent("qa_asking", new String[]{
+                String.valueOf(ask_player.getCliendId()), team.getName()
+        });
         gc.sendGameEvent(ask_player, "qa_question", new String[]{question});
         broadcastChoice();
 
@@ -122,7 +126,11 @@ public class QAEngine extends GameEngine{
     }
     @Override
     public void onIncomingEvent(int clientId, String event, String[] params) {
-        if(event.equals("qa_ready")){
+
+        if(event.equals("qaUI_Start")){
+            initPlayerstoUI();
+        }
+        else if(event.equals("qa_ready")){
             Utils.debug("Ready");
             cntPlayer++;
             onPlayerReady(playerAmount);
@@ -172,5 +180,26 @@ public class QAEngine extends GameEngine{
         }
         return json;
 
+    }
+
+    public void initPlayerstoUI(){
+
+        String strs = "[";
+        for (Team team: teams) {
+            strs += "[";
+            for(Player player : team.getPlayers()){
+                strs += "{'id':" + player.getCliendId();
+                strs += ",'name':'" + player.getName();
+                strs += "'},";
+            }
+            if(strs.charAt(strs.length()-1) == ',')
+                strs = strs.substring(0,strs.length()-1);
+            strs += "],";
+        }
+        if(strs.charAt(strs.length()-1) == ',')
+            strs = strs.substring(0,strs.length()-1);
+        strs += "]";
+        Log.d("DEBUG_init_PL", strs + "");
+        gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
     }
 }

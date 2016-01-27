@@ -1,0 +1,40 @@
+<html ng-app="PartyApp">
+<head>
+  	<script src="lib/angular/angular.js"></script>
+  	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	// <script type="text/javascript" src="js/qa_ctrl.js"></script>
+	<script type="text/javascript" src="js/qa_link.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/qa_CSS.css">
+	<title>Party link - Questions</title>
+</head>
+<body ng-controller="BodyController">
+	<div class="headertextBox">
+		<!-- <span class="headertext"> ROUND {{round}} </span> -->
+	</div>
+
+		<div id="show" class="showbox">
+			<div ng-style="showbox">
+				<div ng-repeat="person in show" class="showPersonBox">
+					<div class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#6d9'}"></div>
+					<span class="personName label label-success">{{person.name}}</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="personRow">
+			<div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft">
+				<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#6d9'}"></div>
+				<span class="personName label label-success">{{person.name}}</span>
+			</div>
+		</div>
+
+		<div class="personRow" style="right:0;">
+			<div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatright">
+				<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#6d9'}"></div>
+				<span class="personName label label-success">{{person.name}}</span>
+			</div>
+		</div>
+
+</body>
+</html>
