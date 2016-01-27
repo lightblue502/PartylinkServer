@@ -49,6 +49,7 @@ public class GameContext implements CommunicationListener{
 
 		this.playerAmount = playerAmount;
 		engineIndex = 0;
+
 		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class,""));
 		engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class, "qa_start"));
 		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));

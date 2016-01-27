@@ -1,168 +1,168 @@
  {
     "questions": [
       {
-        "question": "What is the colour of apple?",
+        "question": "ส้มโชกุน เกิดที่ประเทศอะไร?",
         "choices": [ 
-                      {"choice" : "Red", "isTrue": "true"},
-                      {"choice" : "Yellow", "isTrue": "false" },
-                      {"choice" : "Blue", "isTrue": "false" },
-                      {"choice" : "Green", "isTrue": "false" }
+                      {"choice" : "ไทย", "isTrue": "true"},
+                      {"choice" : "ญี่ปุ่น", "isTrue": "false" },
+                      {"choice" : "จีน", "isTrue": "false" },
+                      {"choice" : "มาเลเซีย", "isTrue": "false" }
                     ]
                    
       },
       {
-        "question": "What is the colour of banana?",
+        "question": "ส้มโชกุน เกิดที่จังหวัดอะไร?",
         "choices": [ 
-                      {"choice" : "Red", "isTrue": "false"},
-                      {"choice" : "Yellow", "isTrue": "true" },
-                      {"choice" : "Blue", "isTrue": "false" },
-                      {"choice" : "Green", "isTrue": "false" }
+                      {"choice" : "สงขลา", "isTrue": "false"},
+                      {"choice" : "ยะลา", "isTrue": "true" },
+                      {"choice" : "ภูเก็ต", "isTrue": "false" },
+                      {"choice" : "พัทลุง", "isTrue": "false" }
                     ]
       },
       {
-        "question": "What is the colour of orange?",
+        "question": "ในยาคูลท์ มีไทแรนโนซอรัสผสมอยู่กี่ตัว?",
         "choices": [ 
-                      {"choice" : "Red", "isTrue": "false"},
-                      {"choice" : "Orange", "isTrue": "true" },
-                      {"choice" : "Blue", "isTrue": "false" },
-                      {"choice" : "Green", "isTrue": "false" }
+                      {"choice" : "1", "isTrue": "false"},
+                      {"choice" : "0", "isTrue": "true" },
+                      {"choice" : "2", "isTrue": "false" },
+                      {"choice" : "3", "isTrue": "false" }
                     ]
       },
       {
-        "question": "What is the colour of grass?",
+        "question": "ยาแก้ไอตราตะขาบ 5 ตัว มีตะขาบอยู่บนซองกี่ตัว?",
         "choices": [ 
-                      {"choice" : "Red", "isTrue": "false"},
-                      {"choice" : "Yellow", "isTrue": "false" },
-                      {"choice" : "Blue", "isTrue": "false" },
-                      {"choice" : "Green", "isTrue": "true" }
+                      {"choice" : "4", "isTrue": "false"},
+                      {"choice" : "0", "isTrue": "false" },
+                      {"choice" : "2", "isTrue": "false" },
+                      {"choice" : "5", "isTrue": "true" }
                     ]
       },
       {
-        "question": "What is the colour of coffee?",
+        "question": "จำนวนตะขาบบน ยาแก้ไอตราตะขาบ 5 ตัว แทนจำนวน ... ของเจ้าของ?",
         "choices": [ 
-                      {"choice" : "Red", "isTrue": "false"},
-                      {"choice" : "Yellow", "isTrue": "false" },
-                      {"choice" : "Brown", "isTrue": "true" },
-                      {"choice" : "Green", "isTrue": "false" }
+                      {"choice" : "หุ้นส่วน", "isTrue": "false"},
+                      {"choice" : "ลูก", "isTrue": "false" },
+                      {"choice" : "ภรรยา", "isTrue": "true" },
+                      {"choice" : "พี่น้อง", "isTrue": "false" }
                     ]
       },
       {
-        "question": "Who is lightblue?",
+        "question": "แม่น้ำเจ้าพระยา มีกี่สาย?",
         "choices": [ 
-                      {"choice" : "John", "isTrue": "false"},
-                      {"choice" : "New", "isTrue": "true" },
-                      {"choice" : "Jane", "isTrue": "false" },
-                      {"choice" : "Jr.", "isTrue": "false" }
+                      {"choice" : "4", "isTrue": "false"},
+                      {"choice" : "1", "isTrue": "true" },
+                      {"choice" : "2", "isTrue": "false" },
+                      {"choice" : "3", "isTrue": "false" }
                     ]
       },
       {
-        "question": "Which hero is a normal human?",
+        "question": "แม่น้ำเจ้าพระยาเกิดจากแม่น้ำมารวมกันกี่สาย?",
         "choices": [ 
-                      {"choice" : "Ironman", "isTrue": "true"},
-                      {"choice" : "Hulk", "isTrue": "false" },
-                      {"choice" : "The Flash", "isTrue": "false" },
-                      {"choice" : "Superman", "isTrue": "false" }
-                    ]
-                   
-      },
-      {
-        "question": "Which hero made by DC?",
-        "choices": [ 
-                      {"choice" : "Ironman", "isTrue": "false"},
-                      {"choice" : "Batman", "isTrue": "true" },
-                      {"choice" : "Hulk", "isTrue": "false" },
-                      {"choice" : "Spiderman", "isTrue": "false" }
-                    ]
-      },
-      {
-        "question": "What is the skill of Alchemist in DOTA2?",
-        "choices": [ 
-                      {"choice" : "Acid Spray", "isTrue": "true"},
-                      {"choice" : "Sleight of Fist", "isTrue": "false" },
-                      {"choice" : "Waveform", "isTrue": "false" },
-                      {"choice" : "Aftershock", "isTrue": "false" }
-                    ]
-      },
-      {
-        "question": "What is the skill of Winter Wyvern in DOTA2?",
-        "choices": [ 
-                      {"choice" : "Adaptive Strike", "isTrue": "false"},
-                      {"choice" : "Searing Chains", "isTrue": "false" },
-                      {"choice" : "Unstable Concoction", "isTrue": "false" },
-                      {"choice" : "Cold Embrace", "isTrue": "true" }
-                    ]
-      },
-      {
-        "question": "Which character of DOTA2 is the green one?",
-        "choices": [ 
-                      {"choice" : "Invoker", "isTrue": "false"},
-                      {"choice" : "Alchemist", "isTrue": "false" },
-                      {"choice" : "Earth Spirit", "isTrue": "true" },
-                      {"choice" : "Morphling", "isTrue": "false" }
-                    ]
-      },
-      {
-        "question": "Which character of DOTA2 in the choices is the tallest?",
-        "choices": [ 
-                      {"choice" : "Nyx Assassin", "isTrue": "false"},
-                      {"choice" : "Morphling", "isTrue": "true" },
-                      {"choice" : "Slark", "isTrue": "false" },
-                      {"choice" : "Riki.", "isTrue": "false" }
-                    ]
-      },
-      {
-        "question": "What is the place that you can find a car?",
-        "choices": [ 
-                      {"choice" : "Garage", "isTrue": "true"},
-                      {"choice" : "Toilet", "isTrue": "false" },
-                      {"choice" : "Bed room", "isTrue": "false" },
-                      {"choice" : "Kitchen", "isTrue": "false" }
+                      {"choice" : "4", "isTrue": "true"},
+                      {"choice" : "1", "isTrue": "false" },
+                      {"choice" : "2", "isTrue": "false" },
+                      {"choice" : "3", "isTrue": "false" }
                     ]
                    
       },
       {
-        "question": "What is the place that you can find some food?",
+        "question": "ที่ปากน้ำโพ มีแม่น้ำมารวมกันกี่สาย?",
         "choices": [ 
-                      {"choice" : "Garden", "isTrue": "false"},
-                      {"choice" : "Canteen", "isTrue": "true" },
-                      {"choice" : "Garage", "isTrue": "false" },
-                      {"choice" : "Restroom", "isTrue": "false" }
+                      {"choice" : "1", "isTrue": "false"},
+                      {"choice" : "2", "isTrue": "true" },
+                      {"choice" : "3", "isTrue": "false" },
+                      {"choice" : "4", "isTrue": "false" }
                     ]
       },
       {
-        "question": "What is the place that you can find a History book?",
+        "question": "ก่อนเป็นกบ กบเป็นอะไรมาก่อน?",
         "choices": [ 
-                      {"choice" : "Road", "isTrue": "false"},
-                      {"choice" : "Library", "isTrue": "true" },
-                      {"choice" : "Swimming pool", "isTrue": "false" },
-                      {"choice" : "Hospital", "isTrue": "false" }
+                      {"choice" : "ลูกอ๊อด", "isTrue": "true"},
+                      {"choice" : "ลูกน้ำ", "isTrue": "false" },
+                      {"choice" : "ลูกเจี๊ยบ", "isTrue": "false" },
+                      {"choice" : "ลูกหลง", "isTrue": "false" }
                     ]
       },
       {
-        "question": "'Adaptive Strike' is a skill of ...?",
+        "question": "แมลงวันหัวขียว หัวสีอะไร?",
         "choices": [ 
-                      {"choice" : "Ember Spirit", "isTrue": "false"},
-                      {"choice" : "Alchemist", "isTrue": "false" },
-                      {"choice" : "Slark", "isTrue": "false" },
-                      {"choice" : "Morphling", "isTrue": "true" }
+                      {"choice" : "ดำ", "isTrue": "false"},
+                      {"choice" : "น้ำตาล", "isTrue": "false" },
+                      {"choice" : "เขียว", "isTrue": "false" },
+                      {"choice" : "แดง", "isTrue": "true" }
                     ]
       },
       {
-        "question": "'Fissure' is a skill of ...?",
+        "question": "แมลงวันหัวเขียว มีส่วนไหนเป็นสีเขียว?",
         "choices": [ 
-                      {"choice" : "Invoker", "isTrue": "false"},
-                      {"choice" : "Nyx Assassin", "isTrue": "false" },
-                      {"choice" : "Earthshaker", "isTrue": "true" },
-                      {"choice" : "Alchemist", "isTrue": "false" }
+                      {"choice" : "ปีก", "isTrue": "false"},
+                      {"choice" : "หัว", "isTrue": "false" },
+                      {"choice" : "ตัว", "isTrue": "true" },
+                      {"choice" : "ขา", "isTrue": "false" }
                     ]
       },
       {
-        "question": "'Dark Pact' is a skill of ...?",
+        "question": "อูฐเก็บอะไรไว้ในโหนก?",
         "choices": [ 
-                      {"choice" : "Winter Wyvern", "isTrue": "false"},
-                      {"choice" : "Slark", "isTrue": "true" },
-                      {"choice" : "Drow Ranger", "isTrue": "false" },
-                      {"choice" : "Queen of Pain", "isTrue": "false" }
+                      {"choice" : "น้ำ", "isTrue": "false"},
+                      {"choice" : "ไขมัน", "isTrue": "true" },
+                      {"choice" : "น้ำตาล", "isTrue": "false" },
+                      {"choice" : "แร่ธาตุ", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "ในละครเปาบุ้นจิ้น หวังเฉา หม๋าฮั่น ใส่เครื่องแบบสีอะไร?",
+        "choices": [ 
+                      {"choice" : "สีดำ", "isTrue": "true"},
+                      {"choice" : "สีแดง", "isTrue": "false" },
+                      {"choice" : "สีทอง", "isTrue": "false" },
+                      {"choice" : "สีน้ำเงิน", "isTrue": "false" }
+                    ]
+                   
+      },
+      {
+        "question": "นละครเปาบุ้นจิ้น จั่นเจา ใส่สีอะไร?",
+        "choices": [ 
+                      {"choice" : "สีดำ", "isTrue": "false"},
+                      {"choice" : "สีแดง", "isTrue": "true" },
+                      {"choice" : "สีทอง", "isTrue": "false" },
+                      {"choice" : "สีน้ำเงิน", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "หอเอนปิซ่าเอนไปทางทิศอะไร?",
+        "choices": [ 
+                      {"choice" : "ทิศเหนือ", "isTrue": "false"},
+                      {"choice" : "ทิศใต้", "isTrue": "true" },
+                      {"choice" : "ทิศตะวันออก", "isTrue": "false" },
+                      {"choice" : "ทิศตะวันตก", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "ก้อนขี้หมา เป็นอวัยวะของสัตว์ชนิดไหน?",
+        "choices": [ 
+                      {"choice" : "ยีราฟ", "isTrue": "false"},
+                      {"choice" : "ช้าง", "isTrue": "false" },
+                      {"choice" : "สุนัข", "isTrue": "false" },
+                      {"choice" : "จระเข้", "isTrue": "true" }
+                    ]
+      },
+      {
+        "question": "พระอภัยมณี มีเมียกี่คน?",
+        "choices": [ 
+                      {"choice" : "8", "isTrue": "false"},
+                      {"choice" : "1", "isTrue": "false" },
+                      {"choice" : "5", "isTrue": "true" },
+                      {"choice" : "7", "isTrue": "false" }
+                    ]
+      },
+      {
+        "question": "หมัด มีกี่ขา?",
+        "choices": [ 
+                      {"choice" : "8", "isTrue": "false"},
+                      {"choice" : "6", "isTrue": "true" },
+                      {"choice" : "4", "isTrue": "false" },
+                      {"choice" : "2", "isTrue": "false" }
                     ]
       }
   ]

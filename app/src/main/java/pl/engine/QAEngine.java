@@ -31,6 +31,7 @@ public class QAEngine extends GameEngine{
     private List<Team> teams = gc.getTeams();
     public GameManager gameManager;
     private ResultScore resultScore = new ResultScore();
+
     public QAEngine(GameContext gc, int playerAmount, String name, Context context, Class activityClass, String clientStart) {
         super(gc, name, activityClass,clientStart);
         this.playerAmount = playerAmount;
