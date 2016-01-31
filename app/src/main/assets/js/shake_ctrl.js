@@ -19,6 +19,8 @@ app.controller('BodyController', ['$scope', function($scope) {
 
 	$scope.showleftbox = {'position':'absolute', 'left':(100-40*($scope.showleft.length+1))/2+'%'};
 	$scope.showrightbox = {'position':'absolute', 'right':(100-40*($scope.showright.length+1))/2+'%'};
+  	$scope.iconScore = generateIconScore(3, 0 ,0); // 3 is max round
+
 
 	Android.onUiReady();
 }]);
@@ -42,4 +44,30 @@ function getPerson(personId, team){
 	if(aa == null)
 		console.log("ERROR : getPerson id:"+personId+" team"+team);
 	return aa;
+}
+
+function generateIconScore(maxIcon, winRoundA, winRoundB){
+  var icons = [
+    {
+      name :"red", winRound: winRoundA, colors:{dark :"#4E0404", light:"#F55"}
+    },
+    {
+      name :"blue", winRound: winRoundB, colors:{dark :"#0B2B46", light:"#5096FF"}
+    }
+  ];
+  var data = {};
+  for(index in icons){
+    var icon = icons[index];
+    data[icon.name] = [];
+    if(icon.winRound > 0){
+      for (var j = 0; j < icon.winRound; j++) {
+        data[icon.name].push({color:icon.colors.light});
+      }
+    }
+    for (var i = 0; i < maxIcon - icon.winRound; i++) {
+      data[icon.name].push({color:icon.colors.dark});
+    }
+    
+  }
+  return data;
 }
