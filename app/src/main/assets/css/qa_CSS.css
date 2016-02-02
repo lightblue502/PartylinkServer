@@ -93,3 +93,43 @@ body{
 .closeright{
 	right: 0;
 }
+
+/*-----------------------------------*/
+
+.textTeam{
+  width: 24vh;
+  white-space: pre-wrap;
+  background-color: black;
+  text-align:center;
+  font-size: 8vh;
+}
+.icon{
+  /*position: fixed;*/
+  font-size: 6vh;
+  margin: 1vh;
+}
+.red{
+  position: absolute;
+  color: #F55;
+  z-index: -2;
+  top: 0vh;
+  
+}
+
+.blue{
+  position: absolute;
+  color: #5096FF;
+  right: 0vh;
+  top: 0vh;
+  z-index: -2;
+}
+.score{
+  line-height: 11.5vh;
+  font-size: 11vh;
+  text-shadow: 3px 3px #555;
+  /*position: inherit;*/
+  top:0vh;
+  text-align: center;
+  background-color: gray;
+  width: 16vh;
+}

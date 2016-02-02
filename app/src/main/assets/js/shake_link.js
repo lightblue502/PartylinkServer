@@ -16,32 +16,12 @@ function getWinRound(winRoundA, winRoundB){
   angular.element(document.body).scope().$apply(function($scope){
     console.log("winRoundA :"+winRoundA );
     console.log("winRoundB :"+winRoundB );
-    var maxRound = 3;
-    var iconClass =  "glyphicon glyphicon-tower "
-    $scope.iconRed = [];
-    $scope.iconBlue = [];
 
-    for (var i = 1; i <= maxRound;) { 
-      if(i <= winRoundA){
-        $scope.iconBlue.push(iconClass+"iconBlueLight");
-      }else{
-        $scope.iconBlue.push(iconClass+"iconBlueDark");
-      }
-      i++;
-    }
-
-    for (var j = 1; j <= maxRound;) { 
-     if(j <= winRoundB){
-        $scope.iconRed.push(iconClass+"iconRedLight");
-      }else{
-        $scope.iconRed.push(iconClass+"iconRedDark");
-      }
-      j++;
-    }
-    // console.log($scope.iconRed);
-    // console.log($scope.iconBlue);
+    $scope.iconScore = generateIconScore(3, winRoundA, winRoundB);
+    
   });
 }
+
 
 function initPlayer(teams){
   console.log(teams);
