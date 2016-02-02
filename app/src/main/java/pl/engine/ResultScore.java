@@ -4,19 +4,19 @@ import java.util.ArrayList;
 
 public class ResultScore {
 	private Team team;
-	private GameEngine game;
+	private String gameName;
 	
 	public ResultScore(){
 		
 	}
 	
-	public void setResult(Team team, GameEngine game){
+	public void setResult(Team team, String gameName){
 		this.team = team;
-		this.game = game;
+		this.gameName = gameName;
 	}
 	
 	public void printResult(){
-		Utils.debug("TEAM : "+ team.getName() + " ----"+ game.getName());
+		Utils.debug("TEAM : "+ team.getName() + " ----"+ gameName);
 	}
 	
 }

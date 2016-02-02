@@ -18,7 +18,7 @@ public class GameShakeEngine extends GameEngine{
 	public GameShakeEngine(GameContext gc, int playerAmount, String name, Class activityClass, String clientStart) {
 		super(gc, name,activityClass,clientStart);
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, 3, 3);
+		this.gameManager = new GameManager(resultScore, gc, 10, 3);
 	}
 	
 	@Override
@@ -51,6 +51,7 @@ public class GameShakeEngine extends GameEngine{
 
 	@Override
 	public void endEngine() {
+        gameManager.summaryScoreByGame(this, teams);
 //		gc.sendGameEvent("numeric_start");
 		// gc.sendGameEvent("qa_start");
 		gc.nextEngine();
@@ -76,17 +77,10 @@ public class GameShakeEngine extends GameEngine{
 				else{
 					gameManager.printReportRound();
 					sendEventToTeams();
-				}
+                }
 			}
 			else{
 				Utils.debug("END GAME..");
-				gameManager.printScoreToWIN();
-				if(gameManager.getTeamWin() != null){
-					Team team = gameManager.getTeamWin().equals("teamA")?teams.get(0) :teams.get(1);
-					resultScore.setResult(team, this);
-					gc.addResultScore(resultScore);
-				}
-				gameManager.resetWinRound();
 				endEngine();
 			}
 		}
@@ -104,7 +98,10 @@ public class GameShakeEngine extends GameEngine{
 			sendEventToTeam(team, randomPlayerAmount);
 		}
 		int randomTime = new Random().nextInt((5 - 2) + 1) + 2;
-		gameManager.countdown("change_shake", randomTime, true);
+        gameManager.resetTimer();
+        if(!gameManager.timerWasStarted())
+		    gameManager.startTimer(randomTime, "change_shake");
+//		gameManager.countdown(, randomTime, true);
 		cntPlayer = 0;
 	}
 	public Player getCurrentPlayer(){

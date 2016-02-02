@@ -83,13 +83,7 @@ public class QAEngine extends GameEngine{
     @Override
     public void endEngine() {
         Utils.debug("END GAME");
-        gameManager.printScoreToWIN();
-        if(gameManager.getTeamWin() != null){
-            Team team = gameManager.getTeamWin().equals("teamA")?teams.get(0) :teams.get(1);
-            resultScore.setResult(team, this);
-            gc.addResultScore(resultScore);
-        }
-        gameManager.resetWinRound();
+        gameManager.summaryScoreByGame(this, teams);
         gc.nextEngine();
     }
 
