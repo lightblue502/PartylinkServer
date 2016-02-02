@@ -18,7 +18,7 @@ public class GameShakeEngine extends GameEngine{
 	public GameShakeEngine(GameContext gc, int playerAmount, String name, Class activityClass, String clientStart) {
 		super(gc, name,activityClass,clientStart);
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, 10, 3);
+		this.gameManager = new GameManager(resultScore, gc, 3, 3);
 	}
 	
 	@Override
@@ -51,6 +51,7 @@ public class GameShakeEngine extends GameEngine{
 
 	@Override
 	public void endEngine() {
+		gameManager.stopTimer();
         gameManager.summaryScoreByGame(this, teams);
 //		gc.sendGameEvent("numeric_start");
 		// gc.sendGameEvent("qa_start");

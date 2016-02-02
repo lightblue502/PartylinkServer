@@ -134,7 +134,6 @@ public class QAEngine extends GameEngine{
             onPlayerReady(playerAmount);
         }else if(event.equals("qa_ans")){
             if(correct_ans.equals(params[0])) {
-                gameManager.printScoreToNumber();
                 Utils.debug("CORRECT !!!!!!!");
                 cntPlayer = 0;
                 gameManager.scoreManage(clientId, 2);
@@ -142,6 +141,7 @@ public class QAEngine extends GameEngine{
             }else{
                 gameManager.scoreManage(clientId, -1);
             }
+            gameManager.printScoreToNumber();
         }
     }
 

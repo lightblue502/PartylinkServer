@@ -157,15 +157,17 @@ public class GameManager {
         //normal round
         Utils.print(count + " ");
         count++;
-        if(count > times){
+        if(count == times){
             if (isInRound()) {
-                plusNumber();
+               checkNumber();
                 if (!changeEvent.isEmpty()) {
                     gc.sendGameEvent(changeEvent);
                 }
-            }else{
-                checkRound();
             }
+//            else{
+////                gc.getCurrentGameEngine().endEngine();
+//                //endGame
+//            }
         }
         Utils.debug("");
     }
@@ -173,10 +175,6 @@ public class GameManager {
         count = 0;
     }
 
-//    public void printStage(){
-//        Utils.debug(isStarted + " <-- isStarted");
-//        Utils.debug(wasStarted + " <-- wasStarted");
-//    }
     public boolean timerWasStarted(){
         return wasStarted;
     }
@@ -204,30 +202,23 @@ public class GameManager {
         wasStarted = false;
     }
 
-    public void checkRound(){
-        //stop before normal round
-        if(!isInRound()){
-            gc.getCurrentGameEngine().endEngine();
-            stopTimer();
-        }
-
-    }
     public void plusNumber(){
         currentNumber++;
     }
-
     public boolean isInRound(){
-        Log.d("DEBUG_isInRound", "....");
-        if(currentNumber > number){
+        return currentRound <= round;
+    }
+    public void checkNumber(){
+        if(currentNumber < number){
+            currentNumber++;
+        }else{
             currentRound++;
             versus();
             resetScore();
             printScoreToWIN();
             currentNumber = 1;
         }
-        return currentRound <= round;
     }
-
 
 	public void printScoreToNumber() {
 		gc.getGameLister().onIncommingEvent("getCurrentScore",new String[]{
