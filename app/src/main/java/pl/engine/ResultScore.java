@@ -14,6 +14,14 @@ public class ResultScore {
 		this.team = team;
 		this.gameName = gameName;
 	}
+
+	public Team getTeam(){
+		return team;
+	}
+
+	public String getGameName(){
+		return gameName;
+	}
 	
 	public void printResult(){
 		Utils.debug("TEAM : "+ team.getName() + " ----"+ gameName);

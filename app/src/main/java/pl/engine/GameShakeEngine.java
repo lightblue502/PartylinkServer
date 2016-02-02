@@ -24,7 +24,7 @@ public class GameShakeEngine extends GameEngine{
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
 		if(event.equals("shakeUI_Start")){
-			initPlayerstoUI();
+			gameManager.initPlayerstoUI(teams);
 		}
 		else if(event.equals("shake_ready")){
 			cntPlayer++;
@@ -121,27 +121,6 @@ public class GameShakeEngine extends GameEngine{
 			});
 		}
 		
-	}
-
-	public void initPlayerstoUI(){
-
-		String strs = "[";
-		for (Team team: teams) {
-			strs += "[";
-			for(Player player : team.getPlayers()){
-				strs += "{'id':" + player.getCliendId();
-				strs += ",'name':'" + player.getName();
-				strs += "'},";
-			}
-			if(strs.charAt(strs.length()-1) == ',')
-				strs = strs.substring(0,strs.length()-1);
-			strs += "],";
-		}
-		if(strs.charAt(strs.length()-1) == ',')
-			strs = strs.substring(0,strs.length()-1);
-		strs += "]";
-        Log.d("DEBUG_init_PL", strs + "");
-		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
 	}
 
 	public void resetPlayerShaketoUI(){

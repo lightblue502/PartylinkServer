@@ -46,8 +46,7 @@ public class NumericEngine extends GameEngine{
 		if (event.equals("NumericServerUI_Start")){
             gameManager.initPlayerstoUI(teams);
             gameManager.scoreManage(clientId, 0);
-            //send event to client;
-            gc.sendGameEvent("numeric_start");
+            gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
 		}
 		else if(event.equals("numeric_ready")){
 			cntPlayer++;

@@ -17,12 +17,7 @@ public class ResultEngine extends GameEngine{
 
 	@Override
 	public void startEngine() {
-		Utils.debug("========================================");
-		Utils.debug("==========  SUMMARY SCORE !!! ==========");
-		Utils.debug("========================================");
-		for (ResultScore resultScore : resultScoreLists) {
-			resultScore.printResult();
-		}
+
 
 
 	}
@@ -35,7 +30,9 @@ public class ResultEngine extends GameEngine{
 
     @Override
     public void onIncomingEvent(int clientId, String event, String[] params) {
-        if(event.equals("result_ready")){
+        if(event.equals("resultUI_Start")){
+            gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
+        }else if(event.equals("result_ready")){
             cntPlayer++;
             onPlayerReady(playerAmount);
         }
@@ -45,6 +42,7 @@ public class ResultEngine extends GameEngine{
     @Override
     public void onPlayerReady(int playerAmount) {
         if(cntPlayer == playerAmount) {
+            process();
             Log.d("DEBUG", "Result Engine--");
             gameManager.countDownGameReady(5);
             gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
@@ -56,6 +54,25 @@ public class ResultEngine extends GameEngine{
             });
 
         }
+    }
+
+    public void process(){
+        Utils.debug("========================================");
+        Utils.debug("==========  SUMMARY SCORE !!! ==========");
+        Utils.debug("========================================");
+        for (ResultScore resultScore : resultScoreLists) {
+            resultScore.printResult();
+        }
+
+        String strs = "[";
+        for (ResultScore resultScore : resultScoreLists) {
+            strs += "{'team':'" + resultScore.getTeam().getName();
+            strs += "','gameName':'" + resultScore.getGameName();
+            strs += "'},";
+        }
+        strs = strs.substring(0, strs.length() - 1);
+        strs += "]";
+        gc.getGameLister().onIncommingEvent("getResultScores", new String[]{strs});
     }
 
 
