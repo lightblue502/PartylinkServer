@@ -2,6 +2,7 @@ package pl.engine;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -96,7 +97,8 @@ public class GameShakeEngine extends GameEngine{
 	public void sendEventToTeams(){
 		int playerAmountTeamA = teams.get(0).getPlayerAmount();
 		int playerAmountTeamB = teams.get(1).getPlayerAmount();
-		int playerAmount =  (playerAmountTeamA != 0 )?playerAmountTeamA : playerAmountTeamB;
+		int playerAmount =  Math.min(playerAmountTeamA, playerAmountTeamB);
+		if(playerAmount == 0) playerAmount+=1;
 		int randomPlayerAmount = new Random().nextInt(playerAmount) + 1;
 		Utils.debug("randomPlayerAmount :" + randomPlayerAmount );
 		
@@ -111,16 +113,21 @@ public class GameShakeEngine extends GameEngine{
 		return playerA;
 	}
 	public void sendEventToTeam(Team team, int randomPlayerAmount){
-		for (int i = 0; i < randomPlayerAmount; i++) {
+		randomPlayerAmount = Math.min(randomPlayerAmount, team.getPlayerAmount());
+		ArrayList<Integer> sendedPlayer = new ArrayList<Integer>();
+		while (sendedPlayer.size() < randomPlayerAmount) {
 			int randomPlayers = new Random().nextInt(team.getPlayerAmount());
-			Utils.debug("send to randomPlayerAmount: " + randomPlayerAmount );
-			Utils.debug("send to randomPlayers: " + randomPlayers );
-			playerA = team.getPlayers().get(randomPlayers);
-			gc.sendGameEvent(playerA, "this_shake");
-			//change UI
-			gc.getGameLister().onIncommingEvent("shake", new String[]{ 
-				String.valueOf(playerA.getCliendId()), team.getName()
-			});
+			if(!sendedPlayer.contains(randomPlayers)) {
+				sendedPlayer.add(randomPlayers);
+				Utils.debug("send to randomPlayerAmount: " + randomPlayerAmount);
+				Utils.debug("send to randomPlayers: " + randomPlayers);
+				playerA = team.getPlayers().get(randomPlayers);
+				gc.sendGameEvent(playerA, "this_shake");
+				//change UI
+				gc.getGameLister().onIncommingEvent("shake", new String[]{
+						String.valueOf(playerA.getCliendId()), team.getName()
+				});
+			}
 		}
 		
 	}
