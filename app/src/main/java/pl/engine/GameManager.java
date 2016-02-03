@@ -3,11 +3,10 @@ package pl.engine;
 import android.os.Handler;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class GameManager {
@@ -18,12 +17,20 @@ public class GameManager {
     private boolean isGameEnd = false;
     private boolean isReady = false;
     private Handler customHandler = new Handler();
-    private Runnable updateTimerThread;
-    private Timer timer;
+    private Runnable runnable;
 	private GameContext gc;
 	private HashMap<String, Integer> teamA ;
 	private HashMap<String, Integer> teamB ;
+    private ResultScore resultScore;
+    private Handler handler = new Handler();
+    private long count = 0;
+    private boolean isStarted = false;
+    private boolean wasStarted = false; //ในอดีตเคย start ป่าว
+    public GameManager(GameContext gc){
+        this.gc = gc;
+    }
 	public GameManager(ResultScore resultScore, GameContext gc, int number, int round){
+        this.resultScore = resultScore;
 		this.gc = gc; 
 		this.round = round;
 		this.number = number;
@@ -34,7 +41,6 @@ public class GameManager {
 		teamB.put("currentScore", 0);
 		teamB.put("winRound", 0);
 	}
-
 	public void initPlayerstoUI(List<Team> teams){
 		Log.d("DEBUG_init_PL", "send leaw");
 
@@ -68,6 +74,15 @@ public class GameManager {
 
 	}
 
+    public void summaryScoreByGame(GameEngine gameEngine, List<Team> teams){
+        printScoreToWIN();
+        if(getTeamWin() != null){
+            Team team = getTeamWin().equals("teamA")?teams.get(0) :teams.get(1);
+            resultScore.setResult(team, gameEngine.getName());
+            gc.addResultScore(resultScore);
+        }
+       resetWinRound();
+    }
     public static interface OnGameReadyListener {
         public void ready();
     }
@@ -137,50 +152,73 @@ public class GameManager {
 		teamA.put("currentScore", 0);
 		teamB.put("currentScore", 0);
 	}
-	public void stopTimer(){
-        timer.cancel();
-		if(!isInRound())
-            gc.getCurrentGameEngine().endEngine();
 
-	}
-	
-	public void countdown(final String changeEvent,final int randomTime,final boolean isEvent){
-		timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            int i = randomTime;
-
-            public void run() {
-                Utils.print(i + " ");
-                i--;
-                if (i < 0) {
-                    if (isInRound()) {
-                        if (isEvent) {
-                            gc.sendGameEvent(changeEvent);
-                        }
-                    }else{
-                        gc.getCurrentGameEngine().endEngine();
-                    }
-                    Utils.debug("");
-                    i = randomTime;
-                    timer.cancel();
+    public void tick(int times,String changeEvent){
+        //normal round
+        Utils.print(count + " ");
+        count++;
+        if(count == times){
+            if (isInRound()) {
+               checkNumber();
+                if (!changeEvent.isEmpty()) {
+                    gc.sendGameEvent(changeEvent);
                 }
-
             }
-        }, 0, 1000);
-	}
+//            else{
+////                gc.getCurrentGameEngine().endEngine();
+//                //endGame
+//            }
+        }
+        Utils.debug("");
+    }
+    public  void resetTimer(){
+        count = 0;
+    }
 
-    public boolean isInRound(){
+    public boolean timerWasStarted(){
+        return wasStarted;
+    }
+    public void setIsStarted(boolean value){
+        isStarted = value;
+    }
+    public void startTimer(final int times, final String event){
+        isStarted = true;
+        wasStarted = true;
+
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if(isStarted) {
+                    tick(times, event);
+                    handler.postDelayed(this, 1000); //เรียกให้วน loop
+                }
+            }
+        };
+        handler.postDelayed(runnable, 1000); // execute runable ครั้งเดียว
+    }
+    public void stopTimer(){
+        handler.removeCallbacks(runnable);
+        isStarted = false;
+        wasStarted = false;
+    }
+
+    public void plusNumber(){
         currentNumber++;
-        if(currentNumber > number){
+    }
+    public boolean isInRound(){
+        return currentRound <= round;
+    }
+    public void checkNumber(){
+        if(currentNumber < number){
+            currentNumber++;
+        }else{
             currentRound++;
             versus();
             resetScore();
             printScoreToWIN();
             currentNumber = 1;
         }
-        return currentRound <= round;
     }
-
 
 	public void printScoreToNumber() {
 		gc.getGameLister().onIncommingEvent("getCurrentScore",new String[]{

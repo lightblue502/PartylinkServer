@@ -110,6 +110,17 @@ function getCurrentScore(scoreA ,scoreB){
   });
 };
 
+function getSolves(params){
+    var solve  =  params[0];
+    var clientId = params[1];
+    var team = params[2];
+    console.log(clientId + " " +team);
+    var person = getPerson(clientId);
+    angular.element(document.body).scope().$apply(function($scope){
+      $scope.displayText = "Solve = "+solve+" "+person.name+" "+person.team;
+  });
+}
+
 function getQuestion(params){
   console.log("hello getQuestion");
   angular.element(document.body).scope().$apply(function($scope){
@@ -157,4 +168,18 @@ function initPlayer(teams){
       });
     });
   });
+}
+
+
+function getPerson(personId){
+  var aa;
+  angular.element(document.body).scope().$apply(
+    function($scope){
+      aa = $scope.teamA.filter(function(p){return p.id==personId;})[0];
+      if(aa == null)
+        aa = $scope.teamB.filter(function(p){return p.id==personId;})[0];
+    });
+  if(aa == null)
+    console.log("ERROR : getPerson id:"+personId);
+  return aa;
 }
