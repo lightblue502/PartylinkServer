@@ -60,12 +60,12 @@ public class ResultEngine extends GameEngine{
         Utils.debug("========================================");
         Utils.debug("==========  SUMMARY SCORE !!! ==========");
         Utils.debug("========================================");
-        for (ResultScore resultScore : resultScoreLists) {
+        for (ResultScore resultScore : gc.getResultScores()) {
             resultScore.printResult();
         }
 
         String strs = "[";
-        for (ResultScore resultScore : resultScoreLists) {
+        for (ResultScore resultScore : gc.getResultScores()) {
             strs += "{'team':'" + resultScore.getTeam().getName();
             strs += "','gameName':'" + resultScore.getGameName();
             strs += "'},";

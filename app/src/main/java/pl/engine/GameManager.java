@@ -42,7 +42,6 @@ public class GameManager {
 		teamB.put("winRound", 0);
 	}
 	public void initPlayerstoUI(List<Team> teams){
-		Log.d("DEBUG_init_PL", "send leaw");
 
 		String strs = "[";
 		for (Team team: teams) {
@@ -52,10 +51,12 @@ public class GameManager {
 				strs += ",'name':'" + player.getName();
 				strs += "'},";
 			}
-			strs = strs.substring(0,strs.length()-1);
+            if(strs.charAt(strs.length()-1) == ',')
+			    strs = strs.substring(0,strs.length()-1);
 			strs += "],";
 		}
-		strs = strs.substring(0,strs.length()-1);
+        if(strs.charAt(strs.length()-1) == ',')
+		    strs = strs.substring(0,strs.length()-1);
 		strs += "]";
 		Log.d("DEBUG_init_PL", strs + "");
 		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
@@ -81,7 +82,9 @@ public class GameManager {
             resultScore.setResult(team, gameEngine.getName());
             gc.addResultScore(resultScore);
         }
-       resetWinRound();
+        resetWinRound();
+        Log.d("DEBUG","summary before next engine");
+        gc.nextEngine();
     }
     public static interface OnGameReadyListener {
         public void ready();

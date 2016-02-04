@@ -38,7 +38,7 @@ public class NumericEngine extends GameEngine{
 		Utils.debug("END GAME..");
         gameManager.stopTimer();
 		gameManager.summaryScoreByGame(this, teams);
-		gc.nextEngine();
+//		gc.nextEngine();
 	}
 	
 	@Override
