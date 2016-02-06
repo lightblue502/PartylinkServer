@@ -49,6 +49,7 @@ public class ShakeActivity extends GameActivity {
         }
         else if(event.equals("change_engine")){
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
+            Log.d("DEBUG","change_engine"+gc.getCurrentGameEngine().getActivityClass().getClasses().toString());
             startActivity(intent);
         }
         else if(event.equals("getCurrentScore")){

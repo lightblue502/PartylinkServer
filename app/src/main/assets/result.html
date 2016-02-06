@@ -14,7 +14,8 @@
     	<span class="headertext"> Result </span>
   	</div>
     {{resultScores}}
-  HELLO RESULT SCORE
- 
+    <div ng-repeat="rs in resultScores">
+      {{rs.team}}  -- {{rs.gameName}}
+    </div> 
 </body>
 </html>

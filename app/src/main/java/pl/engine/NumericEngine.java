@@ -10,7 +10,7 @@ public class NumericEngine extends GameEngine{
 	private int playerAmount;
 	private Integer answer;
 	private int cntPlayer = 0;
-	private int topicPerPlayer = 2;
+	private int topicPerPlayer = 4;
     private boolean firstTime = false;
 	private boolean isPlaying = false;
 	private List<Team> teams = gc.getTeams();
@@ -54,12 +54,8 @@ public class NumericEngine extends GameEngine{
 		}
 		else if(event.equals("numeric_ans") && isPlaying){
             gameManager.resetTimer();
-            Log.d("DEBUG","(coundownReady -- 3)");
-            if (gameManager.isInRound()) {
-                gameManager.checkNumber();
-            } else {
-                endEngine();
-            }
+            Log.d("DEBUG", "(coundownReady -- 3)");
+
 			//Utils.debug("in numericANS -- Score :" + clientId + " ---- ans :" + params[0]);
 			if(answer == Integer.parseInt(params[0])){
                 gameManager.scoreManage(clientId, 2);
@@ -76,6 +72,10 @@ public class NumericEngine extends GameEngine{
                 gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
                     @Override
                     public void ready() {
+						gameManager.checkNumber();
+						if (!gameManager.isInRound()) {
+							endEngine();
+						}
 //                        Log.d("DEBUG","(coundownFinish)");
                         gc.sendGameEvent("numeric_again");
 
@@ -97,14 +97,14 @@ public class NumericEngine extends GameEngine{
 		if(cntPlayer == playerAmount){
 			if(gameManager.getRound() <= 3) {
 				if (gameManager.getNumber() == 1) {
-                    Log.d("DEBUG","NEW ROUND");
+					Log.d("DEBUG","NEW ROUND");
 					gc.sendGameEvent("numeric_newRound", new String[]{});
-					gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
+//					gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
+					gameManager.printReportRound();
 					gameManager.countDownGameReady(5);
 					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
 						@Override
 						public void ready() {
-							gameManager.printReportRound();
 							sendEventToTeams();
 						}
 					});

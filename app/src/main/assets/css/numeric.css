@@ -1,7 +1,20 @@
+@font-face {
+    font-family: KraftNineDEMO;
+    src: url(../fonts/KraftNineDEMO.ttf);
+}
+@font-face {
+    font-family: handwriting;
+    src: url(../fonts/handwriting-draft_free-version.ttf);
+}
+@font-face {
+    font-family: Return_To_Sender;
+    src: url(../fonts/Return_To_Sender.ttf);
+}
+
 body {
   padding: 40px 0px;
   background-image: url("../img/numeric_wallpaper.jpg");
-  
+  background-size: 100% 100%;
 }
 #myInput {
   position: fixed;
@@ -27,10 +40,14 @@ body {
   opacity: 0;
 }
 .headertext{
+  margin-top:8vh; 
+  font-family: KraftNineDEMO;
   color: white;
-  background-color: gray;
-  font-size: 5em;
-  white-space: pre-wrap;
+  font-size: 7vh;
+  line-height: 9vh;
+}
+.subheadtext{
+  font-size: 13vh;
 }
 .headertextBox{
   width: 100%;
@@ -56,6 +73,12 @@ body {
   text-shadow: 6px 3px #080808;
   border: 0px;
 }
+.display.status{
+  font-family: KraftNineDEMO;
+}
+.display.content{
+  font-family: handwriting;
+}
 div.centerline{
   position: absolute;
   top: 0;
@@ -76,41 +99,50 @@ div.centerline{
 .textTeam{
   width: 24vh;
   white-space: pre-wrap;
-  background-color: black;
   text-align:center;
   font-size: 8vh;
 }
+.textTeam img{
+  margin-top:7.5vh;
+  width: 27.5vh;
+}
 .icon{
   position: fixed;
-  font-size: 6vh;
+  font-size: 10vh;
   right: inherit;
+}
+.icon.icon_left{
+  left:27vw;
+}
+.icon.icon_right{
+  right:27vw;
 }
 .red{
   position: absolute;
-  color: #F55;
+  color: #ff553e;
   z-index: -2;
   top: 0vh;
+  left: 5vh;
   width: 24vh;
   
 }
 
 .blue{
   position: absolute;
-  color: #5096FF;
-  right: 0vh;
+  color: #6dcff6;
+  right: 9vh;
   width: 25vh;
   top: 0vh;
   z-index: -2;
-  background: black;
 }
 .score{
   line-height: 11.5vh;
+  font-family: handwriting;
   font-size: 11vh;
   text-shadow: 3px 3px #555;
   position: inherit;
-  top:0vh;
+  top:7vh;
   text-align: center;
-  background-color: gray;
   width: 16vh;
 }
 .score.redScorePosition{
@@ -122,7 +154,7 @@ div.centerline{
 .center {
   margin: 0;
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%)
@@ -168,7 +200,6 @@ div.boxright{
   width:  15vh;
   height: 15vh;
   border-radius: 100%;
-  
 
   background-repeat: no-repeat;
   background-position: 50%;
@@ -201,4 +232,27 @@ div.boxright{
 }
 .floatright{
   float: right;
+}
+
+.line_left img{
+  position: fixed;
+  left:2.5vw;
+  width: 32vw;
+  height: 1vh;
+  margin-top: 12.5vh;
+} 
+.line_right img{
+  position: fixed;
+  right: 2vw;
+  width: 33vw;
+  height: 1vh;
+  margin-top: 12.5vh;
+}
+.line_under img{
+  text-align: center;
+  position: absolute;
+  left: 11vw;
+  height: 1vh;
+  width: 76vw;
+  bottom: 10vh;
 }

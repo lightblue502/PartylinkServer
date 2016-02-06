@@ -127,6 +127,7 @@ public class QAEngine extends GameEngine{
             initPlayerstoUI();
             isInit = true;
             onPlayerReady(playerAmount);
+            gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
         }
         else if(event.equals("qa_ready")){
             Utils.debug("Ready");
