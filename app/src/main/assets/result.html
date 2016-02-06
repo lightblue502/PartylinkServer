@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/result.css">
   <!-- <link rel="stylesheet" href="css/gameLobby.css"> -->
   <script src="lib/angular/angular.js"></script>
   <script src="js/result_ctrl.js"></script>
@@ -11,11 +12,26 @@
 </head>
 <body ng-controller="ResultCtrl">
 	<div class="headertextBox">
-    	<span class="headertext"> Result </span>
+    	<span class="headertext"> Result Score </span>
   	</div>
     {{resultScores}}
     <div ng-repeat="rs in resultScores">
       {{rs.team}}  -- {{rs.gameName}}
     </div> 
+
+    <div class="personRow">
+      <div ng-repeat="person in showTeamA" id="{{person.id}}" class="personBox floatleft">
+        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
+        <span class="personName label label-success">{{person.name}}</span>
+      </div>
+    </div>
+
+    <div class="personRow" style="right:0;">
+      <div ng-repeat="person in showTeamB" id="{{person.id}}" class="personBox floatright">
+        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
+        <span class="personName label label-success">{{person.name}}</span>
+      </div>
+    </div>
+    
 </body>
 </html>

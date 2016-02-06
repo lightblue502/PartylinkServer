@@ -58,7 +58,7 @@ public class GameManager {
         if(strs.charAt(strs.length()-1) == ',')
 		    strs = strs.substring(0,strs.length()-1);
 		strs += "]";
-		Log.d("DEBUG_init_PL", strs + "");
+		Log.d("DEBUG", "_init_PL "+ strs + "");
 		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
 	}
 
@@ -79,6 +79,7 @@ public class GameManager {
         printScoreToWIN();
         if(getTeamWin() != null){
             Team team = getTeamWin().equals("teamA")?teams.get(0) :teams.get(1);
+            Log.d("DEBUG","team "+team);
             resultScore.setResult(team, gameEngine.getName());
             gc.addResultScore(resultScore);
         }
@@ -161,8 +162,9 @@ public class GameManager {
         Utils.print(count + " ");
         count++;
         if(count == times){
+
             if (isInRound()) {
-               checkNumber();
+                checkNumber();
                 if (!changeEvent.isEmpty()) {
                     gc.sendGameEvent(changeEvent);
                 }

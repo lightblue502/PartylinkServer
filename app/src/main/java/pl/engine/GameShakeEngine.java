@@ -56,7 +56,7 @@ public class GameShakeEngine extends GameEngine{
         gameManager.summaryScoreByGame(this, teams);
 //		gc.sendGameEvent("numeric_start");
 		// gc.sendGameEvent("qa_start");
-		gc.nextEngine();
+//		gc.nextEngine();
 		
 	}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ResultEngine extends GameEngine{
 	private List<ResultScore> resultScoreLists = gc.getResultScores();
+    private List<Team> teams = gc.getTeams();
     private int playerAmount;
     private int cntPlayer = 0;
     private GameManager gameManager;
@@ -32,7 +33,11 @@ public class ResultEngine extends GameEngine{
     public void onIncomingEvent(int clientId, String event, String[] params) {
         if(event.equals("resultUI_Start")){
             gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
+            gameManager.initPlayerstoUI(teams);
         }else if(event.equals("result_ready")){
+            showResultScore();
+        }else if(event.equals("playerConfirm")){
+            playerConfirm(clientId);
             cntPlayer++;
             onPlayerReady(playerAmount);
         }
@@ -41,9 +46,8 @@ public class ResultEngine extends GameEngine{
 
     @Override
     public void onPlayerReady(int playerAmount) {
-        if(cntPlayer == playerAmount) {
-            process();
-            Log.d("DEBUG", "Result Engine--");
+        if(cntPlayer == playerAmount){
+            Log.d("DEBUG", "ResultEngine : Player Ready");
             gameManager.countDownGameReady(5);
             gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
                 @Override
@@ -52,11 +56,20 @@ public class ResultEngine extends GameEngine{
                     endEngine();
                 }
             });
-
         }
+
     }
 
-    public void process(){
+    public void playerConfirm(int clientId){
+//        Player player = gc.getPlayerByClientID(clientId);
+//        String name = player.getName();
+//        String teamName = gc.getTeamByClientId(clientId).getName();
+//        String str = "{'clientId':"+clientId+",'name':'"+name+"','team':'"+teamName+"'}";
+
+        gc.getGameLister().onIncommingEvent("playerConfirm",new String[]{String.valueOf(clientId)});
+    }
+
+    public void showResultScore(){
         Utils.debug("========================================");
         Utils.debug("==========  SUMMARY SCORE !!! ==========");
         Utils.debug("========================================");

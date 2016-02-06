@@ -47,6 +47,12 @@ public class ResultActivity extends GameActivity {
         }else if(event.equals("getResultScores")){
             Log.d("DEBUG_getResultScores",params[0]+"");
             wv.loadUrl("javascript:getResultScores("+params[0]+")");
+        }else if(event.equals("playerConfirm")){
+            Log.d("DEBUG","PlayerConfirm "+params[0]);
+            wv.loadUrl("javascript:playerConfirm("+ params[0]+")");
+        }else if(event.equals("initPlayer")){
+            Log.d("DEBUG_initPLAYER",params[0]+"");
+            wv.loadUrl("javascript:initPlayer("+params[0]+")");
         }
     }
 }
