@@ -22,21 +22,6 @@ body {
   left: 0px;
   width: 100%;
   height: 100%;
-  /*background-image: url("../img/numeric_wallpaper.jpg");*/
-  /*background-color: #689F38;*/
-/*
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-
-  -webkit-transform: translate(0px, -100%) scale(0, 0);
-  -moz-transform: translate(0px, -100%) scale(0, 0);
-  -o-transform: translate(0px, -100%) scale(0, 0);
-  -ms-transform: translate(0px, -100%) scale(0, 0);
-  transform: translate(0px, -100%) scale(0, 0);*/
-
   opacity: 0;
 }
 .headertext{
@@ -110,12 +95,15 @@ div.centerline{
   position: fixed;
   font-size: 10vh;
   right: inherit;
+  margin-top: 1vh;
 }
 .icon.icon_left{
-  left:27vw;
+  right: 66vw;
+  float: right;
 }
 .icon.icon_right{
-  right:27vw;
+  left:66vw;
+  float: left;
 }
 .red{
   position: absolute;
@@ -197,9 +185,10 @@ div.boxright{
 }
 
 .personPic{
-  width:  15vh;
-  height: 15vh;
+  width:  10vh;
+  height: 10vh;
   border-radius: 100%;
+  margin: 0 2.5vh;
 
   background-repeat: no-repeat;
   background-position: 50%;
@@ -215,15 +204,16 @@ div.boxright{
 }
 .personBox{
   width:  15vh;
-  height: 20vh;
+  height: 5vh;
   /*overflow: hidden;*/
   margin: 2vh;
   text-align: center;
   font-family: cursive;
-  font-size: 3vh;
+  font-size: 4vh;
   font-weight: bolder;
 }
 .personName{
+  display: inherit !important;
   word-wrap:break-word;
 }
 
@@ -239,20 +229,20 @@ div.boxright{
   left:2.5vw;
   width: 32vw;
   height: 1vh;
-  margin-top: 12.5vh;
+  margin-top: 1vh;
 } 
 .line_right img{
   position: fixed;
   right: 2vw;
   width: 33vw;
   height: 1vh;
-  margin-top: 12.5vh;
+  margin-top: 1vh;
 }
 .line_under img{
   text-align: center;
   position: absolute;
-  left: 11vw;
+  left: 5vw;
   height: 1vh;
-  width: 76vw;
-  bottom: 10vh;
+  width: 90vw;
+  bottom: 12vh;
 }

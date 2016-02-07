@@ -2,13 +2,12 @@ var app = angular.module("myApp", []);
 app.controller('NumericCtrl', ['$scope','$interval', function($scope, $interval){
   console.log("===== NumericCtrl =====");
 
-  // var a1 = new Person(1,"John",0,"img/637.jpg");
+  var a1 = new Person(1,"John","teamA","img/637.jpg");
   // var a2 = new Person(3,"Jane",0);
-  // var b1 = new Person(2,"Sam",1,"img/coby.jpg");
+  var b1 = new Person(2,"Sam","teamB","img/coby.jpg");
   // var b2 = new Person(4,"",1);
-  $scope.allPlayers=[];
-  $scope.teamA= $scope.allPlayers.filter(function(p){return p.team==0;});
-  $scope.teamB= $scope.allPlayers.filter(function(p){return p.team==1;});
+  $scope.teamA= [a1];
+  $scope.teamB= [b1];
   $scope.display = "display content center"
 
   var time;
