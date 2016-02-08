@@ -36,6 +36,7 @@ public class ResultEngine extends GameEngine{
             gameManager.initPlayerstoUI(teams);
         }else if(event.equals("result_ready")){
             showResultScore();
+            cntPlayer++;
         }else if(event.equals("playerConfirm")){
             playerConfirm(clientId);
             cntPlayer++;
@@ -70,22 +71,25 @@ public class ResultEngine extends GameEngine{
     }
 
     public void showResultScore(){
-        Utils.debug("========================================");
-        Utils.debug("==========  SUMMARY SCORE !!! ==========");
-        Utils.debug("========================================");
-        for (ResultScore resultScore : gc.getResultScores()) {
-            resultScore.printResult();
-        }
+        if(cntPlayer == playerAmount){
+            Utils.debug("========================================");
+            Utils.debug("==========  SUMMARY SCORE !!! ==========");
+            Utils.debug("========================================");
+            for (ResultScore resultScore : gc.getResultScores()) {
+                resultScore.printResult();
+            }
 
-        String strs = "[";
-        for (ResultScore resultScore : gc.getResultScores()) {
-            strs += "{'team':'" + resultScore.getTeam().getName();
-            strs += "','gameName':'" + resultScore.getGameName();
-            strs += "'},";
+            String strs = "[";
+            for (ResultScore resultScore : gc.getResultScores()) {
+                strs += "{'team':'" + resultScore.getTeam().getName();
+                strs += "','gameName':'" + resultScore.getGameName();
+                strs += "'},";
+            }
+            strs = strs.substring(0, strs.length() - 1);
+            strs += "]";
+            gc.getGameLister().onIncommingEvent("getResultScores", new String[]{strs});
         }
-        strs = strs.substring(0, strs.length() - 1);
-        strs += "]";
-        gc.getGameLister().onIncommingEvent("getResultScores", new String[]{strs});
+        cntPlayer = 0;
     }
 
 

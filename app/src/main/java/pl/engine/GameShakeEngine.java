@@ -71,6 +71,8 @@ public class GameShakeEngine extends GameEngine{
 					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
 						@Override
 						public void ready() {
+							if(gameManager.timerWasStarted())
+								gameManager.runTimerAgain();
 							gameManager.printReportRound();
 							sendEventToTeams();
 						}
@@ -102,7 +104,7 @@ public class GameShakeEngine extends GameEngine{
 		}
 		int randomTime = new Random().nextInt((5 - 2) + 1) + 2;
         gameManager.resetTimer();
-        if(!gameManager.timerWasStarted())
+		if(!gameManager.timerWasStarted())
 		    gameManager.startTimer(randomTime, "change_shake");
 //		gameManager.countdown(, randomTime, true);
 		cntPlayer = 0;

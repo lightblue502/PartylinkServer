@@ -10,7 +10,7 @@ public class NumericEngine extends GameEngine{
 	private int playerAmount;
 	private Integer answer;
 	private int cntPlayer = 0;
-	private int topicPerPlayer = 4;
+	private int topicPerPlayer = 1;
     private boolean firstTime = false;
 	private boolean isPlaying = false;
 	private List<Team> teams = gc.getTeams();
@@ -53,9 +53,6 @@ public class NumericEngine extends GameEngine{
 			onPlayerReady(playerAmount);
 		}
 		else if(event.equals("numeric_ans") && isPlaying){
-            gameManager.resetTimer();
-            Log.d("DEBUG", "(coundownReady -- 3)");
-
 			//Utils.debug("in numericANS -- Score :" + clientId + " ---- ans :" + params[0]);
 			if(answer == Integer.parseInt(params[0])){
                 gameManager.scoreManage(clientId, 2);
@@ -68,14 +65,16 @@ public class NumericEngine extends GameEngine{
 				isPlaying = false;
 
                 //check for change question or change game
+                gameManager.resetTimer();
                 gameManager.countDownGameReady(3);
                 gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
                     @Override
                     public void ready() {
+						gameManager.resetTimer();
 						gameManager.checkNumber();
-						if (!gameManager.isInRound()) {
-							endEngine();
-						}
+//						if (!gameManager.isInRound()) {
+//							endEngine();
+//						}
 //                        Log.d("DEBUG","(coundownFinish)");
                         gc.sendGameEvent("numeric_again");
 
@@ -105,6 +104,8 @@ public class NumericEngine extends GameEngine{
 					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
 						@Override
 						public void ready() {
+                            if(gameManager.timerWasStarted())
+                                gameManager.runTimerAgain();
 							sendEventToTeams();
 						}
 					});
