@@ -46,7 +46,8 @@ function getSolves(params){
     var person = getPerson(clientId);
     angular.element(document.body).scope().$apply(function($scope){
       $scope.display = "display status center"
-      $scope.displayText = "Solve = "+solve+" "+person.name+" "+person.team;
+      // $scope.displayText = "Solve = "+solve+" "+person.name+" "+person.team;
+      $scope.displayText = "currect!!"+person.name+" "+person.team;
   });
 }
 

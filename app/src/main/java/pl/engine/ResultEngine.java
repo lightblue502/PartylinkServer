@@ -35,7 +35,9 @@ public class ResultEngine extends GameEngine{
             gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
             gameManager.initPlayerstoUI(teams);
         }else if(event.equals("result_ready")){
+            cntPlayer++;
             showResultScore();
+
         }else if(event.equals("playerConfirm")){
             playerConfirm(clientId);
             cntPlayer++;
@@ -70,22 +72,27 @@ public class ResultEngine extends GameEngine{
     }
 
     public void showResultScore(){
-        Utils.debug("========================================");
-        Utils.debug("==========  SUMMARY SCORE !!! ==========");
-        Utils.debug("========================================");
-        for (ResultScore resultScore : gc.getResultScores()) {
-            resultScore.printResult();
+        Log.d("DEBUG","showResultScore, Call function |player amount:" + cntPlayer + "| playerAmount:"+playerAmount);
+        if(cntPlayer == playerAmount){
+            Utils.debug("========================================");
+            Utils.debug("==========  SUMMARY SCORE !!! ==========");
+            Utils.debug("========================================");
+            for (ResultScore resultScore : gc.getResultScores()) {
+                resultScore.printResult();
+            }
+
+            String strs = "[";
+            for (ResultScore resultScore : gc.getResultScores()) {
+                strs += "{'team':'" + resultScore.getTeam().getName();
+                strs += "','gameName':'" + resultScore.getGameName();
+                strs += "'},";
+            }
+            strs = strs.substring(0, strs.length() - 1);
+            strs += "]";
+            gc.getGameLister().onIncommingEvent("getResultScores", new String[]{strs});
+            cntPlayer = 0;
         }
 
-        String strs = "[";
-        for (ResultScore resultScore : gc.getResultScores()) {
-            strs += "{'team':'" + resultScore.getTeam().getName();
-            strs += "','gameName':'" + resultScore.getGameName();
-            strs += "'},";
-        }
-        strs = strs.substring(0, strs.length() - 1);
-        strs += "]";
-        gc.getGameLister().onIncommingEvent("getResultScores", new String[]{strs});
     }
 
 

@@ -201,10 +201,14 @@ public class GameManager {
         };
         handler.postDelayed(runnable, 1000); // execute runable ครั้งเดียว
     }
+    public void runTimerAgain(){
+        isStarted = true;
+        runnable.run();
+    }
     public void stopTimer(){
         handler.removeCallbacks(runnable);
         isStarted = false;
-        wasStarted = false;
+//        wasStarted = false;
     }
 
     public void plusNumber(){
@@ -217,12 +221,14 @@ public class GameManager {
         if(currentNumber < number){
             currentNumber++;
         }else{
+            stopTimer();
             currentRound++;
             versus();
             resetScore();
             printScoreToWIN();
             currentNumber = 1;
         }
+//        Log.d("DEBUG","checkNumber call and plus ->"+ currentNumber);
     }
 
 	public void printScoreToNumber() {

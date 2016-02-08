@@ -1,0 +1,40 @@
+<html ng-app="myApp">
+<head>
+  <title>End Score</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/endGame.css">
+  <!-- <link rel="stylesheet" href="css/gameLobby.css"> -->
+  <script src="lib/angular/angular.js"></script>
+  <script src="js/end_ctrl.js"></script>
+  <script src="js/end_link.js"></script>
+</head>
+<body ng-controller="EndCtrl">
+	<div class="headertextBox">
+    	<span class="headertext"> End Game </span>
+  	</div>
+    {{endScores}}
+    <div ng-repeat="rs in resultScores">
+      {{rs.team}}  -- {{rs.gameName}}
+    </div> 
+
+
+    <div>TEAM {{teamWin}} WIN !!!</div>
+
+    <div class="personRow">
+      <div ng-repeat="person in showTeamA" id="{{person.id}}" class="personBox floatleft">
+        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
+        <span class="personName label label-success">{{person.name}}</span>
+      </div>
+    </div>
+
+    <div class="personRow" style="right:0;">
+      <div ng-repeat="person in showTeamB" id="{{person.id}}" class="personBox floatright">
+        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
+        <span class="personName label label-success">{{person.name}}</span>
+      </div>
+    </div>
+    
+</body>
+</html>

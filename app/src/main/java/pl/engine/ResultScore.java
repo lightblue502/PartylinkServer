@@ -1,6 +1,8 @@
 package pl.engine;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ResultScore {
 	private Team team;
@@ -25,6 +27,19 @@ public class ResultScore {
 	
 	public void printResult(){
 		Utils.debug("TEAM : "+ team.getName() + " ----"+ gameName);
+	}
+
+	public static String getTeamWin(List<ResultScore> resultScores){
+		int counterTeamA = 0;
+		int counterTeamB = 0;
+		for(ResultScore resultScore: resultScores){
+			if(resultScore.getTeam().getName().equals("teamA")){
+				counterTeamA++;
+			}else if(resultScore.getTeam().getName().equals("teamB")){
+				counterTeamB++;
+			}
+		}
+		return counterTeamA > counterTeamB ? "teamA": "teamB";
 	}
 	
 }
