@@ -47,10 +47,13 @@ function shake(id, team){
 
   angular.element(document.body).scope().$apply(
     function($scope){
-      if(team == 'teamA')
+      if(team == 'teamA'){
         $scope.showleft.push(person);
-      else
+      }
+      else{
         $scope.showright.push(person);
+      }
+      updateStyle ($scope)
       console.log(person);
     });
   return true;
@@ -64,6 +67,7 @@ function resetStage () {
     cloneB = $scope.showright;
     $scope.showleft = [];
     $scope.showright = [];
+    updateStyle ($scope)
   });
 
   cloneA.forEach(function(person){
