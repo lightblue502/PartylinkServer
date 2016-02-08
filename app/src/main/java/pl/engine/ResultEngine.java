@@ -35,8 +35,9 @@ public class ResultEngine extends GameEngine{
             gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
             gameManager.initPlayerstoUI(teams);
         }else if(event.equals("result_ready")){
-            showResultScore();
             cntPlayer++;
+            showResultScore();
+
         }else if(event.equals("playerConfirm")){
             playerConfirm(clientId);
             cntPlayer++;
@@ -71,6 +72,7 @@ public class ResultEngine extends GameEngine{
     }
 
     public void showResultScore(){
+        Log.d("DEBUG","showResultScore, Call function |player amount:" + cntPlayer + "| playerAmount:"+playerAmount);
         if(cntPlayer == playerAmount){
             Utils.debug("========================================");
             Utils.debug("==========  SUMMARY SCORE !!! ==========");
@@ -88,8 +90,9 @@ public class ResultEngine extends GameEngine{
             strs = strs.substring(0, strs.length() - 1);
             strs += "]";
             gc.getGameLister().onIncommingEvent("getResultScores", new String[]{strs});
+            cntPlayer = 0;
         }
-        cntPlayer = 0;
+
     }
 
 

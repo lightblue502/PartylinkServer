@@ -41,9 +41,12 @@
             android:name=".QAActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape" />
-        <activity android:name=".ResultScoreActivity" />
         <activity
             android:name=".ResultActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".EndActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape"></activity>
     </application>
