@@ -16,7 +16,7 @@
 		<div class="roundtext whitestroke">ROUND {{round}}</div>
 
 		<div class="process"></div>
-		<div class="processscore inred" ng-style="{'width':(score.A*44/(score.A+score.B)) +'vw'}"></div>
+		<div class="processscore inred" ng-style="{'width':((scoreMax/2+(score.A-score.B))*44/scoreMax) +'vw'}"></div>
 		<div class="processscore inblue"></div>
 	</div>
 	<div class="headertextBox">
