@@ -49,6 +49,12 @@ public class QAActivity extends GameActivity {
         if(params ==  null){
             return;
         }
+        else if (event.equals("game_pause")) {
+            super.changeToPauseFragment(R.id.fragment_container);
+        }
+        else if(event.equals("game_resume")){
+            super.onSuicidePauseFragment();
+        }
         else if(event.equals("change_engine")){
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             startActivity(intent);

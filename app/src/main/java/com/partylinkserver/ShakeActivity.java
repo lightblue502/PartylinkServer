@@ -47,6 +47,12 @@ public class ShakeActivity extends GameActivity {
         if(params ==  null){
             return;
         }
+        else if (event.equals("game_pause")) {
+            super.changeToPauseFragment(R.id.fragment_container);
+        }
+        else if(event.equals("game_resume")){
+            super.onSuicidePauseFragment();
+        }
         else if(event.equals("change_engine")){
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             Log.d("DEBUG","change_engine"+gc.getCurrentGameEngine().getActivityClass().getClasses().toString());
