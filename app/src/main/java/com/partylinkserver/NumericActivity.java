@@ -83,8 +83,11 @@ public class NumericActivity extends GameActivity {
         }
         else if(event.equals("initPlayer")){
             //create new teams
-            Log.d("DEBUG_initPlayer","at server UI --- "+params[0]);
+//            Log.d("DEBUG_initPlayer","at server UI --- "+params[0]);
             wv.loadUrl("javascript:initPlayer("+params[0]+")");
+        }else if(event.equals("getSolves")){
+//            Log.d("DEBUG_getSolves","" +params[0]+params[1]+params[2]);
+            wv.loadUrl("javascript:getSolves(["+ params[0]+","+ params[1]+",'"+ params[2]+"'])");
         }
     }
 

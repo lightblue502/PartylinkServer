@@ -9,12 +9,19 @@
 	<title>Party link - shake</title>
 </head>
 <body ng-controller="BodyController">
-	<div class="centerline"></div>
+	<div class="bg"></div>
+	<div class="center">
+		<div class="headerimg base"></div>
+		<div class="headerimg glow"></div>
+		<div class="roundtext whitestroke">ROUND {{round}}</div>
+
+		<div class="process"></div>
+		<div class="processscore inred" ng-style="{'width':((scoreMax/2+(score.A-score.B))*44/scoreMax) +'vw'}"></div>
+		<div class="processscore inblue"></div>
+	</div>
 	<div class="headertextBox">
-		<span class="headertext"> ROUND {{round}} </span>
+
 		<div class="red floatleft">
-			<div class="textTeam floatleft"><b>RED</b></div>
-			<!-- <div class="score floatleft">{{score.A}}</div> -->
 			<div class="icon">
 				<a ng-repeat="icon in iconScore.red track by $index">
 					<span class="icon glyphicon glyphicon-tower floatleft" ng-style="{'color': icon.color}"></span> 
@@ -22,8 +29,6 @@
 			</div>
 		</div>
 		<div class="blue floatright">
-			<div class="textTeam floatright"><b>BLUE</b></div>
-			<!-- <div class="score floatright">{{score.B}}</div> -->
 			<div class="icon" >
 				<a ng-repeat="icon in iconScore.blue track by $index">
 					<span class="icon glyphicon glyphicon-tower floatright" ng-style="{'color': icon.color}"></span>
@@ -34,48 +39,40 @@
 
 
 	<div class="boxleft">
-		<div class="progress progressleft">
-		  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" ng-style="{'width': ((score.A)*100/scoreMax)+'%'}">
-		  </div>
-		</div>
 
-		<div id="showleft" class="showbox closeleft">
-			<div ng-style="showleftbox">
-				<div ng-repeat="person in showleft" class="showPersonBox floatleft">
-					<div class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
-					<span class="personName label label-success">{{person.name}}</span>
+		<div id="showleft" class="showpos left">
+			<div class="showrow" ng-style="showStyle.left.row">
+				<div ng-repeat="person in showleft" class="showPersonBox floatleft" ng-style="showStyle.left.box">
+					<div class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66', 'width': showStyle.left.box.width, 'height':showStyle.left.box.height}"></div>
+					<span class="showPersonName left label"  ng-style="showStyle.left.name">{{person.name}}</span>
 				</div>
 			</div>
 		</div>
 
-		<div class="personRow">
+		<div class="personRow rowleft">
 			<div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft">
-				<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
-				<span class="personName label label-success">{{person.name}}</span>
+				<div class="personPic left" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
+				<span class="personName namered label">{{person.name}}</span>
 			</div>
 		</div>
 	</div>
 
 	<div class="boxright">
-		<div class="progress progressright">
-		  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" ng-style="{'width': ((score.B)*100/scoreMax)+'%'}">
-		  </div>
-		</div>
 
 		
-		<div id="showright" class="showbox closeright">
-			<div ng-style="showrightbox">
-				<div ng-repeat="person in showright" class="showPersonBox floatright">
-					<div class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
-					<span class="personName label label-success">{{person.name}}</span>
+		<div id="showright" class="showpos right">
+			<div class="showrow" ng-style="showStyle.right.row">
+				<div ng-repeat="person in showright" class="showPersonBox floatright" ng-style="showStyle.right.box">
+					<div class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d', 'width': showStyle.right.box.width, 'height':showStyle.right.box.height}"></div>
+					<span class="showPersonName left label"  ng-style="showStyle.right.name">{{person.name}}</span>
 				</div>
 			</div>
 		</div>
 
-		<div class="personRow" style="right:0;">
+		<div class="personRow rowright">
 			<div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatright">
-				<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
-				<span class="personName label label-success">{{person.name}}</span>
+				<div class="personPic right" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
+				<span class="personName nameblue label label-success">{{person.name}}</span>
 			</div>
 		</div>
 

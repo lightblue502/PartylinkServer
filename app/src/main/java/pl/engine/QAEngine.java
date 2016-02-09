@@ -83,13 +83,7 @@ public class QAEngine extends GameEngine{
     @Override
     public void endEngine() {
         Utils.debug("END GAME");
-        gameManager.printScoreToWIN();
-        if(gameManager.getTeamWin() != null){
-            Team team = gameManager.getTeamWin().equals("teamA")?teams.get(0) :teams.get(1);
-            resultScore.setResult(team, this);
-            gc.addResultScore(resultScore);
-        }
-        gameManager.resetWinRound();
+        gameManager.summaryScoreByGame(this, teams);
         gc.nextEngine();
     }
 
@@ -133,6 +127,7 @@ public class QAEngine extends GameEngine{
             initPlayerstoUI();
             isInit = true;
             onPlayerReady(playerAmount);
+            gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
         }
         else if(event.equals("qa_ready")){
             Utils.debug("Ready");
@@ -140,7 +135,6 @@ public class QAEngine extends GameEngine{
             onPlayerReady(playerAmount);
         }else if(event.equals("qa_ans")){
             if(correct_ans.equals(params[0])) {
-                gameManager.printScoreToNumber();
                 Utils.debug("CORRECT !!!!!!!");
                 cntPlayer = 0;
                 gameManager.scoreManage(clientId, 2);
@@ -148,6 +142,7 @@ public class QAEngine extends GameEngine{
             }else{
                 gameManager.scoreManage(clientId, -1);
             }
+            gameManager.printScoreToNumber();
         }
     }
 

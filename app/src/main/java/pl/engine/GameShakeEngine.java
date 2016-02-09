@@ -2,6 +2,7 @@ package pl.engine;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -24,7 +25,7 @@ public class GameShakeEngine extends GameEngine{
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
 		if(event.equals("shakeUI_Start")){
-			initPlayerstoUI();
+			gameManager.initPlayerstoUI(teams);
 		}
 		else if(event.equals("shake_ready")){
 			cntPlayer++;
@@ -51,9 +52,11 @@ public class GameShakeEngine extends GameEngine{
 
 	@Override
 	public void endEngine() {
+		gameManager.stopTimer();
+        gameManager.summaryScoreByGame(this, teams);
 //		gc.sendGameEvent("numeric_start");
 		// gc.sendGameEvent("qa_start");
-		gc.nextEngine();
+//		gc.nextEngine();
 		
 	}
 	
@@ -68,6 +71,8 @@ public class GameShakeEngine extends GameEngine{
 					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
 						@Override
 						public void ready() {
+							if(gameManager.timerWasStarted())
+								gameManager.runTimerAgain();
 							gameManager.printReportRound();
 							sendEventToTeams();
 						}
@@ -76,17 +81,10 @@ public class GameShakeEngine extends GameEngine{
 				else{
 					gameManager.printReportRound();
 					sendEventToTeams();
-				}
+                }
 			}
 			else{
 				Utils.debug("END GAME..");
-				gameManager.printScoreToWIN();
-				if(gameManager.getTeamWin() != null){
-					Team team = gameManager.getTeamWin().equals("teamA")?teams.get(0) :teams.get(1);
-					resultScore.setResult(team, this);
-					gc.addResultScore(resultScore);
-				}
-				gameManager.resetWinRound();
 				endEngine();
 			}
 		}
@@ -96,7 +94,8 @@ public class GameShakeEngine extends GameEngine{
 	public void sendEventToTeams(){
 		int playerAmountTeamA = teams.get(0).getPlayerAmount();
 		int playerAmountTeamB = teams.get(1).getPlayerAmount();
-		int playerAmount =  (playerAmountTeamA != 0 )?playerAmountTeamA : playerAmountTeamB;
+		int playerAmount =  Math.min(playerAmountTeamA, playerAmountTeamB);
+		if(playerAmount == 0) playerAmount+=1;
 		int randomPlayerAmount = new Random().nextInt(playerAmount) + 1;
 		Utils.debug("randomPlayerAmount :" + randomPlayerAmount );
 		
@@ -104,46 +103,33 @@ public class GameShakeEngine extends GameEngine{
 			sendEventToTeam(team, randomPlayerAmount);
 		}
 		int randomTime = new Random().nextInt((5 - 2) + 1) + 2;
-		gameManager.countdown("change_shake", randomTime, true);
+        gameManager.resetTimer();
+		if(!gameManager.timerWasStarted())
+		    gameManager.startTimer(randomTime, "change_shake");
+//		gameManager.countdown(, randomTime, true);
 		cntPlayer = 0;
 	}
 	public Player getCurrentPlayer(){
 		return playerA;
 	}
 	public void sendEventToTeam(Team team, int randomPlayerAmount){
-		for (int i = 0; i < randomPlayerAmount; i++) {
+		randomPlayerAmount = Math.min(randomPlayerAmount, team.getPlayerAmount());
+		ArrayList<Integer> sendedPlayer = new ArrayList<Integer>();
+		while (sendedPlayer.size() < randomPlayerAmount) {
 			int randomPlayers = new Random().nextInt(team.getPlayerAmount());
-			Utils.debug("send to randomPlayerAmount: " + randomPlayerAmount );
-			Utils.debug("send to randomPlayers: " + randomPlayers );
-			playerA = team.getPlayers().get(randomPlayers);
-			gc.sendGameEvent(playerA, "this_shake");
-			//change UI
-			gc.getGameLister().onIncommingEvent("shake", new String[]{ 
-				String.valueOf(playerA.getCliendId()), team.getName()
-			});
+			if(!sendedPlayer.contains(randomPlayers)) {
+				sendedPlayer.add(randomPlayers);
+				Utils.debug("send to randomPlayerAmount: " + randomPlayerAmount);
+				Utils.debug("send to randomPlayers: " + randomPlayers);
+				playerA = team.getPlayers().get(randomPlayers);
+				gc.sendGameEvent(playerA, "this_shake");
+				//change UI
+				gc.getGameLister().onIncommingEvent("shake", new String[]{
+						String.valueOf(playerA.getCliendId()), team.getName()
+				});
+			}
 		}
 		
-	}
-
-	public void initPlayerstoUI(){
-
-		String strs = "[";
-		for (Team team: teams) {
-			strs += "[";
-			for(Player player : team.getPlayers()){
-				strs += "{'id':" + player.getCliendId();
-				strs += ",'name':'" + player.getName();
-				strs += "'},";
-			}
-			if(strs.charAt(strs.length()-1) == ',')
-				strs = strs.substring(0,strs.length()-1);
-			strs += "],";
-		}
-		if(strs.charAt(strs.length()-1) == ',')
-			strs = strs.substring(0,strs.length()-1);
-		strs += "]";
-        Log.d("DEBUG_init_PL", strs + "");
-		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
 	}
 
 	public void resetPlayerShaketoUI(){

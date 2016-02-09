@@ -1,0 +1,47 @@
+.underRow{
+	position: absolute;
+	left: 50vw;
+	height: 100vh;
+	z-index: -1;
+}
+
+.underRow .center{
+	position: absolute;
+	bottom: 0vh;
+	width: 70vh;
+	height: 45vh;
+	left: -35vh;
+	background-image: url('../img/home_people.png');
+	background-size: 100% 100%;
+}
+
+.topRow{
+	position: absolute;
+	left: 50vw;
+	height: 100vh;
+	z-index: -1;
+}
+.topRow .center{
+	position: absolute;
+	top: 3vh;
+	width: 160vh;
+	height: 45vh;
+	left: -80vh;
+	background-image: url('../img/partylink_logo.png');
+	background-size: 100% 100%;
+}
+
+.middleRow{
+	position: absolute;
+	height: 100vh;
+	z-index: 1;
+}
+.middleRow .center{
+	position: absolute;
+	top: 43vh;
+	text-align: center;
+	font-weight: bold;
+	font-size: 11vh;
+	width: 100vw;
+	height: 10vh;
+}

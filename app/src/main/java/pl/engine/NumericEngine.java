@@ -10,7 +10,7 @@ public class NumericEngine extends GameEngine{
 	private int playerAmount;
 	private Integer answer;
 	private int cntPlayer = 0;
-	private int topicPerPlayer = 4;
+	private int topicPerPlayer = 1;
     private boolean firstTime = false;
 	private boolean isPlaying = false;
 	private List<Team> teams = gc.getTeams();
@@ -37,14 +37,8 @@ public class NumericEngine extends GameEngine{
 	@Override
 	public void endEngine() {
 		Utils.debug("END GAME..");
-		gameManager.printScoreToWIN();
-		if(gameManager.getTeamWin() != null){
-			Team team = gameManager.getTeamWin().equals("teamA")?teams.get(0) :teams.get(1);
-			resultScore.setResult(team, this);
-			gc.addResultScore(resultScore);
-		}
-		gameManager.resetWinRound();
-		gc.nextEngine();
+		gameManager.stopTimer();
+		gameManager.summaryScoreByGame(this, teams);
 	}
 
 	public void sendGameEventToClient(String event, String[] param ){
@@ -55,27 +49,51 @@ public class NumericEngine extends GameEngine{
 	}
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
-		Utils.debug("IncomingEven: " + event);
-		Utils.debug("GamePaused is : " + gamePaused);
 		if(!gamePaused) {
 			if (event.equals("NumericServerUI_Start")) {
 				gameManager.initPlayerstoUI(teams);
-
-				//send event to client;
+				gameManager.scoreManage(clientId, 0);
+				sendGameEventToClient(gc.getCurrentGameEngine().getClientStart(), new String[]{});
+//				gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
 			} else if (event.equals("numeric_ready")) {
 				cntPlayer++;
 				onPlayerReady(playerAmount);
 			} else if (event.equals("numeric_ans") && isPlaying) {
-				gameManager.printScoreToNumber();
+				//Utils.debug("in numericANS -- Score :" + clientId + " ---- ans :" + params[0]);
 				if (answer == Integer.parseInt(params[0])) {
-					isPlaying = false;
 					gameManager.scoreManage(clientId, 2);
-					gameManager.stopTimer();
-					sendGameEventToClient("numeric_again", new String[]{});
+					String team = gc.getTeamByClientId(clientId).getName();
+					gc.getGameLister().onIncommingEvent("getSolves", new String[]{
+							String.valueOf(answer),
+							String.valueOf(clientId),
+							team
+					});
+					isPlaying = false;
+
+					//check for change question or change game
+					gameManager.resetTimer();
+					gameManager.countDownGameReady(3);
+					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+						@Override
+						public void ready() {
+							gameManager.resetTimer();
+							gameManager.checkNumber();
+//						if (!gameManager.isInRound()) {
+//							endEngine();
+//						}
+//                        Log.d("DEBUG","(coundownFinish)");
+							sendGameEventToClient("numeric_again", new String[]{});
+//							gc.sendGameEvent("numeric_again");
+
+
+						}
+					});
+
 
 				} else {
 					gameManager.scoreManage(clientId, -1);
 				}
+				gameManager.printScoreToNumber();
 			}
 		}
 		if(event.equals("game_pause")) {
@@ -93,31 +111,43 @@ public class NumericEngine extends GameEngine{
 	@Override
 	public void onPlayerReady(int playerAmount) {
 		if(cntPlayer == playerAmount){
-            if(gameManager.getNumber() == 1){
+			if(gameManager.getRound() <= 3) {
+				if (gameManager.getNumber() == 1) {
+					Log.d("DEBUG","NEW ROUND");
 					sendGameEventToClient("numeric_newRound", new String[]{});
-					gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
-                gameManager.countDownGameReady(5);
-                gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
-                    @Override
-                    public void ready() {
-                        gameManager.printReportRound();
-                        sendEventToTeams();
+//					gc.sendGameEvent("numeric_newRound", new String[]{});
+//					gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
+					gameManager.printReportRound();
+					gameManager.countDownGameReady(5);
+					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+						@Override
+						public void ready() {
+                            if(gameManager.timerWasStarted())
+                                gameManager.runTimerAgain();
+							sendEventToTeams();
 						}
 					});
-            }else{
-                gameManager.printReportRound();
-                sendEventToTeams();
-            }
+				} else {
+					gameManager.printReportRound();
+					sendEventToTeams();
+				}
+			}else{
+				endEngine();
+			}
 
 
 		}
 	}
 	
 	public void sendEventToTeams(){
+        //reset timer prepare count
+        gameManager.resetTimer();
 		String[] ans = randomQuestion();
         sendEventToTeam(ans);
 
-		gameManager.countdown("numeric_again", 5, true);
+        //counter++; from 0;finish 5 seconds;
+        if(!gameManager.timerWasStarted())
+            gameManager.startTimer(5, "numeric_again");
 		cntPlayer = 0;
 		isPlaying = true;
 	}

@@ -1,5 +1,7 @@
 package pl.engine;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,6 +10,7 @@ import java.util.Random;
 public class RegistrarEngine extends GameEngine{
 	private int playerAmount;
 	private int numOfTeam;
+	private GameManager gameManager;
 	private List<Team> teams = gc.getTeams();
 	private List<Player> players = new ArrayList<Player>();
 	public RegistrarEngine(GameContext gc, int playerAmount, String name, Class activityClass,String clientStart){
@@ -19,6 +22,7 @@ public class RegistrarEngine extends GameEngine{
 		Team teamB = new Team("teamB",maxPlayerAmount);
 		gc.addTeams(teamA);
 		gc.addTeams(teamB);
+		this.gameManager = new GameManager(gc);
 	}
 	
 	
@@ -69,7 +73,14 @@ public class RegistrarEngine extends GameEngine{
 	public void onPlayerReady(int playerAmount){
 		if(players.size() == playerAmount){
 			randomTeam(players);
-			endEngine();
+			gameManager.countDownGameReady(5);
+			gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
+				@Override
+				public void ready() {
+					Log.d("DEBUG", "call endEngine");
+					endEngine();
+				}
+			});
 		}
 	}
 	

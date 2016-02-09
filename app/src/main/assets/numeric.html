@@ -7,57 +7,67 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <!-- // <script src="js/jquery.min.js"></script> -->
   <script src="lib/angular/angular.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/numeric.js"></script>
+  <script src="js/numeric_ctrl.js"></script>
+  <script src="js/numeric_link.js"></script>
 
 </head>
 <body ng-controller="NumericCtrl">
+  
   <!-- <div id="myInput" ng-class="viewer"> -->
-   <!--  <button type="button" class="close" id="time">{{showStatus}}</button> -->
+  <!--  <button type="button" class="close" id="time">{{showStatus}}</button> -->
 
   <div class="headertextBox">
-    <span class="headertext"> ROUND {{round}} </span>
+    <div class="headertext">
+      <p > {{title}} </p>
+      <p class="subheadtext"> {{subtitle}} </p>
+    </div>
   </div>
-    <div ng-class="display"> 
-        {{displayText}}
-    </div>
+  <div ng-class="display"> 
+    {{displayText}}
+  </div>
 
 
-    <div class="red">
-      <div class="textTeam"><b>RED</b></div>
-      <div class="score redScorePosition">{{score.A}}</div>
-      <div class="icon" >
-          <a ng-repeat="icon in iconScore.red track by $index">
-            <span class="glyphicon glyphicon-tower" ng-style="{'color': icon.color}"></span>
-          </a>
-      </div>
-    </div>
-    <div class="blue">
-      <div class="textTeam"><b>BLUE</b></div>
-      <div class="score blueScorePosition">{{score.B}}</div>
-      <div class="icon" >
-          <a ng-repeat="icon in iconScore.blue track by $index">
-            <span class="glyphicon glyphicon-tower" ng-style="{'color': icon.color}"></span>
-          </a>
-      </div>
-    </div>
+  <div class="red">
+    <div class="textTeam"><img src="img/numeric_red_icon.png"></div>
+    <div class="score redScorePosition">{{score.A}}</div>
+    <div class="line_left"><img src="img/numeric_line.png"></div>
+    <div class="icon icon_left">
+      <a ng-repeat="icon in iconScore.red track by $index">
+        <!-- <span class="glyphicon glyphicon-tower" ng-style="{'color': icon.color}"></span> -->
+        <span ng-style="{'color': icon.color,'font-family': 'Return_To_Sender'}">I</span>
 
-    <div class="personRow">
-      <div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft">
-        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
-        <span class="personName label label-success">{{person.name}}</span>
-      </div>
-    </div>
-    
-    <div class="personRow" style="right:0;">
-      <div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatright">
-        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
-        <span class="personName label label-success">{{person.name}}</span>
-      </div>
-    </div>
 
-    
-  <!-- </div> -->
+      </a>
+    </div>
+  </div>
+  <div class="blue">
+    <div class="textTeam"><img src="img/numeric_blue_icon.png"></div>
+    <div class="score blueScorePosition">{{score.B}}</div>
+    <div class="line_right"><img src="img/numeric_line.png"></div>
+    <div class="icon icon_right">
+      <a ng-repeat="icon in iconScore.blue track by $index">
+        <!-- <span class="glyphicon glyphicon-tower" ng-style="{'color': icon.color}"></span> -->
+        <span ng-style="{'color': icon.color, 'font-family': 'Return_To_Sender'}">I</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="line_under"><img src="img/numeric_line.png"></div>
+
+  <div class="personRow">
+    <div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft">
+      <!-- <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div> -->
+      <span class="personName label label-success">{{person.name}}</span>
+    </div>
+  </div>
+
+  <div class="personRow" style="right:0;">
+    <div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatright">
+      <!-- <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div> -->
+      <span class="personName label label-success">{{person.name}}</span>
+    </div>
+  </div>
+
     
 </body>
 </html>
