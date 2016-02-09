@@ -2,10 +2,13 @@ package com.partylinkserver;
 
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import java.nio.LongBuffer;
@@ -16,8 +19,9 @@ import pl.engine.RegistrarEngine;
 import pl.engine.Utils;
 
 public class MainActivity extends GameActivity {
-    private TextView tv;
+//    private TextView tv;
     private String ip;
+    private WebView wv;
     private GameContext gc;
     private int playerAmount = 2;
 
@@ -31,8 +35,47 @@ public class MainActivity extends GameActivity {
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
         Log.d("DEBUG_MAIN","ipAddress --- >"+ip);
-        tv = (TextView)findViewById(R.id.showIpText);
-        tv.setText(ip);
+//        tv = (TextView)findViewById(R.id.showIpText);
+//        tv.setText(ip);
+
+        //webView
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
+        wv = (WebView)findViewById(R.id.mainWebView);
+//        wv.loadData("<h3> Hello world</h3>", "text/html","UTF-8");
+        wv.loadUrl("file:///android_asset/home.html");
+        wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
+
+        JavaScriptInterface javaScriptInterface = JavaScriptInterface.getInstance();
+        javaScriptInterface.init(this);
+
+        wv.addJavascriptInterface(javaScriptInterface, "Android");
+        Log.d("DEBUG_result", "This is result activity");
+
+        javaScriptInterface.setOnGameReadyListener(new JavaScriptInterface.onUiReadyListener() {
+            @Override
+            public void ready() {
+                sendGameEvent("homeUI_Start");
+            }
+        });
+
+
+        //endwebview
+        new CountDownTimer(1000 * 5, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                wv.loadUrl("javascript:loading("+(millisUntilFinished / 1000)+")");
+//                mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+            public void onFinish() {
+//                mTextField.setText("done!");
+                wv.loadUrl("javascript:getIpAddress('"+ip+"')");
+            }
+        }.start();
+
+
+
 
         if(gc != null) {
             if (gc.getCurrentGameEngine() instanceof RegistrarEngine) {
@@ -58,6 +101,9 @@ public class MainActivity extends GameActivity {
             }else {
                 Log.d("MAIN", "cannot get instance");
             }
+        }else if(event.equals("getIpAddress")){
+            Log.d("DEBUG_getIpAddress", params[0] + "");
+            wv.loadUrl("javascript:getIpAddress('"+params[0]+"')");
         }
     }
 
