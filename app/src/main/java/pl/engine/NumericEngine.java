@@ -16,6 +16,7 @@ public class NumericEngine extends GameEngine{
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
 	private ResultScore resultScore = new ResultScore();
+	private boolean gamePaused = false;
 	public NumericEngine(GameContext gc,int playerAmount, String name, Class activityClass,String clientStart) {
 		super(gc, name, activityClass,clientStart);
 		this.answer = null;
@@ -43,34 +44,48 @@ public class NumericEngine extends GameEngine{
 			gc.addResultScore(resultScore);
 		}
 		gameManager.resetWinRound();
-        // gc.sendGameEvent("qa_start");
 		gc.nextEngine();
 	}
-	
+
+	public void sendGameEventToClient(String event, String[] param ){
+		Utils.debug("GamePause: " + gamePaused + " event : " + event);
+		if(!gamePaused){
+			gc.sendGameEvent(event, param);
+		}
+	}
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
-		if (event.equals("NumericServerUI_Start")){
-            gameManager.initPlayerstoUI(teams);
+		Utils.debug("IncomingEven: " + event);
+		Utils.debug("GamePaused is : " + gamePaused);
+		if(!gamePaused) {
+			if (event.equals("NumericServerUI_Start")) {
+				gameManager.initPlayerstoUI(teams);
 
-            //send event to client;
-            gc.sendGameEvent("numeric_start");
-		}
-		else if(event.equals("numeric_ready")){
-			cntPlayer++;
-			onPlayerReady(playerAmount);
-		}
-		else if(event.equals("numeric_ans") && isPlaying){
-//			Utils.debug("clientID :" +clientId + " ---- ans :"+ params[0]);
-			gameManager.printScoreToNumber();
-			if(answer == Integer.parseInt(params[0])){
-				isPlaying = false;
-				gameManager.scoreManage(clientId, 2);
-				gameManager.stopTimer();
-				gc.sendGameEvent("numeric_again");
-				
-			}else{
-				gameManager.scoreManage(clientId, -1);
+				//send event to client;
+			} else if (event.equals("numeric_ready")) {
+				cntPlayer++;
+				onPlayerReady(playerAmount);
+			} else if (event.equals("numeric_ans") && isPlaying) {
+				gameManager.printScoreToNumber();
+				if (answer == Integer.parseInt(params[0])) {
+					isPlaying = false;
+					gameManager.scoreManage(clientId, 2);
+					gameManager.stopTimer();
+					sendGameEventToClient("numeric_again", new String[]{});
+
+				} else {
+					gameManager.scoreManage(clientId, -1);
+				}
 			}
+		}
+		if(event.equals("game_pause")) {
+			gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
+			gamePaused = true;
+		}else if(event.equals("game_resume")){
+			gamePaused = false;
+//			sendGameEventToClient("game_resume", new String[]{});
+			gc.sendGameEvent("game_resume");
+			gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
 		}
 
 	}
@@ -79,7 +94,7 @@ public class NumericEngine extends GameEngine{
 	public void onPlayerReady(int playerAmount) {
 		if(cntPlayer == playerAmount){
             if(gameManager.getNumber() == 1){
-					gc.sendGameEvent("numeric_newRound", new String[]{});
+					sendGameEventToClient("numeric_newRound", new String[]{});
 					gc.getGameLister().onIncommingEvent("getQuestion", new String[]{"ready"});
                 gameManager.countDownGameReady(5);
                 gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
@@ -107,9 +122,12 @@ public class NumericEngine extends GameEngine{
 		isPlaying = true;
 	}
 
+//	public void sendEventToTeam(String[] ans){
+//		gc.sendGameEvent("numeric_question", ans);
+//	}
 	public void sendEventToTeam(String[] ans){
-		gc.sendGameEvent("numeric_question", ans);
-	}
+	sendGameEventToClient("numeric_question", ans);
+}
 
 	public String[] randomQuestion(){
 		Character[] chars = {'+', '-'};
