@@ -16,7 +16,7 @@ app.controller('ResultCtrl', ['$scope','$interval', function($scope, $interval){
 
 
   //web call android UI Ready;
-  Android.onUiReady();
+  // Android.onUiReady();
 
 
   //MOCK
@@ -27,7 +27,7 @@ app.controller('ResultCtrl', ['$scope','$interval', function($scope, $interval){
  //  ]
 
  //  var recentGame = $scope.resultScores[$scope.resultScores.length-1];
- //  recentGame.team = recentGame.team == "teamA" ? "RED": "BLUE";
+ //  recentGame.team = recentGame.team == "teamA" ? "RED Win": "BLUE Win";
  //  $scope.recentGame = recentGame; 
   
 }]);

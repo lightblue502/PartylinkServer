@@ -7,7 +7,7 @@ function getResultScores(resultScores){
 function getTeamWin(team){
   console.log(team);
   angular.element(document.body).scope().$apply(function($scope){
-    $scope.teamWin = team;
+    $scope.teamWin = (team == "teamA") ? "RED": "BLUE";
   });
 }
 

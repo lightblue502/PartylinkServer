@@ -19,12 +19,11 @@ body {
 	left: -25vw;
 	text-align: center;
 	font-weight: bold;
-	font-size: 8vh;
+	font-size: 7vh;
 	color: black;
 	width: 50vw;
 	height: 15vh;
-	background: gray;
-	opacity: 0.5;
+	background: rgba(128, 128, 128,0.5);
 	z-index: -1;
 }
 
@@ -61,7 +60,7 @@ body {
 	position: absolute;
 	color: #ffffff;
 	font-family: Continuum Bold;
-	font-size: 8vh;
+	font-size: 7vh;
 	text-align: center;
 	width: 100%;
 	margin: 10vh 0;

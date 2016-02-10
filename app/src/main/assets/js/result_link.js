@@ -4,7 +4,9 @@ function getResultScores(resultScores){
     $scope.resultScores = resultScores;
 
     var recentGame = resultScores[resultScores.length-1];
-    recentGame.team = recentGame.team == "teamA" ? "RED": "BLUE";
+    if(recentGame.winRoundA == recentGame.winRoundB)
+      recentGame.team = "DRAW";
+    recentGame.team = (recentGame.team == "teamA") ? "RED Win": "BLUE Win";
     $scope.recentGame = recentGame; 
   });
 }

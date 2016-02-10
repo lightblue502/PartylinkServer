@@ -13,7 +13,7 @@
 <body ng-controller="ResultCtrl">
   <div class="topRow"> 
     <div class="center">
-      {{recentGame.team}} Win!!
+      {{recentGame.team}}!!
     </div>
   </div>
 
@@ -21,8 +21,8 @@
     <div ng-repeat="rs in resultScores track by $index">
       <!-- {{resultScores}} -->
       <!-- {{rs.team}}  -- {{rs.gameName}} --A: {{rs.winRoundA}} -- B: {{rs.winRoundB}}  -->
-      <div ng-if="$index == 0" class="content">{{rs.gameName}}</div>
-      <div ng-if="$index == 1" class="content" style="top:39.5vh">{{rs.gameName}}</div>
+      <div ng-if="$index == 0" class="content" ng-style="{'background':(rs.winRoundA > rs.winRoundB)?'rgba(237, 20, 91,0.5)':(rs.winRoundA < rs.winRoundB)?'#00ADEF':'gray'}">{{rs.gameName}}</div>
+      <div ng-if="$index == 1" class="content" style="top:39.5vh" ng-style="{'background':(rs.winRoundA > rs.winRoundB)?'rgba(237, 20, 91,0.5)':(rs.winRoundA < rs.winRoundB)?'rgba(0, 173, 239,0.5)':'gray'}">{{rs.gameName}}</div>
       <div ng-if="$index == 2" class="content" style="top:55.5vh">{{rs.gameName}}</div>
       <div ng-if="$index == 3" class="content" style="top:71.5vh">{{rs.gameName}}</div>
     </div> 
