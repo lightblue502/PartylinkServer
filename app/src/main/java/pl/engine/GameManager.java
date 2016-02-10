@@ -83,6 +83,12 @@ public class GameManager {
             resultScore.setResult(team, gameEngine.getName());
             gc.addResultScore(resultScore);
         }
+        else{
+            Log.d("DEBUG","2 teams");
+            resultScore.setResult(teams.get(0), gameEngine.getName());
+            resultScore.setResult(teams.get(1), gameEngine.getName());
+            gc.addResultScore(resultScore);
+        }
         resetWinRound();
         Log.d("DEBUG","summary before next engine");
         gc.nextEngine();

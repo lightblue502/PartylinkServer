@@ -82,23 +82,20 @@ function updateStyle ($scope) {
 	__manageStyle__("right", $scope);
 
 	function __manageStyle__ (side, $scope) { //left || right
-	  	// angular.element(document.body).scope().$apply(
-	    // function($scope){
 
-			var width;
-			var n =	$scope["show"+side].length;
-			if(n == 1) width = 34;
-			else if(n == 2) width = 28;
-			else if(n == 3) width = 25;
+		var width;
+		var n =	$scope["show"+side].length;
+		if(n == 1) width = 34;
+		else if(n == 2) width = 28;
+		else if(n == 3) width = 25;
 
-			$scope.showStyle[side].row.width = (width+2)*n +'vh'; //+ margin*2
-			$scope.showStyle[side].row.left =  (width+2)*n /2*(-1) +'vh';
-			$scope.showStyle[side].row.top =  (n-1)*3 +'vh';
-			$scope.showStyle[side].box.width =  width +'vh';
-			$scope.showStyle[side].box.height =  width +'vh';
-			$scope.showStyle[side].name.width =  width +'vh';
-			console.log($scope.showStyle[side]);
+		$scope.showStyle[side].row.width = (width+2)*n +'vh'; //+ margin*2
+		$scope.showStyle[side].row.left =  (width+2)*n /2*(-1) +'vh';
+		$scope.showStyle[side].row.top =  (n-1)*3 +'vh';
+		$scope.showStyle[side].box.width =  width +'vh';
+		$scope.showStyle[side].box.height =  width +'vh';
+		$scope.showStyle[side].name.width =  width +'vh';
+		console.log($scope.showStyle[side]);
 
-		// });
 	};
 }
