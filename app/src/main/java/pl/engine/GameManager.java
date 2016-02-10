@@ -85,8 +85,8 @@ public class GameManager {
         }
         else{
             Log.d("DEBUG","2 teams");
-            resultScore.setResult(teams.get(0), gameEngine.getName());
-            resultScore.setResult(teams.get(1), gameEngine.getName());
+            resultScore.setResult(teams.get(0), gameEngine.getName(), teamA.get("winRound"), teamB.get("winRound"));
+            resultScore.setResult(teams.get(1), gameEngine.getName(), teamA.get("winRound"), teamB.get("winRound"));
             gc.addResultScore(resultScore);
         }
         resetWinRound();
