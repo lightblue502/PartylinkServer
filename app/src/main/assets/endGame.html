@@ -28,7 +28,8 @@
 
   <div class="middleRow">
     <div class="center">
-      <div class="animated zoomInDown">TEAM {{teamWin}} WIN !!! </div>
+      <div ng-if="teamWin!='DRAW'" class="animated zoomInDown">TEAM {{teamWin}} WIN !!! </div>
+      <div ng-if="teamWin=='DRAW'" class="animated zoomInDown">{{teamWin}} !!!!! </div>
        <div></div>
     </div>
   </div>  
