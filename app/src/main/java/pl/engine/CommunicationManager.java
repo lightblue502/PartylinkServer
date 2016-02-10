@@ -41,7 +41,7 @@ public class CommunicationManager extends Thread {
 			Utils.debug("Waiting for new connection");
 			while(!closed){
 				Socket socket = serverSocket.accept();
-
+				Utils.debug("Socket accpet" + socket);
 				String androidId = null;
 				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 //				Utils.debug("=============================================================");
@@ -55,8 +55,10 @@ public class CommunicationManager extends Thread {
 					es.execute(handler);
 					Utils.debug("Client hanlder has been created for client id = " + clientId);
 					clients.put(clientId, handler);
-					listener.addSocketPlayer((new SocketPlayer(handler, androidId, es)));
+					listener.addSocketPlayer((new SocketPlayer(clientId, handler, androidId, es)));
+					Utils.debug("Socket Initial is " + handler.getSocketString());
 					if(listener.socketPlayerReady()){
+						Utils.debug("socketPlayers ready");
 						gameListener.onIncommingEvent("socketplayers_ready", new String[0]);
 					}
 				}else{
@@ -69,13 +71,18 @@ public class CommunicationManager extends Thread {
 		
 		if(serverSocket != null){
 			try{
+				Utils.debug("================== CLOSE SOCKET ==================");
 				serverSocket.close();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
+	public boolean isEditedClients(Integer clientId, ClientHandler handler){
+		clients.put(clientId, handler);
+		return true;
+	}
 	public void close(){
 		closed = true;
 		for(ClientHandler handler : clients.values()){
@@ -96,6 +103,8 @@ public class CommunicationManager extends Thread {
 	public void sendData(int clientId, String line){
 		ClientHandler handler = clients.get(clientId);
 		if(handler != null){
+			Utils.debug("Socket when reconnect is " + handler.getSocketString());
+			Utils.debug("handler has sendData line: " + line + " to ClientId " + clientId);
 			handler.sendData(line);
 		}
 	}
@@ -125,14 +134,19 @@ public class CommunicationManager extends Thread {
 			this.socket = socket;
 		}
 
+		public String getSocketString(){
+			return socket.toString();
+		}
+
 		@Override
 		public void run() {
 			try{
 				writer = new PrintWriter(socket.getOutputStream());
 				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String line = null;
-				Utils.debug("read line commmu: " + reader);
+
 				while(!closed && (line = reader.readLine()) != null){
+					Utils.debug("Incoming event : " + line);
 					onIncomingData(clientId, line);
 				}
 			}catch(Exception e){

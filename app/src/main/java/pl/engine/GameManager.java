@@ -80,7 +80,7 @@ public class GameManager {
         if(getTeamWin() != null){
             Team team = getTeamWin().equals("teamA")?teams.get(0) :teams.get(1);
             Log.d("DEBUG","team "+team);
-            resultScore.setResult(team, gameEngine.getName());
+            resultScore.setResult(team, gameEngine.getName(), teamA.get("winRound"), teamB.get("winRound"));
             gc.addResultScore(resultScore);
         }
         else{

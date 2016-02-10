@@ -11,6 +11,7 @@ app.controller('EndCtrl', ['$scope','$interval', function($scope, $interval){
   $scope.teamA = [];
   $scope.teamB = [];
 
+  // $scope.teamWin = "BLUE"
 
   //web call android UI Ready;
   Android.onUiReady();

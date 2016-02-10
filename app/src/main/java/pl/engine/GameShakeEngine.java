@@ -15,6 +15,7 @@ public class GameShakeEngine extends GameEngine{
 	private Player playerA;
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
+	private boolean gamePaused = false;
 	private ResultScore resultScore = new ResultScore();
 	public GameShakeEngine(GameContext gc, int playerAmount, String name, Class activityClass, String clientStart) {
 		super(gc, name,activityClass,clientStart);
@@ -24,16 +25,24 @@ public class GameShakeEngine extends GameEngine{
 	
 	@Override
 	public void onIncomingEvent(int clientId, String event, String[] params) {
-		if(event.equals("shakeUI_Start")){
-			gameManager.initPlayerstoUI(teams);
+		if(!gamePaused) {
+			if (event.equals("shakeUI_Start")) {
+				gameManager.initPlayerstoUI(teams);
+			} else if (event.equals("shake_ready")) {
+				cntPlayer++;
+				onPlayerReady(playerAmount);
+			} else if (event.equals("shake_game")) {
+				gameManager.printScoreToNumber();
+				gameManager.scoreManage(clientId, 10);
+			}
 		}
-		else if(event.equals("shake_ready")){
-			cntPlayer++;
-			onPlayerReady(playerAmount);
-		}
-		else if(event.equals("shake_game")){
-			gameManager.printScoreToNumber();
-			gameManager.scoreManage(clientId, 10 );
+		if(event.equals("game_pause")) {
+			gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
+			gamePaused = true;
+		}else if(event.equals("game_resume")){
+			gamePaused = false;
+			sendGameEventToClient("game_resume", new String[]{});
+			gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
 		}
 //		Utils.debug("clientId " + clientId + ", event" + event);
 	}
@@ -54,12 +63,17 @@ public class GameShakeEngine extends GameEngine{
 	public void endEngine() {
 		gameManager.stopTimer();
         gameManager.summaryScoreByGame(this, teams);
-//		gc.sendGameEvent("numeric_start");
-		// gc.sendGameEvent("qa_start");
-//		gc.nextEngine();
-		
 	}
-	
+	public void sendGameEventToClient( String event, String[] param ){
+		if(!gamePaused){
+			gc.sendGameEvent(event, param);
+		}
+	}
+	public void sendGameEventToClient(Player player, String event, String[] param ){
+		if(!gamePaused){
+			gc.sendGameEvent(player, event, param);
+		}
+	}
 	@Override
 	public void onPlayerReady(int playerAmount) {
 		resetPlayerShaketoUI();
@@ -122,7 +136,7 @@ public class GameShakeEngine extends GameEngine{
 				Utils.debug("send to randomPlayerAmount: " + randomPlayerAmount);
 				Utils.debug("send to randomPlayers: " + randomPlayers);
 				playerA = team.getPlayers().get(randomPlayers);
-				gc.sendGameEvent(playerA, "this_shake");
+				sendGameEventToClient(playerA, "this_shake", new String[]{});
 				//change UI
 				gc.getGameLister().onIncommingEvent("shake", new String[]{
 						String.valueOf(playerA.getCliendId()), team.getName()

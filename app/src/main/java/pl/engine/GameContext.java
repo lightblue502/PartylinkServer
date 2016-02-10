@@ -36,7 +36,6 @@ public class GameContext implements CommunicationListener{
 	}
 
 	public GameCommunicationListener getGameLister(){
-//		Log.d("DEBUG_context","gameLister getted!!");
 		return gameLister;
 	}
 	private boolean isInitialized = false;
@@ -75,8 +74,8 @@ public class GameContext implements CommunicationListener{
 	}
 	
 	public void begin(){
-        Utils.debug("(GameContext) is begining");
 		currentGameEngine = engines.get(engineIndex);
+		Utils.debug("(GameContext) is begining --> CurrentGameengine is " + currentGameEngine.getName());
 	}
 
 	public void nextEngine(){
@@ -199,7 +198,6 @@ public class GameContext implements CommunicationListener{
 	@Override
 	public boolean existPlayerSocket(String androidId) {
 		for (SocketPlayer socketplayer : socketplayers) {
-			Utils.debug("existSP:" + socketplayer.getAndroidId());
 			if(socketplayer.getAndroidId().equals(androidId)){
 				return true;
 			}
@@ -209,12 +207,21 @@ public class GameContext implements CommunicationListener{
 	
 	public void editPlayerSocket(String androidId, Socket socket){
 		for (SocketPlayer socketplayer : socketplayers) {
-			Utils.debug("editSP:" + socketplayer.getAndroidId());
 			if(socketplayer.getAndroidId().equals(androidId)){
-				socketplayer.changeSocket(socket);
+				if(socketplayer.isChangeSocket(socket)) {
+					Integer clientId = socketplayer.getClientId();
+					if(cm.isEditedClients(clientId, socketplayer.getHandler())) {
+						playerReconnect(clientId);
+					}
+				}
 			}
 		}
 		
+	}
+
+	public void playerReconnect(Integer clientId){
+		Utils.debug("GameContext: player has reconnected");
+		sendGameEvent(getPlayerByClientID(clientId), "player_reconnect");
 	}
 
 	@Override
@@ -229,6 +236,8 @@ public class GameContext implements CommunicationListener{
 		}
 		return false;
 	}
+
+
 
 
 }

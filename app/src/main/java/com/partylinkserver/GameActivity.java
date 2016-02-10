@@ -1,5 +1,7 @@
 package com.partylinkserver;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import pl.engine.GameContext;
+import pl.engine.Utils;
 
 public abstract class GameActivity extends AppCompatActivity {
     protected GameCommunicationService gcs;
@@ -88,5 +91,19 @@ public abstract class GameActivity extends AppCompatActivity {
 
     protected  void onServiceConnected(){
 
+    }
+    protected void changeToPauseFragment(int container){
+        PauseFragment fragment = new PauseFragment();
+        addFragment(fragment, container);
+
+    }
+    public void addFragment(Fragment fragment, int container){
+        FragmentTransaction ft = getFragmentManager().beginTransaction().add(container, fragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+    protected void onSuicidePauseFragment() {
+        getFragmentManager().popBackStack();
     }
 }

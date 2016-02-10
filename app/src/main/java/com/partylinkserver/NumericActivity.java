@@ -9,6 +9,8 @@ import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import pl.engine.Utils;
+
 public class NumericActivity extends GameActivity {
     private WebView wv;
     @Override
@@ -48,14 +50,17 @@ public class NumericActivity extends GameActivity {
     public void onGameEvent(String event, String[] params) throws ClassNotFoundException {
         if(params ==  null){
             return;
-        }
-        else if(event.equals("change_engine")){
+        }else if (event.equals("game_pause")) {
+            super.changeToPauseFragment(R.id.fragment_container);
+        }else if(event.equals("game_resume")){
+            super.onSuicidePauseFragment();
+        }else if(event.equals("change_engine")){
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             startActivity(intent);
         }
         else if(event.equals("getCurrentScore")){
             //params[0] -> 'A' : params[1] -> 'B'
-            wv.loadUrl("javascript:getCurrentScore("+ params[0]+","+params[1]+")");
+            wv.loadUrl("javascript:getCurrentScore(" + params[0] + "," + params[1] + ")");
         }
         else if(event.equals("getWinRound")){
             //params[0] -> 'A' : params[1] -> 'B'
@@ -85,4 +90,5 @@ public class NumericActivity extends GameActivity {
             wv.loadUrl("javascript:getSolves(["+ params[0]+","+ params[1]+",'"+ params[2]+"'])");
         }
     }
+
 }

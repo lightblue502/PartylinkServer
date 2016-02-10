@@ -7,14 +7,18 @@ import java.util.List;
 public class ResultScore {
 	private Team team;
 	private String gameName;
-	
+	private int winRoundA;
+	private int winRoundB;
 	public ResultScore(){
-		
+		winRoundA = 0;
+		winRoundB = 0;
 	}
 	
-	public void setResult(Team team, String gameName){
+	public void setResult(Team team, String gameName,int winRoundA,int winRoundB){
 		this.team = team;
 		this.gameName = gameName;
+		this.winRoundA = winRoundA;
+		this.winRoundB = winRoundB;
 	}
 
 	public Team getTeam(){
@@ -24,7 +28,9 @@ public class ResultScore {
 	public String getGameName(){
 		return gameName;
 	}
-	
+
+	public int getWinRoundA(){ return winRoundA;};
+	public int getWinRoundB(){ return winRoundB;};
 	public void printResult(){
 		Utils.debug("TEAM : "+ team.getName() + " ----"+ gameName);
 	}

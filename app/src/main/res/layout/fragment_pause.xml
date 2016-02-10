@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_container"
-    tools:context="com.partylinkserver.ShakeActivity">
+    tools:context="com.partylinkserver.PauseFragment">
+
+    <!-- TODO: Update blank fragment layout -->
 
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/shakeWebView"
+        android:id="@+id/pause_view"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
-</RelativeLayout>
+</FrameLayout>
