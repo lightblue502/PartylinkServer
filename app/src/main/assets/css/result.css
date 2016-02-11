@@ -1,3 +1,134 @@
+@font-face {
+	font-family:"Continuum Bold";
+	src: url("../fonts/contb.ttf") format("truetype");
+	font-weight:normal;
+	font-style:normal;
+}
+
+body {
+  background-color: #efefef
+}
+.middleRow{
+	position: absolute;
+	height: 100vh;
+	left: 50vw;
+}
+.middleRow .content{
+	position: absolute;
+	top: 23.5vh;
+	left: -25vw;
+	text-align: center;
+	font-weight: bold;
+	font-size: 7vh;
+	color: black;
+	width: 50vw;
+	height: 15vh;
+	background: rgba(128, 128, 128,0.5);
+	z-index: -1;
+}
+
+.underRow{
+	position: absolute;
+	height: 100vh;
+	z-index: 1;
+}
+
+.underRow .left{
+	position: fixed;
+	bottom: 0vh;
+	width: 170vh;
+	height: 10vh;
+	background-image: url('../img/result/player_tab.png');
+	background-size: 100% 100%;
+	z-index: -5;
+}
+
+.left .pl_logo{
+
+	position: fixed;
+	bottom: 0vh;
+	width: 25vh;
+	height: 7vh;
+	margin-left: 1vw;
+	margin-bottom: 1vh;
+	background-image: url('../img/result/partylink_logo.png');
+	background-size: 100% 100%;
+	z-index: 1;
+}
+
+.teamName{
+	position: absolute;
+	color: #ffffff;
+	font-family: Continuum Bold;
+	font-size: 7vh;
+	text-align: center;
+	width: 100%;
+	margin: 10vh 0;
+}
+.score{
+	font-size: 16vh;
+}
+
+div.box{
+	position: absolute;
+	height: 42vw;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    z-index: -10;
+}
+div.box.inLeft{
+	top: 5vh;
+	left: 8vw;
+	width: 36vw;
+	background-image: url("../img/result/red_bg.png");
+}
+div.box.inRight{
+	bottom: 0vh;
+	right: 8vw;
+	width: 33vw;
+	background-image: url("../img/result/blue_bg.png");
+}
+
+div.pic{
+	position: absolute;
+	top: 23vh;
+	height: 65vh;
+	width: 13vw;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    z-index: 10;
+
+    
+}
+div.pic.inLeft{
+	left: 18vw;
+	background-image: url("../img/result/red.png");
+}
+div.pic.inRight{
+	right: 18vw;
+	background-image: url("../img/result/blue.png");
+}	
+
+.topRow{
+	position: absolute;
+	left: 50vw;
+	height: 100vh;
+	z-index: -1;
+}
+.topRow .center{
+	position: absolute;
+	top: 3vh;
+	width: 160vh;
+	height: 45vh;
+	left: -80vh;
+
+	font-family: Continuum Bold;
+	font-size: 15vh;
+	font-weight: bold;
+	text-align: center;
+
+}
+
 .headertextBox{
 	width: 100%;
 	text-align: center;
@@ -72,7 +203,12 @@
 	font-weight: bolder;
 }
 .personName{
+	display: inherit !important;
 	word-wrap:break-word;
+	margin-top:1vh;
+	width:8.5vw;
+	height: 5vh;
+	font-size: 3vh;
 }
 .floatleft{
 	float: left;

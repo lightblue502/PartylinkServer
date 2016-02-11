@@ -1,14 +1,18 @@
 var app = angular.module("myApp", []);
 app.controller('GameLobbyCtrl', ['$scope','$interval', function($scope, $interval){
 
-  //web call android UI Ready;
-  // Android.onUiReady();
-  // var a1 = new Person(1,"John","img/637.jpg");
-  // var a2 = new Person(3,"Jane");
-  // var b1 = new Person(2,"Sam","img/coby.jpg");
-  // var b2 = new Person(4,"");
+
+  // var a1 = new Person(91,"John","img/637.jpg");
+  // var a2 = new Person(93,"Jane");
+  // var a3 = new Person(95,"joe");
+  // var b1 = new Person(92,"Sam","img/coby.jpg");
+  // var b2 = new Person(94);
+  // var b3 = new Person(96,"eiei");
 
   $scope.allPlayers=[];
+
+  $scope.showStyle = {'row':{},'box':{},'name':{}};
+  updateStyle($scope);
 
 }]);
 
@@ -21,5 +25,21 @@ function Person(id, name, icon) {
 function setPlayer(id, name){
   angular.element(document.body).scope().$apply(function($scope){
     $scope.allPlayers.push(new Person(id, name));
+    updateStyle($scope);
   });
+}
+
+function updateStyle ($scope) {
+  var width = 30;
+  var n = $scope.allPlayers.length;
+
+  $scope.showStyle.row.width = (width+6*(6-n))*n +'vh'; //+ margin*2
+  $scope.showStyle.row.left =  (width+6*(6-n))*n /2*(-1) +'vh';
+  $scope.showStyle.box.width =  width +'vh';
+  $scope.showStyle.box.height =  width +'vh';
+  $scope.showStyle.box.top =  20; //no vh
+  $scope.showStyle.box.margin =  "0 "+ 3*(6-n) +'vh'; //margin 3x
+  $scope.showStyle.name.width =  width +'vh';
+  console.log($scope.showStyle);
+
 }

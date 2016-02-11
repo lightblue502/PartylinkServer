@@ -5,36 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/endGame.css">
+  <link rel="stylesheet" href="css/animate.css">
   <!-- <link rel="stylesheet" href="css/gameLobby.css"> -->
   <script src="lib/angular/angular.js"></script>
   <script src="js/end_ctrl.js"></script>
   <script src="js/end_link.js"></script>
 </head>
 <body ng-controller="EndCtrl">
-	<div class="headertextBox">
-    	<span class="headertext"> End Game </span>
-  	</div>
-    {{endScores}}
-    <div ng-repeat="rs in resultScores">
-      {{rs.team}}  -- {{rs.gameName}}
-    </div> 
 
-
-    <div>TEAM {{teamWin}} WIN !!!</div>
-
-    <div class="personRow">
-      <div ng-repeat="person in showTeamA" id="{{person.id}}" class="personBox floatleft">
-        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
-        <span class="personName label label-success">{{person.name}}</span>
-      </div>
+   <div class="topRow animated zoomInDown"> 
+    <div class="center">
+       <div>END GAME</div>
+      <div>
+        <img src="img/star.png" class="star1 animated bounceIn">
+        <img src="img/star.png" class="star2 animated bounceIn">
+        <img src="img/star.png" class="star3 animated bounceIn">
+     </div>
     </div>
-
-    <div class="personRow" style="right:0;">
-      <div ng-repeat="person in showTeamB" id="{{person.id}}" class="personBox floatright">
-        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
-        <span class="personName label label-success">{{person.name}}</span>
-      </div>
-    </div>
+  </div>
     
+  </div>
+
+  <div class="middleRow">
+    <div class="center">
+      <div ng-if="teamWin!='DRAW'" class="animated zoomInDown">TEAM {{teamWin}} WIN !!! </div>
+      <div ng-if="teamWin=='DRAW'" class="animated zoomInDown">{{teamWin}} !!!!! </div>
+       <div></div>
+    </div>
+  </div>  
+
+
+  <div class="box inLeft"></div>
+<!--   <div class="pic inLeft">
+    <span class="teamName">RED<br><span class="score">{{recentGame.winRoundA}}</span>
+    </span> -->
+    
+  </div>
+  <div class="box inRight"></div>
+<!--   <div class="pic inRight">
+    <span class="teamName">BLUE<br><span class="score">{{recentGame.winRoundB}}</span>
+  </div>
+ -->
+  
+    <div class="underRow"> 
+    <div class="left">
+        <div class="pl_logo">
+        </div>
+        <div style="margin-left:15vw;">
+          <div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft">
+            <span class="personName label label-default" style="bottom:30vh;">{{person.name}}</span>
+          </div>
+        </div>
+
+    </div>
+  </div>
+ 
 </body>
 </html>

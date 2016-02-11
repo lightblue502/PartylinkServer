@@ -2,6 +2,13 @@ function getResultScores(resultScores){
   console.log(resultScores);
   angular.element(document.body).scope().$apply(function($scope){
     $scope.resultScores = resultScores;
+
+    var recentGame = resultScores[resultScores.length-1];
+    if(recentGame.winRoundA == recentGame.winRoundB)
+      recentGame.team = "DRAW";
+    else
+      recentGame.team = (recentGame.team == "teamA") ? "RED Win": "BLUE Win";
+    $scope.recentGame = recentGame; 
   });
 }
 
@@ -9,10 +16,11 @@ function playerConfirm(clientId){
 	var person = getPerson(clientId);
   	angular.element(document.body).scope().$apply(function($scope){
     console.log(person);
-  	if(person.team == 'teamA')
-  		$scope.showTeamA.push(person)
-  	else
-  		$scope.showTeamB.push(person);
+    $scope.allPlayers.push(person);
+  	// if(person.team == 'teamA')
+  	// 	$scope.showTeamA.push(person)
+  	// else
+  	// 	$scope.showTeamB.push(person);
   });
 }
 

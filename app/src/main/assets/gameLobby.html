@@ -6,21 +6,31 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <script src="lib/angular/angular.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/shakeCSS.css">
   <link rel="stylesheet" href="css/gameLobby.css">
   <script src="js/gameLobby.js"></script>
 </head>
 <body ng-controller="GameLobbyCtrl">
-	<div class="headertextBox">
-    	<span class="headertext"> Register </span>
-  	</div>
+    <span class="headertext"> Register </span>
+    <!-- <div ng-if="!allPlayers.length" class="logo"> -->
+    <!-- </div> -->
 
-  	<div class="personRow">
-		<div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft">
-			<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#666'}"></div>
-			<span class="personName label label-success">{{person.name}}</span>
-		</div>
-  	</div>
+    <div class="center">
+      <img ng-if="!allPlayers.length" src="img/register/logo.png" class="logo">
+    	<div class="personRow" ng-style="showStyle.row">
+    		<div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox" ng-style="{'top': ($index+1)%2*showStyle.box.top+'vh' , 'width': showStyle.box.width, 'height':showStyle.box.height , 'margin': showStyle.box.margin}">
+    			<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#666', 'width': showStyle.box.width, 'height':showStyle.box.height}"></div>
+    			<span class="personName label" ng-style="showStyle.name">{{person.name}}</span>
+    		</div>
+    	</div>
+    </div>
+
+
+    <img src="img/register/man-red.png" class="man left">
+    <img src="img/register/man-blue.png" class="man right">
+    <img src="img/register/bb1-red.png" class="bg1 left">
+    <img src="img/register/bb1-blue.png" class="bg1 right">
+    <img src="img/register/bb2-red.png" class="bg2 left">
+    <img src="img/register/bb2-blue.png" class="bg2 right">
  
 
    

@@ -11,16 +11,60 @@
   <script src="js/result_link.js"></script>
 </head>
 <body ng-controller="ResultCtrl">
-	<div class="headertextBox">
+  <div class="topRow"> 
+    <div class="center">
+      {{recentGame.team}}!!
+    </div>
+  </div>
+
+  <div class="middleRow">
+    <div ng-repeat="rs in resultScores track by $index">
+      <!-- {{resultScores}} -->
+      <!-- {{rs.team}}  -- {{rs.gameName}} --A: {{rs.winRoundA}} -- B: {{rs.winRoundB}}  -->
+      <div ng-if="$index == 0" class="content" ng-style="{'background':(rs.winRoundA > rs.winRoundB)?'rgba(237, 20, 91,0.5)':(rs.winRoundA < rs.winRoundB)?'#00ADEF':'gray'}">{{rs.gameName}}</div>
+      <div ng-if="$index == 1" class="content" style="top:39.5vh" ng-style="{'background':(rs.winRoundA > rs.winRoundB)?'rgba(237, 20, 91,0.5)':(rs.winRoundA < rs.winRoundB)?'rgba(0, 173, 239,0.5)':'rgba(128, 128, 128,0.5)'}">{{rs.gameName}}</div>
+      <div ng-if="$index == 2" class="content" style="top:55.5vh">{{rs.gameName}}</div>
+      <div ng-if="$index == 3" class="content" style="top:71.5vh">{{rs.gameName}}</div>
+    </div> 
+  </div>  
+
+
+  <div class="box inLeft"></div>
+  <div class="pic inLeft">
+    <span class="teamName">RED<br><span class="score">{{recentGame.winRoundA}}</span>
+    </span>
+    
+  </div>
+  <div class="box inRight"></div>
+  <div class="pic inRight">
+    <span class="teamName">BLUE<br><span class="score">{{recentGame.winRoundB}}</span>
+  </div>
+
+  
+    <div class="underRow"> 
+    <div class="left">
+        <div class="pl_logo">
+        </div>
+        <div style="margin-left:15vw;">
+          <div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft">
+            <span class="personName label label-default" style="bottom:30vh;">{{person.name}}</span>
+          </div>
+        </div>
+
+    </div>
+  </div>
+
+
+	<!-- <div class="headertextBox">
     	<span class="headertext"> Result Score </span>
   	</div>
     {{resultScores}}
     <div ng-repeat="rs in resultScores">
-      {{rs.team}}  -- {{rs.gameName}}
-    </div> 
+      {{rs.team}}  -- {{rs.gameName}} --A: {{rs.winRoundA}} -- B: {{rs.winRoundB}} 
+    </div>  -->
 
-    <div class="personRow">
-      <div ng-repeat="person in showTeamA" id="{{person.id}}" class="personBox floatleft">
+  <!--   <div class="personRow">
+      <div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft">
         <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
         <span class="personName label label-success">{{person.name}}</span>
       </div>
@@ -31,7 +75,7 @@
         <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
         <span class="personName label label-success">{{person.name}}</span>
       </div>
-    </div>
+    </div> -->
     
 </body>
 </html>

@@ -1,27 +1,117 @@
-.personRow{
-	position: absolute;
-	top: 13vh;
-	margin: 2vh 5vh;
+@font-face {
+    font-family: conBold;
+    src: url(../fonts/contb.ttf);
 }
-.showPersonPic{
-	width: 	100%;
-	height: 75%;
-	border-radius: 100%;
-	background-repeat: no-repeat;
-	background-position: 50%;
-	background-size: 100%;
+body{
 	overflow: hidden;
-	border: 0.5vh solid gray;
+}
+.headertext{
+	font-family: conBold;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	color: #898989;
+	font-size: 8vh;
+	font-style: italic;
+	margin-top: 1.5vh;
+}
+.logo{
+	position: absolute;
+	width: 60vh;
+	left: -30vh;
+	top: 20vh;
+	/*height: 100%;*/
+}
+.center{
+	position: absolute;
+	left: 50vw;
+	top: 20vh;
+}
+
+.personRow{
+	position: relative;
+	width: 0vw;
+	left: 0vw;
+	/*margin: 2vh 5vh;*/
 }
 .personBox{
-	width: 28vh;
-    height: 40vh;
-    margin: 2vh;
-    font-family: cursive;
-    font-size: 6vh;
-    font-weight: bolder;
+	position: relative;
+	width: 30vh;
+    height: 30vh;
+    margin: 0 0vh;
+    float: left;
 }
 .personPic{
 	width: 30vh;
     height: 30vh;
+	border-radius: 100%;
+	
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+	overflow: hidden;
+	border: 1.5vh solid #DADADA;
+	box-shadow: 0vh 1.5vh 0 #555;
+}
+.personName{
+	position: absolute;
+    width: 30vh;
+    bottom: 0vh;
+    padding: 0.25vh;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+	word-wrap:break-word;
+	text-align: center;
+	font-family: conBold;
+	font-size: 6vh;/*
+    -webkit-text-stroke-width: 0.2vh;
+   	-webkit-text-stroke-color: black;*/
+	background-color: #D1D1D1;
+	box-shadow: 0vh 1.5vh 0 #555;
+
+	color: black;
+}
+
+/*-----------------------------------------------*/
+.man{
+    height: 100vh;
+	max-height: 50vmax;
+	position: absolute;
+	bottom: 0;
+	z-index: -5;
+}
+.man.left{
+	left: 0;
+}
+.man.right{
+	right: 0;
+}
+.bg1{
+	/*width: 50vw;*/
+    height: 100vh;
+	position: absolute;
+	z-index: -6;
+}
+.bg1.left{
+	left: 0;
+	/*right: 50%;*/
+}
+.bg1.right{
+	right: 0;
+	/*left: 50%;*/
+}
+.bg2{
+	/*width: 50vw;*/
+    height: 100vh;
+	position: absolute;
+	z-index: -7;
+}
+.bg2.left{
+	/*left: 0;*/
+	right: 50%;
+}
+.bg2.right{
+	/*right: 0;*/
+	left: 50%;
 }

@@ -85,6 +85,8 @@ public class ResultEngine extends GameEngine{
             for (ResultScore resultScore : gc.getResultScores()) {
                 strs += "{'team':'" + resultScore.getTeam().getName();
                 strs += "','gameName':'" + resultScore.getGameName();
+                strs += "','winRoundA':'" + resultScore.getWinRoundA();
+                strs += "','winRoundB':'" + resultScore.getWinRoundB();
                 strs += "'},";
             }
             strs = strs.substring(0, strs.length() - 1);
