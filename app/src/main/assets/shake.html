@@ -18,24 +18,18 @@
 		<div class="process"></div>
 		<div class="processscore inred" ng-style="{'width':((scoreMax/2+(score.A-score.B))*44/scoreMax) +'vw'}"></div>
 		<div class="processscore inblue"></div>
-	</div>
-	<div class="headertextBox">
 
-		<div class="red floatleft">
-			<div class="icon">
-				<a ng-repeat="icon in iconScore.red track by $index">
-					<span class="icon glyphicon glyphicon-tower floatleft" ng-style="{'color': icon.color}"></span> 
-				</a>
-			</div>
+		<div class="iconbox left">
+			<div ng-repeat="icon in iconScore.red.light" class="icon floatright" ng-style="{'background-image':'url({{icon.img}})'}"></div> 
+			<div ng-repeat="icon in iconScore.red.dark" class="icon floatright" ng-style="{'background-image':'url({{icon.img}})'}"></div> 
 		</div>
-		<div class="blue floatright">
-			<div class="icon" >
-				<a ng-repeat="icon in iconScore.blue track by $index">
-					<span class="icon glyphicon glyphicon-tower floatright" ng-style="{'color': icon.color}"></span>
-				</a>
-			</div>
+		<div class="iconbox right">
+			<div ng-repeat="icon in iconScore.blue.light" class="icon  floatleft" ng-style="{'background-image':'url({{icon.img}})'}"></div>
+			<div ng-repeat="icon in iconScore.blue.dark" class="icon  floatleft" ng-style="{'background-image':'url({{icon.img}})'}"></div>
 		</div>
 	</div>
+
+	
 
 
 	<div class="boxleft">
