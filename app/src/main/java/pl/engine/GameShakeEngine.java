@@ -12,6 +12,7 @@ import java.util.TimerTask;
 public class GameShakeEngine extends GameEngine{
 	private int playerAmount;
 	private int cntPlayer = 0;
+	private int cntResumePlayer = 0;
 	private Player playerA;
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
@@ -38,13 +39,19 @@ public class GameShakeEngine extends GameEngine{
 		}
 		if(event.equals("game_pause")) {
 			gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
+			gameManager.stopTimer();
 			gamePaused = true;
 		}else if(event.equals("game_resume")){
-			gamePaused = false;
-			sendGameEventToClient("game_resume", new String[]{});
-			gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
+			cntResumePlayer++;
+			Player player = new Player(clientId, params[0]);
+			gc.sendGameEvent(player, "resume_ok");
+			if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
+				cntResumePlayer = 0;
+				gamePaused = false;
+				sendGameEventToClient("game_resume", new String[]{});
+				gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
+			}
 		}
-//		Utils.debug("clientId " + clientId + ", event" + event);
 	}
 	
 	@Override

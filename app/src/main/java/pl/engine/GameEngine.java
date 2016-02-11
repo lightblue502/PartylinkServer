@@ -29,5 +29,10 @@ public abstract class GameEngine {
 	public abstract void endEngine();
 	public abstract void onPlayerReady(int playerAmount);
 	public abstract void onIncomingEvent(int clientId, String event, String[] params);
-	
+	protected boolean onPlayerResumeReady(int playerAmount, int count){
+		if(playerAmount == count){
+			return true;
+		}
+		return false;
+	}
 }
