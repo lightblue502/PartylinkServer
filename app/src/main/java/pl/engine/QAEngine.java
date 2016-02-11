@@ -27,6 +27,7 @@ public class QAEngine extends GameEngine{
     private Context context;
     private int playerAmount;
     private int cntPlayer = 0;
+    private int cntResumePlayer = 0;
     private int random_team = new Random().nextInt(1);
     private List<Team> teams = gc.getTeams();
     public GameManager gameManager;
@@ -157,9 +158,15 @@ public class QAEngine extends GameEngine{
             gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
             gamePaused = true;
         }else if(event.equals("game_resume")){
-            gamePaused = false;
-            sendGameEventToClient("game_resume", new String[]{});
-            gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
+            cntResumePlayer++;
+            Player player = new Player(clientId, params[0]);
+            gc.sendGameEvent(player, "resume_ok");
+            if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
+                cntResumePlayer = 0;
+                gamePaused = false;
+                sendGameEventToClient("game_resume", new String[]{});
+                gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
+            }
         }
     }
 

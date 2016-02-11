@@ -54,23 +54,23 @@ function getPerson(personId, team){
 function generateIconScore(maxIcon, winRoundA, winRoundB){
   var icons = [
     {
-      name :"red", winRound: winRoundA, colors:{dark :"#4E0404", light:"#F55"}
+      name :"red", winRound: winRoundA, img:{dark :"img/shake/red_score.png", light:"img/shake/red_score-win.png"}
     },
     {
-      name :"blue", winRound: winRoundB, colors:{dark :"#0B2B46", light:"#5096FF"}
+      name :"blue", winRound: winRoundB, img:{dark :"img/shake/blue_score.png", light:"img/shake/blue_score-win.png"}
     }
   ];
   var data = {};
   for(index in icons){
     var icon = icons[index];
-    data[icon.name] = [];
+    data[icon.name] = {dark:[],light:[]};
     if(icon.winRound > 0){
       for (var j = 0; j < icon.winRound; j++) {
-        data[icon.name].push({color:icon.colors.light});
+        data[icon.name].light.push({img:icon.img.light});
       }
     }
     for (var i = 0; i < maxIcon - icon.winRound; i++) {
-      data[icon.name].push({color:icon.colors.dark});
+      data[icon.name].dark.push({img:icon.img.dark});
     }
     
   }

@@ -6,7 +6,8 @@ function getResultScores(resultScores){
     var recentGame = resultScores[resultScores.length-1];
     if(recentGame.winRoundA == recentGame.winRoundB)
       recentGame.team = "DRAW";
-    recentGame.team = (recentGame.team == "teamA") ? "RED Win": "BLUE Win";
+    else
+      recentGame.team = (recentGame.team == "teamA") ? "RED Win": "BLUE Win";
     $scope.recentGame = recentGame; 
   });
 }
