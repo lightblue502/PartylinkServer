@@ -49,6 +49,7 @@ public class GameShakeEngine extends GameEngine{
 			if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
 				cntResumePlayer = 0;
 				gamePaused = false;
+				gameManager.runTimerAgain();
 				sendGameEventToClient("game_resume", new String[]{});
 				gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
 			}
