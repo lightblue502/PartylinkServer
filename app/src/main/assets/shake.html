@@ -6,6 +6,7 @@
 	<script type="text/javascript" src="js/shake_ctrl.js"></script>
 	<script type="text/javascript" src="js/shake_link.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/shakeCSS.css">
+	<link rel="stylesheet" href="css/animate.css">
 	<title>Party link - shake</title>
 </head>
 <body ng-controller="BodyController">
@@ -36,7 +37,7 @@
 
 		<div id="showleft" class="showpos left">
 			<div class="showrow" ng-style="showStyle.left.row">
-				<div ng-repeat="person in showleft" class="showPersonBox floatleft" ng-style="showStyle.left.box">
+				<div ng-repeat="person in showleft" class="showPersonBox floatleft" ng-class="shakeClass.left" ng-style="showStyle.left.box">
 					<div class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66', 'width': showStyle.left.box.width, 'height':showStyle.left.box.height}"></div>
 					<span class="showPersonName left label"  ng-style="showStyle.left.name">{{person.name}}</span>
 				</div>
@@ -56,9 +57,9 @@
 		
 		<div id="showright" class="showpos right">
 			<div class="showrow" ng-style="showStyle.right.row">
-				<div ng-repeat="person in showright" class="showPersonBox floatright" ng-style="showStyle.right.box">
+				<div ng-repeat="person in showright" class="showPersonBox floatright" ng-class="shakeClass.right" ng-style="showStyle.right.box">
 					<div class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d', 'width': showStyle.right.box.width, 'height':showStyle.right.box.height}"></div>
-					<span class="showPersonName left label"  ng-style="showStyle.right.name">{{person.name}}</span>
+					<span class="showPersonName right label"  ng-style="showStyle.right.name">{{person.name}}</span>
 				</div>
 			</div>
 		</div>

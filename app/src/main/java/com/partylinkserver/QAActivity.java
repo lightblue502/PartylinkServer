@@ -78,5 +78,13 @@ public class QAActivity extends GameActivity {
             Log.d("DEBUG_ask_inQAAct ", params[0]+" , "+params[1]);
             wv.loadUrl("javascript:ask(" + params[0]+",'"+ params[1]+"')");
         }
+        else if(event.equals("qa_correct")){
+            Log.d("DEBUG_correct_inQAAct ", params[0]);
+            wv.loadUrl("javascript:correct(" + params[0]+")");
+        }
+        else if(event.equals("qa_wrong")){
+            Log.d("DEBUG_wrong_inQAAct ", params[0]);
+            wv.loadUrl("javascript:wrong(" + params[0]+")");
+        }
     }
 }
