@@ -145,10 +145,16 @@ public class QAEngine extends GameEngine{
             } else if (event.equals("qa_ans")) {
                 if (correct_ans.equals(params[0])) {
                     Utils.debug("CORRECT !!!!!!!");
+                    gc.getGameLister().onIncommingEvent("qa_correct", new String[]{
+                            String.valueOf(clientId)
+                    });
                     cntPlayer = 0;
                     gameManager.scoreManage(clientId, 2);
                     sendGameEventToClient("qa_change", new String[]{});
                 } else {
+                    gc.getGameLister().onIncommingEvent("qa_wrong", new String[]{
+                            String.valueOf(clientId)
+                    });
                     gameManager.scoreManage(clientId, -1);
                 }
                 gameManager.printScoreToNumber();

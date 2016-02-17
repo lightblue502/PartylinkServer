@@ -1,17 +1,18 @@
 var app = angular.module('PartyApp',[]);
 
-app.controller('BodyController', ['$scope', function($scope) {
+app.controller('BodyController', ['$scope','$interval', function($scope,$interval) {
 
-	// var a1 = new Person(91,"John",'teamA',"img/637.jpg");
-	// var a2 = new Person(93,"Jane",'teamA');
-	// var a3 = new Person(95,"joe",'teamA');
-	// var b1 = new Person(92,"Sam",'teamB',"img/coby.jpg");
-	// var b2 = new Person(94,"",'teamB');
-	// var b3 = new Person(96,"eiei",'teamB');
+	var a1 = new Person(91,"John",'teamA',"img/637.jpg");
+	var a2 = new Person(93,"Jane",'teamA');
+	var a3 = new Person(95,"joe",'teamA');
+	var b1 = new Person(92,"Sam",'teamB',"img/coby.jpg");
+	var b2 = new Person(94,"",'teamB');
+	var b3 = new Person(96,"eiei",'teamB');
 
 	// $scope.allPlayers=[a1,b1];
 	$scope.teamA= [];
 	$scope.teamB= [];
+	$scope.realScore={"A":1, "B":1};
 	$scope.score={"A":1, "B":1};
 	$scope.scoreMax = 500;
 	$scope.round = 1;
@@ -19,14 +20,22 @@ app.controller('BodyController', ['$scope', function($scope) {
 	$scope.showleft = [];
 	$scope.showright = [];
 
+	$scope.shakeClass ={shake:"animated infinite shake"};
 	$scope.showStyle = { 'left':{'row':{},'box':{'width':30+'vh'},'name':{}},
 	'right':{'row':{},'box':{'width':30+'vh'},'name':{}}};
+  	updateStyle($scope);
 
-	$scope.showleftbox = {'position':'absolute', 'left':(100-40*($scope.showleft.length+1))/2+'%'};
-	$scope.showrightbox = {'position':'absolute', 'right':(100-40*($scope.showright.length+1))/2+'%'};
   	$scope.iconScore = generateIconScore(3, 0 ,0); // 3 is max round
 
-  	updateStyle($scope);
+  	$interval(function() {
+	    if( Math.abs($scope.score.A - $scope.realScore.A) >= 0.2) {
+	      	$scope.score.A += ($scope.realScore.A - $scope.score.A)/10 ;
+	    }
+	    if( Math.abs($scope.score.B - $scope.realScore.B) >= 0.2) {
+	      	$scope.score.B += ($scope.realScore.B - $scope.score.B)/10 ;
+	    }
+	  }, 10);
+
 	Android.onUiReady();
 }]);
 
