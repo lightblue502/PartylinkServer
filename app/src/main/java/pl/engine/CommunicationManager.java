@@ -18,7 +18,6 @@ import java.util.concurrent.Executors;
 
 public class CommunicationManager extends Thread {
 	private static int currentClientId = 1;
-	private GameCommunicationListener gameListener;
 	private String address;
 	private int port;
 	private boolean closed = false;
@@ -27,11 +26,10 @@ public class CommunicationManager extends Thread {
 	private CommunicationListener listener;
 	
 	private ExecutorService es = Executors.newFixedThreadPool(10);
-	public CommunicationManager(String address, int port, CommunicationListener listener, GameCommunicationListener gameListener) {
+	public CommunicationManager(String address, int port, CommunicationListener listener) {
 		this.address = address;
 		this.port = port;
 		this.listener = listener;
-		this.gameListener = gameListener;
 	}
 
 	public void run(){
@@ -42,28 +40,24 @@ public class CommunicationManager extends Thread {
 			while(!closed){
 				Socket socket = serverSocket.accept();
 				Utils.debug("Socket accpet" + socket);
-				String androidId = null;
 				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 //				Utils.debug("=============================================================");
 //				Utils.debug("read line socket: " + reader);
 //				Utils.debug("=============================================================");
-				androidId = reader.readLine();
-				Utils.debug("Android ID: " + androidId);
-				if(!listener.existPlayerSocket(androidId)){
-					int clientId = currentClientId++;
-					ClientHandler handler = new ClientHandler(socket, clientId);
-					es.execute(handler);
-					Utils.debug("Client hanlder has been created for client id = " + clientId);
-					clients.put(clientId, handler);
-					listener.addSocketPlayer((new SocketPlayer(clientId, handler, androidId, es)));
-					Utils.debug("Socket Initial is " + handler.getSocketString());
-					if(listener.socketPlayerReady()){
-						Utils.debug("socketPlayers ready");
-						gameListener.onIncommingEvent("socketplayers_ready", new String[0]);
-					}
+				String initial_message = reader.readLine();	//expect ID=x
+				int given_client_id = Integer.parseInt(initial_message.substring(3));
+				Utils.debug(initial_message + " ====> " + given_client_id);
+				ClientHandler handler = given_client_id >= 0 ? clients.get(given_client_id) : null;
+				if(handler == null){
+					given_client_id = currentClientId++;
 				}else{
-					listener.editPlayerSocket(androidId, socket);
+					handler.close();
 				}
+				handler = new ClientHandler(socket, given_client_id);
+				es.execute(handler);
+				Utils.debug("Client hanlder has been created for client id = " + given_client_id);
+				clients.put(given_client_id, handler);
+				listener.onConnectionStateChanged(given_client_id, CommunicationListener.STATE_CONNECTED);
 			}			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -79,10 +73,6 @@ public class CommunicationManager extends Thread {
 		}
 	}
 
-	public boolean isEditedClients(Integer clientId, ClientHandler handler){
-		clients.put(clientId, handler);
-		return true;
-	}
 	public void close(){
 		closed = true;
 		for(ClientHandler handler : clients.values()){
@@ -103,12 +93,15 @@ public class CommunicationManager extends Thread {
 	public void sendData(int clientId, String line){
 		ClientHandler handler = clients.get(clientId);
 		if(handler != null){
-			Utils.debug("Socket when reconnect is " + handler.getSocketString());
 			Utils.debug("handler has sendData line: " + line + " to ClientId " + clientId);
 			handler.sendData(line);
 		}
 	}
-	
+
+	public HashMap<Integer, ClientHandler> getClients(){
+		return clients;
+	}
+
 	public class ClientHandler implements Runnable{
 		private Socket socket;
 		private PrintWriter writer;
@@ -129,14 +122,6 @@ public class CommunicationManager extends Thread {
 		public void close(){
 			closed = true;
 		}
-		
-		public void setSocket(Socket socket){
-			this.socket = socket;
-		}
-
-		public String getSocketString(){
-			return socket.toString();
-		}
 
 		@Override
 		public void run() {
@@ -144,6 +129,8 @@ public class CommunicationManager extends Thread {
 				writer = new PrintWriter(socket.getOutputStream());
 				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String line = null;
+				writer.println("ID=" + clientId);
+				writer.flush();
 
 				while(!closed && (line = reader.readLine()) != null){
 					Utils.debug("Incoming event : " + line);

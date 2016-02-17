@@ -22,7 +22,6 @@ public class GameContext implements CommunicationListener{
     private GameCommunicationListener gameLister;
 	private static final String[] BLANK_PARAMS = new String[0];
 	private GameEngine currentGameEngine;
-	private List<SocketPlayer> socketplayers = new ArrayList<SocketPlayer>();
 	private List<ResultScore> resultScoreLists = new ArrayList<ResultScore>();
 	private List<GameEngine> engines = new ArrayList<GameEngine>();
 	private List<Team> teams = new ArrayList<Team>();
@@ -51,17 +50,17 @@ public class GameContext implements CommunicationListener{
 		engineIndex = 0;
 
 		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class,""));
-		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
-		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
-		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start"));
-		engines.add(new ResultEngine(this, playerAmount, "REShULT SCORE", ResultActivity.class, "result_start"));
-		engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class, "qa_start"));
-		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
-		engines.add(new EndEngine(this, playerAmount, "END ENGINE", EndActivity.class, "end_start"));
+        engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
+        engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
+        engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start"));
+        engines.add(new ResultEngine(this, playerAmount, "REShULT SCORE", ResultActivity.class, "result_start"));
+        engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class, "qa_start"));
+        engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
+        engines.add(new EndEngine(this, playerAmount, "END ENGINE", EndActivity.class, "end_start"));
 
 
 
-		cm = new CommunicationManager(address , port, this, gameListener);
+		cm = new CommunicationManager(address , port, this);
 		cm.start();
 	}
 	
@@ -69,9 +68,6 @@ public class GameContext implements CommunicationListener{
 
 	}
 
-	public List<SocketPlayer> getSocketPlayer(){
-		return socketplayers;
-	}
 	public void setPlayerAmount(int playerAmount){
 		this.playerAmount = playerAmount;
 	}
@@ -198,49 +194,23 @@ public class GameContext implements CommunicationListener{
 		return resultScoreLists;
 	}
 
-	@Override
-	public boolean existPlayerSocket(String androidId) {
-		for (SocketPlayer socketplayer : socketplayers) {
-			if(socketplayer.getAndroidId().equals(androidId)){
-				return true;
-			}
+
+
+	public void onConnectionStateChanged(int clientId, int state){
+		//make game decision
+		if(state == STATE_CONNECTED){
+			checkConnectionReady();
+
+		}else if(state == STATE_DISCONNECTED){
+
 		}
-		return false;
 	}
-	
-	public void editPlayerSocket(String androidId, Socket socket){
-		for (SocketPlayer socketplayer : socketplayers) {
-			if(socketplayer.getAndroidId().equals(androidId)){
-				if(socketplayer.isChangeSocket(socket)) {
-					Integer clientId = socketplayer.getClientId();
-					if(cm.isEditedClients(clientId, socketplayer.getHandler())) {
-						playerReconnect(clientId);
-					}
-				}
-			}
+
+	private boolean connectionReadyIssued = false;
+	private void checkConnectionReady(){
+		if(!connectionReadyIssued && cm.getClients().size() == playerAmount){
+			gameLister.onIncommingEvent("socketplayers_ready", new String[0]);
+			connectionReadyIssued = true;
 		}
-		
 	}
-
-	public void playerReconnect(Integer clientId){
-		Utils.debug("GameContext: player has reconnected");
-		sendGameEvent(getPlayerByClientID(clientId), "player_reconnect");
-	}
-
-	@Override
-	public void addSocketPlayer(SocketPlayer socketplayer) {
-		socketplayers.add(socketplayer);
-	}
-
-	@Override
-	public boolean socketPlayerReady() {
-		if (socketplayers.size() == playerAmount) {
-			return true;
-		}
-		return false;
-	}
-
-
-
-
 }
