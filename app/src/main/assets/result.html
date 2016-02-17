@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/result.css">
+  <link rel="stylesheet" href="css/animate.css">
   <!-- <link rel="stylesheet" href="css/gameLobby.css"> -->
   <script src="lib/angular/angular.js"></script>
   <script src="js/result_ctrl.js"></script>
@@ -12,8 +13,8 @@
 </head>
 <body ng-controller="ResultCtrl">
   <div class="topRow"> 
-    <div class="center">
-      {{recentGame.team}}!!
+    <div class="center animated tada">
+      {{recentGame.team+"!!"}}
     </div>
   </div>
 
@@ -33,13 +34,15 @@
 
   <div class="box inLeft"></div>
   <div class="pic inLeft">
-    <span class="teamName">RED<br><span class="score">{{recentGame.winRoundA}}</span>
+    <span class="teamName">RED<br><span class="score">
+      <div class="animated bounce">{{recentGame.winRoundA}}</div></span>
     </span>
     
   </div>
   <div class="box inRight"></div>
   <div class="pic inRight">
-    <span class="teamName">BLUE<br><span class="score">{{recentGame.winRoundB}}</span>
+    <span class="teamName">BLUE<br><span class="score">
+      <div class="animated bounce">{{recentGame.winRoundB}}</div></span>
   </div>
 
   
@@ -52,7 +55,11 @@
             <span class="personName label label-default" style="bottom:30vh;">{{person.name}}</span>
           </div>
         </div>
+        
 
+    </div>
+    <div class="center animated infinite pulse ">
+         <h1>PRESS BUTTON TO CONTINUE</h1>
     </div>
   </div>
 
