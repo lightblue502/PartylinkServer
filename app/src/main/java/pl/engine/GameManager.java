@@ -62,15 +62,25 @@ public class GameManager {
 		gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
 	}
 
-	public void countDownGameReady(int times){
+
+	public void countDownGameReady(final int times){
         Utils.debug("GAME READY ...");
         customHandler.postDelayed(new Runnable() {
+            int countdown = times;
             @Override
             public void run() {
+                Utils.debug("countdownReay :"+countdown);
+                countdown--;
+                customHandler.postDelayed(this, 1000);
 //                Utils.debug("processs .....");
-                processReady(true);
+                gc.getGameLister().onIncommingEvent("getCountdown",new String[]{String.valueOf(countdown)});
+                if(countdown <= 0){
+                    countdown = 0;
+                    customHandler.removeCallbacks(this);
+                    processReady(true);
+                }
             }
-        }, 1000* times);
+        }, 1000);
 
 
 	}

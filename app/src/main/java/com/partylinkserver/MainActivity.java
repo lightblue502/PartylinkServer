@@ -113,6 +113,7 @@ public class MainActivity extends GameActivity {
 
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();

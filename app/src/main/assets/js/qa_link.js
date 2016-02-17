@@ -119,3 +119,9 @@ function clearLayer ($scope) { //allow just ask
     elem.style.visibility = "visible";
   });
 }
+
+function getCountdown(countdown){
+  angular.element(document.body).scope().$apply(function($scope){
+    $scope.countdown = countdown;
+  });
+}

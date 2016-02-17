@@ -117,3 +117,14 @@ function getPerson(personId){
     console.log("ERROR : getPerson id:"+personId);
   return aa;
 }
+
+function getCountdown(countdown){
+  angular.element(document.body).scope().$apply(function($scope){
+    
+    if(countdown <= 3){
+      $scope.display = "display status center";
+      $scope.displayText = countdown;
+    }
+
+  });
+}
