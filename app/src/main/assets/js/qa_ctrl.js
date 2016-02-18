@@ -3,9 +3,10 @@ var app = angular.module('PartyApp',[]);
 app.controller('BodyController', ['$scope', function($scope) {
 
 
-	var a1 = new Person(91,"John",'teamA',"img/637.jpg");
+	var a1 = new Person(91,"John",'teamA');
 	var a2 = new Person(3,"Jane",'teamA');
-	var b1 = new Person(92,"Sam",'teamB',"img/coby.jpg");
+	var b1 = new Person(92,"Mike",'teamB');
+	var b2 = new Person(94,"Yuri",'teamB');
 	$scope.teamA= [];
 	$scope.teamB= [];
 	$scope.score={"A":"00", "B":"00"};

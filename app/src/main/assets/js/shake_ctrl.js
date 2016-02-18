@@ -10,6 +10,8 @@ app.controller('BodyController', ['$scope','$interval', function($scope,$interva
 	var b3 = new Person(96,"eiei",'teamB');
 
 	// $scope.allPlayers=[a1,b1];
+	// $scope.teamA= [a1,a2,a3];
+	// $scope.teamB= [b1,b2,b3];
 	$scope.teamA= [];
 	$scope.teamB= [];
 	$scope.realScore={"A":1, "B":1};
@@ -20,7 +22,7 @@ app.controller('BodyController', ['$scope','$interval', function($scope,$interva
 	$scope.showleft = [];
 	$scope.showright = [];
 
-	$scope.shakeClass ={shake:"animated infinite shake"};
+	$scope.shakeClass ={shake:"animated shake"};
 	$scope.showStyle = { 'left':{'row':{},'box':{'width':30+'vh'},'name':{}},
 	'right':{'row':{},'box':{'width':30+'vh'},'name':{}}};
   	updateStyle($scope);
@@ -107,4 +109,23 @@ function updateStyle ($scope) {
 		console.log($scope.showStyle[side]);
 
 	};
+}
+var stageShake = {};
+function shakeAnimate (side, $scope) { //left || right
+	if(stageShake[side] != null){
+		window.clearTimeout(stageShake[side]);
+		console.log("A");
+	}
+	if(!$scope.shakeClass[side] || $scope.shakeClass[side] == ""){
+		$scope.shakeClass[side] = $scope.shakeClass.shake;
+		console.log("B");
+	}
+	else{
+		$scope.shakeClass[side] += " infinite";
+		console.log("C");
+	}
+	stageShake[side] = window.setTimeout(function() {
+		$scope.shakeClass[side] = "";
+		console.log("CLEAR");
+	}, 1000);
 }
