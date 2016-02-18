@@ -53,6 +53,8 @@ public class ResultActivity extends GameActivity {
         }else if(event.equals("initPlayer")){
             Log.d("DEBUG_initPLAYER",params[0]+"");
             wv.loadUrl("javascript:initPlayer("+params[0]+")");
+        }else if(event.equals("getCountdown")){
+            wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
         }
     }
 }

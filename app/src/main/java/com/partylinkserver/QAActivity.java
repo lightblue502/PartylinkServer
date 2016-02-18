@@ -86,5 +86,8 @@ public class QAActivity extends GameActivity {
             Log.d("DEBUG_wrong_inQAAct ", params[0]);
             wv.loadUrl("javascript:wrong(" + params[0]+")");
         }
+        else if(event.equals("getCountdown")){
+            wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
+        }
     }
 }

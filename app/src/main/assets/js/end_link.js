@@ -50,3 +50,9 @@ function initPlayer(teams){
     });
   });
 }
+
+function getCountdown(countdown){
+  angular.element(document.body).scope().$apply(function($scope){
+    $scope.countdown = countdown;
+  });
+}

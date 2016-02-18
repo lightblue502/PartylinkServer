@@ -29,6 +29,12 @@ function setPlayer(id, name){
   });
 }
 
+function getCountdown(countdown){
+  angular.element(document.body).scope().$apply(function($scope){
+    $scope.countdown = countdown;
+  });
+}
+
 function updateStyle ($scope) {
   var width = 30;
   var n = $scope.allPlayers.length;
@@ -43,3 +49,4 @@ function updateStyle ($scope) {
   console.log($scope.showStyle);
 
 }
+

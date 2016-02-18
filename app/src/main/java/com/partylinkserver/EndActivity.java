@@ -57,6 +57,8 @@ private WebView wv;
         }else if(event.equals("getTeamWin")){
             Log.d("DEBUG_getTeamWin",params[0]+"");
             wv.loadUrl("javascript:getTeamWin('"+params[0]+"')");
+        }else if(event.equals("getCountdown")){
+            wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
         }
     }
 }

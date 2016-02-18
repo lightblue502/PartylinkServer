@@ -55,6 +55,8 @@ public class RegistrarActivity extends GameActivity{
         }else if(event.equals("setPlayer")){
             //params[0] -> 'A' : params[1] -> 'B'
             wv.loadUrl("javascript:setPlayer("+ params[0]+",'"+params[1]+"')");
+        }else if(event.equals("getCountdown")){
+            wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
         }
     }
 }

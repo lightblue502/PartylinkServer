@@ -79,6 +79,8 @@ public class ShakeActivity extends GameActivity {
         }
         else if(event.equals("resetStage")){
             wv.loadUrl("javascript:resetStage()");
+        }else if(event.equals("getCountdown")){
+            wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
         }
     }
 }

@@ -171,6 +171,7 @@ public class QAEngine extends GameEngine{
             }
         }
         if(event.equals("game_pause")) {
+            sendGameEventToClient("game_pause", new String[]{});
             gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
             gamePaused = true;
         }else if(event.equals("game_resume")){

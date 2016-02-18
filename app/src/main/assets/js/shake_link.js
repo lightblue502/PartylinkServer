@@ -88,6 +88,11 @@ function resetStage () {
   });
 }
 
+function getCountdown(countdown){
+  angular.element(document.body).scope().$apply(function($scope){
+    $scope.countdown = countdown;
+  });
+}
 /******************** test 
 initPlayer([[{'id':1,'name':'jjj'}],[{'id':2,'name':'kkkk'}]]);
 shake(1,'A'); shake(2,'B');
