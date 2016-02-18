@@ -43,6 +43,21 @@ body {
 	background-size: 100% 100%;
 	z-index: -5;
 }
+.underRow .center{
+	position: fixed;
+	bottom: 13vh;
+	width: 100%;
+	text-align: center;
+	height: 10vh;
+}
+.underRow .center h1{
+	font-family: Continuum Bold;
+	font-size: 5vh;
+	font-weight: bold;
+	text-decoration: underline;
+	text-align: center;
+
+}
 
 .left .pl_logo{
 

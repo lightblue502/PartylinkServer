@@ -1,3 +1,6 @@
+var audio_qa = new Audio("sounds/AlexSkrindoLights.mp3");
+audio_qa.play();
+
 var app = angular.module('PartyApp',[]);
 
 app.controller('BodyController', ['$scope', function($scope) {

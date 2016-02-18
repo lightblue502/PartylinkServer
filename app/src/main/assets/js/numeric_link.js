@@ -1,3 +1,7 @@
+var audio_correct = new Audio("sounds/correct.mp3");
+var audio_wrong = new Audio("sounds/wrong.mp3");
+var audio_ding = new Audio("sounds/ding.wav");
+
 function generateIconScore(maxIcon, winRoundA, winRoundB){
   var icons = [
     {
@@ -49,6 +53,7 @@ function getSolves(params){
       // $scope.displayText = "Solve = "+solve+" "+person.name+" "+person.team;
       // $scope.displayText = "correct!! "+person.name+" "+person.team;
       $scope.displayText = person.name+" Correct!! ";
+      audio_correct.play();
   });
 }
 
@@ -74,6 +79,7 @@ function getQuestion(params){
 
 function getRound(round){
   angular.element(document.body).scope().$apply(function($scope){
+    audio_ding.play();
     $scope.display = "display status center";
     $scope.displayText = "ROUND" + round;
   });

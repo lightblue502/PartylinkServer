@@ -1,8 +1,13 @@
+var audio_shaking = new Audio("sounds/ElectricityShock.mp3");
+
+
+
 function getCurrentScore(scoreA ,scoreB){
   // console.log("hello getCurrentScore");
   angular.element(document.body).scope().$apply(function($scope){
-          $scope.realScore.A = scoreA;
-          $scope.realScore.B = scoreB;
+    audio_shaking.play();
+     $scope.realScore.A = scoreA;
+     $scope.realScore.B = scoreB;
   });
 };
 

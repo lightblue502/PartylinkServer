@@ -86,7 +86,6 @@ public class QAEngine extends GameEngine{
     public void endEngine() {
         Utils.debug("END GAME");
         gameManager.summaryScoreByGame(this, teams);
-        gc.nextEngine();
     }
     public void sendGameEventToClient(String event, String[] param ){
         if(!gamePaused){

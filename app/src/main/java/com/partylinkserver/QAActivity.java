@@ -28,6 +28,7 @@ public class QAActivity extends GameActivity {
 
         wv.loadUrl("file:///android_asset/qa.html");
         wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
+        wv.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
         JavaScriptInterface javaScriptInterface = JavaScriptInterface.getInstance();
         javaScriptInterface.init(this);
@@ -57,7 +58,9 @@ public class QAActivity extends GameActivity {
         }
         else if(event.equals("change_engine")){
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }
         else if(event.equals("getCurrentScore")){
             //params[0] -> 'A' : params[1] -> 'B'
