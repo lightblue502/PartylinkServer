@@ -5,9 +5,13 @@ var audio_shaking = new Audio("sounds/ElectricityShock.mp3");
 function getCurrentScore(scoreA ,scoreB){
   // console.log("hello getCurrentScore");
   angular.element(document.body).scope().$apply(function($scope){
-    audio_shaking.play();
-     $scope.realScore.A = scoreA;
-     $scope.realScore.B = scoreB;
+  audio_shaking.play();
+    if($scope.realScore.A < scoreA)
+        shakeAnimate("left",$scope);
+    if($scope.realScore.B < scoreB)
+        shakeAnimate("right",$scope);
+    $scope.realScore.A = scoreA;
+    $scope.realScore.B = scoreB;
   });
 };
 
@@ -55,11 +59,11 @@ function shake(id, team){
     function($scope){
       if(team == 'teamA'){
         $scope.showleft.push(person);
-        $scope.shakeClass.left = $scope.shakeClass.shake;
+        shakeAnimate("left",$scope);
       }
       else{
         $scope.showright.push(person);
-        $scope.shakeClass.right = $scope.shakeClass.shake;
+        shakeAnimate("right",$scope);
       }
       updateStyle ($scope)
 
@@ -72,8 +76,6 @@ function resetStage () {
   var cloneA, cloneB, elem;
   angular.element(document.body).scope().$apply(
   function($scope){
-    $scope.shakeClass.left = "";
-    $scope.shakeClass.right = "";
     cloneA = $scope.showleft;
     cloneB = $scope.showright;
     $scope.showleft = [];
