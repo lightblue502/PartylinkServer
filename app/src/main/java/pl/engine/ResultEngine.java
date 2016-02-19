@@ -20,8 +20,7 @@ public class ResultEngine extends GameEngine{
 
 	@Override
 	public void startEngine() {
-
-
+        gamePaused = false;
 
 	}
 
@@ -43,27 +42,27 @@ public class ResultEngine extends GameEngine{
     }
     @Override
     public void onIncomingEvent(int clientId, String event, String[] params) {
+        Utils.debug("gamePaused: " + gamePaused);
+        Utils.debug("ResultEngine : " + event);
         if(!gamePaused) {
             if(event.equals("resultUI_Start")){
                 sendGameEventToClient(gc.getCurrentGameEngine().getClientStart(), new String[]{});
-//                gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
                 gameManager.initPlayerstoUI(teams);
             }else if(event.equals("result_ready")){
                 cntPlayer++;
                 showResultScore();
-
             }else if(event.equals("playerConfirm")){
                 playerConfirm(clientId);
                 cntPlayer++;
                 onPlayerReady(playerAmount);
+            }else if(event.equals("game_pause")) {
+                sendGameEventToClient("game_pause", new String[]{});
+                gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
+                gameManager.stopTimer();
+                gamePaused = true;
             }
         }
-        if(event.equals("game_pause")) {
-            sendGameEventToClient("game_pause", new String[]{});
-            gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
-            gameManager.stopTimer();
-            gamePaused = true;
-        }else if(event.equals("game_resume")){
+        else if(event.equals("game_resume")){
             cntResumePlayer++;
             Player player = new Player(clientId, params[0]);
             gc.sendGameEvent(player, "resume_ok");

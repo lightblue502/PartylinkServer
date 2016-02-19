@@ -42,6 +42,11 @@ public class ResultActivity extends GameActivity {
         Log.d("DEBUG_inResultActivity","onGameEvent"+ event);
         if(params ==  null){
             return;
+        }else if (event.equals("game_pause")) {
+            super.changeToPauseFragment(R.id.fragment_container);
+        }
+        else if(event.equals("game_resume")){
+            super.onSuicidePauseFragment();
         }else if(event.equals("change_engine")){
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
