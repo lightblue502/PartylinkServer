@@ -9,6 +9,8 @@ public class ResultEngine extends GameEngine{
     private List<Team> teams = gc.getTeams();
     private int playerAmount;
     private int cntPlayer = 0;
+    private int cntResumePlayer = 0;
+    private boolean gamePaused = false;
     private GameManager gameManager;
     public ResultEngine(GameContext gc, int playerAmount, String name, Class activityClass, String clientStart) {
         super(gc, name, activityClass, clientStart);
@@ -29,19 +31,49 @@ public class ResultEngine extends GameEngine{
 		
 	}
 
+    public void sendGameEventToClient( String event, String[] param ){
+        if(!gamePaused){
+            gc.sendGameEvent(event, param);
+        }
+    }
+    public void sendGameEventToClient(Player player, String event, String[] param ){
+        if(!gamePaused){
+            gc.sendGameEvent(player, event, param);
+        }
+    }
     @Override
     public void onIncomingEvent(int clientId, String event, String[] params) {
-        if(event.equals("resultUI_Start")){
-            gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
-            gameManager.initPlayerstoUI(teams);
-        }else if(event.equals("result_ready")){
-            cntPlayer++;
-            showResultScore();
+        if(!gamePaused) {
+            if(event.equals("resultUI_Start")){
+                sendGameEventToClient(gc.getCurrentGameEngine().getClientStart(), new String[]{});
+//                gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
+                gameManager.initPlayerstoUI(teams);
+            }else if(event.equals("result_ready")){
+                cntPlayer++;
+                showResultScore();
 
-        }else if(event.equals("playerConfirm")){
-            playerConfirm(clientId);
-            cntPlayer++;
-            onPlayerReady(playerAmount);
+            }else if(event.equals("playerConfirm")){
+                playerConfirm(clientId);
+                cntPlayer++;
+                onPlayerReady(playerAmount);
+            }
+        }
+        if(event.equals("game_pause")) {
+            sendGameEventToClient("game_pause", new String[]{});
+            gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
+            gameManager.stopTimer();
+            gamePaused = true;
+        }else if(event.equals("game_resume")){
+            cntResumePlayer++;
+            Player player = new Player(clientId, params[0]);
+            gc.sendGameEvent(player, "resume_ok");
+            if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
+                cntResumePlayer = 0;
+                gamePaused = false;
+                gameManager.runTimerAgain();
+                sendGameEventToClient("game_resume", new String[]{});
+                gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
+            }
         }
 		
 	}
