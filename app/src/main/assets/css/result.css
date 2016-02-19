@@ -6,7 +6,19 @@
 }
 
 body {
-  background-color: #efefef
+	overflow: hidden;
+  	background-color: #efefef
+}
+.countdown{
+	position: absolute;
+	left: -10vh;
+	width: 20vh;
+	font-size: 15vh;
+	bottom: 0vh;
+	text-align: center;
+	font-family: "Continuum Bold";
+	color: white;
+	z-index: 50;
 }
 .middleRow{
 	position: absolute;
@@ -30,7 +42,7 @@ body {
 .underRow{
 	position: absolute;
 	height: 100vh;
-	z-index: 1;
+	z-index: 10;
 }
 
 .underRow .left{
@@ -41,6 +53,22 @@ body {
 	background-image: url('../img/result/player_tab.png');
 	background-size: 100% 100%;
 	z-index: -5;
+}
+
+.underRow .center{
+	position: fixed;
+	bottom: 13vh;
+	width: 100%;
+	text-align: center;
+	height: 10vh;
+}
+.underRow .center h1{
+	font-family: Continuum Bold;
+	font-size: 5vh;
+	font-weight: bold;
+	text-decoration: underline;
+	text-align: center;
+
 }
 
 .left .pl_logo{
@@ -96,7 +124,7 @@ div.pic{
 	width: 13vw;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    z-index: 10;
+    z-index: 5;
 
     
 }

@@ -28,6 +28,7 @@ public class NumericActivity extends GameActivity {
 //        wv.loadData("<h3> Hello world</h3>", "text/html","UTF-8");
         wv.loadUrl("file:///android_asset/numeric.html");
         wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
+        wv.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
         JavaScriptInterface javaScriptInterface = JavaScriptInterface.getInstance();
         javaScriptInterface.init(this);
@@ -56,7 +57,9 @@ public class NumericActivity extends GameActivity {
             super.onSuicidePauseFragment();
         }else if(event.equals("change_engine")){
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }
         else if(event.equals("getCurrentScore")){
             //params[0] -> 'A' : params[1] -> 'B'
@@ -85,9 +88,13 @@ public class NumericActivity extends GameActivity {
             //create new teams
 //            Log.d("DEBUG_initPlayer","at server UI --- "+params[0]);
             wv.loadUrl("javascript:initPlayer("+params[0]+")");
-        }else if(event.equals("getSolves")){
+        }
+        else if(event.equals("getSolves")){
 //            Log.d("DEBUG_getSolves","" +params[0]+params[1]+params[2]);
             wv.loadUrl("javascript:getSolves(["+ params[0]+","+ params[1]+",'"+ params[2]+"'])");
+        }
+        else if(event.equals("getCountdown")){
+            wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
         }
     }
 

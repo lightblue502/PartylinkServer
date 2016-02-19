@@ -1,6 +1,11 @@
-var app = angular.module("myApp", []);
-app.controller('HomeCtrl', ['$scope','$interval', function($scope, $interval){
+var audio_home = new Audio("sounds/DiscoSmurfRumble.mp3");
+audio_home.play();
 
+var app = angular.module("myApp", []);
+app.controller('HomeCtrl', ['$scope','$interval','$timeout', function($scope, $interval, $timeout){
+  // 
+  
+  
   //web call android UI Ready;
   Android.onUiReady();
   $scope.display = "loading...";

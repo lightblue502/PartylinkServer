@@ -23,7 +23,7 @@ public class MainActivity extends GameActivity {
     private String ip;
     private WebView wv;
     private GameContext gc;
-    private int playerAmount = 2;
+    private int playerAmount = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class MainActivity extends GameActivity {
 //        wv.loadData("<h3> Hello world</h3>", "text/html","UTF-8");
         wv.loadUrl("file:///android_asset/home.html");
         wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
+        wv.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
         JavaScriptInterface javaScriptInterface = JavaScriptInterface.getInstance();
         javaScriptInterface.init(this);
@@ -112,6 +113,7 @@ public class MainActivity extends GameActivity {
         super.onStart();
 
     }
+
 
     @Override
     protected void onResume() {

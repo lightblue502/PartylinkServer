@@ -15,6 +15,7 @@ app.controller('ResultCtrl', ['$scope','$interval', function($scope, $interval){
   // $scope.allPlayers = [a1, a2, b1, b2];
 
 
+
   //web call android UI Ready;
   Android.onUiReady();
 

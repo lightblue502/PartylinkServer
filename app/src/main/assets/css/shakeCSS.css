@@ -7,6 +7,15 @@
    	-webkit-text-stroke-color: #dedede;
 }
 
+.countdown{
+	position: absolute;
+	left: -10vh;
+	width: 20vh;
+	font-size: 15vh;
+	top: 50vh;
+	text-align: center;
+	color: white;
+}
 div.bg{
 	position: absolute;
 	top: 0;
@@ -93,6 +102,7 @@ div.boxright{
 }
 .processscore.inred{
 	z-index: 3;
+	max-width: 44vw;
 	background-color: #ff00ff;
 } 
 .processscore.inblue{
@@ -166,7 +176,7 @@ div.boxright{
 	background-position: 50%;
 	background-size: 100%;
 	overflow: hidden;
-	border: 1.5vh solid white;
+	border: 1.5vh solid #fff;
 	box-shadow: 0vh 1.5vh 0 #555;
 
 }

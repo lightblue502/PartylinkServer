@@ -89,6 +89,7 @@ public class NumericEngine extends GameEngine{
 			}
 		}
 		if(event.equals("game_pause")) {
+			sendGameEventToClient("game_pause", new String[]{});
 			gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
 			gameManager.stopTimer();
 			gamePaused = true;

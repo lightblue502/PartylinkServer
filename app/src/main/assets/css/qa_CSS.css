@@ -15,22 +15,38 @@
 }
 
 body{
-	background-color: #afc;
-	background-image: url("../img/noise_paper.png");
+	overflow: hidden;
+	background-color: #363636;
+	/*background-image: url("../img/qa/bg.png");*/
+	/*background-size: 100% 100%;*/
+}
+.countdown{
+	position: absolute;
+	left: -10vh;
+	width: 20vh;
+	font-size: 15vh;
+	top: 50vh;
+	text-align: center;
+	color: white;
+}
+.center{
+	position: relative;
+	left: 50%;
+	top: 30%;
 }
 
 .showbox{
 	position: absolute;
-	top: 15%;
 	width: 90%;
 	height: 55%;
+	left: -15vh;
 	text-align: center;
 }
 .showPersonBox{
 	width: 30vh;
 	height: 40vh;
 	bottom: 0;
-	margin: auto;
+	margin: 0;
 	/*overflow: hidden;*/
 	text-align: center;
 	font-family: cursive;
@@ -97,11 +113,34 @@ body{
 /*-----------------------------------*/
 
 .textTeam{
-  width: 24vh;
+  width: 20vw;
   white-space: pre-wrap;
-  background-color: black;
   text-align:center;
-  font-size: 8vh;
+  font-size: 5vh;
+  font-family: tahoma;
+  line-height: 6vh;
+
+  border-radius: 7vh;
+  padding: 0 2vh;
+  margin: 3vh 1vw;
+}
+.textTeam.left{
+  border: 0.7vh solid #f30009;
+  color:#f30009;
+  text-align: left;
+}
+.textTeam.left div{
+  float: left;
+  margin: 0 1vh;
+}
+.textTeam.right{
+  border: 0.7vh solid #0067f3;
+  color:#0067f3;
+  text-align: right;
+}
+.textTeam.right div{
+  float: right;
+  margin: 0 1vh;
 }
 .icon{
   /*position: fixed;*/
@@ -110,7 +149,6 @@ body{
 }
 .red{
   position: absolute;
-  color: #F55;
   z-index: -2;
   top: 0vh;
   
@@ -118,7 +156,6 @@ body{
 
 .blue{
   position: absolute;
-  color: #5096FF;
   right: 0vh;
   top: 0vh;
   z-index: -2;
@@ -132,4 +169,30 @@ body{
   text-align: center;
   background-color: gray;
   width: 16vh;
+}
+
+/*---------------bg-status---------------*/
+.status{
+	position: absolute;
+	width: 70vh;
+	height: 70vh;
+	left: -20vh;
+	top: -20vh;
+	z-index: -1;
+	background-size: 100% 100%;
+}
+.ask{
+	background-image: url('../img/qa/question.png');
+}
+.correct{
+	background-image: url('../img/qa/correct.png');
+}
+.wrong{
+	background-image: url('../img/qa/wrong.png');
+}
+.showAnimated{
+  	-webkit-animation-delay: 0.1s;
+  	animation-delay: 0.1s;
+  	-webkit-animation-duration: 0.25s !important;
+  	animation-duration: 0.25s !important;
 }
