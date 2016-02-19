@@ -18,9 +18,9 @@
     </div>
   </div>
 
-  <h1>{{countdown}}</h1>
 
   <div class="middleRow">
+      <div class="countdown" ng-class="countClass">{{countdown}}</div>
     <div ng-repeat="rs in resultScores track by $index">
       <!-- {{resultScores}} -->
       <!-- {{rs.team}}  -- {{rs.gameName}} --A: {{rs.winRoundA}} -- B: {{rs.winRoundB}}  -->
@@ -46,7 +46,7 @@
   </div>
 
   
-  <div class="underRow"> 
+    <div class="underRow"> 
     <div class="left">
         <div class="pl_logo">
         </div>

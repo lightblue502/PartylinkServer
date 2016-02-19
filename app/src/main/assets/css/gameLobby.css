@@ -5,6 +5,15 @@
 body{
 	overflow: hidden;
 }
+.countdown{
+	position: absolute;
+	left: -10vh;
+	width: 20vh;
+	font-size: 15vh;
+	top: 50vh;
+	text-align: center;
+	font-family: conBold;
+}
 .headertext{
 	font-family: conBold;
 	position: absolute;

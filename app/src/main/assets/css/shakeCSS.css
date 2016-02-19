@@ -7,6 +7,15 @@
    	-webkit-text-stroke-color: #dedede;
 }
 
+.countdown{
+	position: absolute;
+	left: -10vh;
+	width: 20vh;
+	font-size: 15vh;
+	top: 50vh;
+	text-align: center;
+	color: white;
+}
 div.bg{
 	position: absolute;
 	top: 0;

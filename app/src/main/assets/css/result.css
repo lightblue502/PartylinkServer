@@ -9,6 +9,17 @@ body {
 	overflow: hidden;
   	background-color: #efefef
 }
+.countdown{
+	position: absolute;
+	left: -10vh;
+	width: 20vh;
+	font-size: 15vh;
+	bottom: 0vh;
+	text-align: center;
+	font-family: "Continuum Bold";
+	color: white;
+	z-index: 50;
+}
 .middleRow{
 	position: absolute;
 	height: 100vh;
