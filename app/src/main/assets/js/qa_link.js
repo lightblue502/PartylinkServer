@@ -1,8 +1,8 @@
 function getCurrentScore(scoreA ,scoreB){
   // console.log("hello getCurrentScore");
   angular.element(document.body).scope().$apply(function($scope){
-          $scope.score.A = (scoreA < 10)? "0"+scoreA : scoreA;
-          $scope.score.B = (scoreB < 10)? "0"+scoreB : scoreB;
+          $scope.score.A = (0 <= scoreA && scoreA < 10)? "0"+scoreA : scoreA;
+          $scope.score.B = (0 <= scoreB && scoreB < 10)? "0"+scoreB : scoreB;
   });
 };
 
