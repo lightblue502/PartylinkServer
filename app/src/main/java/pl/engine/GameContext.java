@@ -208,6 +208,7 @@ public class GameContext implements CommunicationListener{
 
 	private boolean connectionReadyIssued = false;
 	private void checkConnectionReady(){
+		gameLister.onIncommingEvent("player_size", new String[]{String.valueOf(cm.getClients().size())} );
 		if(!connectionReadyIssued && cm.getClients().size() == playerAmount){
 			gameLister.onIncommingEvent("socketplayers_ready", new String[0]);
 			connectionReadyIssued = true;

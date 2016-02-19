@@ -34,8 +34,10 @@ function getCountdown(countdown){
     $scope.countdown = countdown;
     $scope.countClass = "";
     setTimeout(function() {
-      $scope.countClass = "animated shake";
-    },1000);
+      $scope.$apply(function () {
+        $scope.countClass = "animated fadeOut ";
+      });
+    },200);
   });
 }
 

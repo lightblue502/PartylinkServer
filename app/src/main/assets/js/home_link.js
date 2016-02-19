@@ -11,3 +11,14 @@ function loading(times){
           $scope.display = "loading... "+times;
   });
 };
+
+function getPlayerSize(now, size){
+  angular.element(document.body).scope().$apply(function($scope){
+          $scope.connect = "Connected "+now+" player";
+          if(now>1) $scope.connect +="s";
+          $scope.connect +=".";
+
+          if(now == size)
+          	$scope.ip = "animated zoomOutUp";
+  });
+};
