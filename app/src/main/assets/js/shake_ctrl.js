@@ -1,3 +1,6 @@
+var audio_shake = new Audio("sounds/AlexSkrindoLights.mp3");
+audio_shake.play();
+
 var app = angular.module('PartyApp',[]);
 
 app.controller('BodyController', ['$scope','$interval', function($scope,$interval) {

@@ -1,12 +1,14 @@
+var audio_qa = new Audio("sounds/AlexSkrindoLights.mp3");
+audio_qa.play();
+
 var app = angular.module('PartyApp',[]);
 
 app.controller('BodyController', ['$scope', function($scope) {
 
 
-	var a1 = new Person(91,"John",'teamA');
+	var a1 = new Person(91,"John",'teamA',"img/637.jpg");
 	var a2 = new Person(3,"Jane",'teamA');
-	var b1 = new Person(92,"Mike",'teamB');
-	var b2 = new Person(94,"Yuri",'teamB');
+	var b1 = new Person(92,"Sam",'teamB',"img/coby.jpg");
 	$scope.teamA= [];
 	$scope.teamB= [];
 	$scope.score={"A":"00", "B":"00"};

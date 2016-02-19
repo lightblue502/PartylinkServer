@@ -21,15 +21,15 @@ app.controller('ResultCtrl', ['$scope','$interval', function($scope, $interval){
 
 
   //MOCK
-//   $scope.resultScores = [
-//   {team:"teamA",gameName:"ShakeGAME",winRoundA:2, winRoundB:0},
-// 	{team:"teamB",gameName:"Numberic",winRoundA:1, winRoundB:2},
-// 	{team:"teamB",gameName:"QA",winRoundA:3, winRoundB:1}
-//   ]
+ //  $scope.resultScores = [
+ //  {team:"teamA",gameName:"ShakeGAME",winRoundA:2, winRoundB:0},
+	// {team:"teamB",gameName:"Numberic",winRoundA:1, winRoundB:2},
+	// {team:"teamB",gameName:"QA",winRoundA:3, winRoundB:1}
+ //  ]
 
-//   var recentGame = $scope.resultScores[$scope.resultScores.length-1];
-//   recentGame.team = recentGame.team == "teamA" ? "RED Win": "BLUE Win";
-//   $scope.recentGame = recentGame; 
+ //  var recentGame = $scope.resultScores[$scope.resultScores.length-1];
+ //  recentGame.team = recentGame.team == "teamA" ? "RED Win": "BLUE Win";
+ //  $scope.recentGame = recentGame; 
   
 }]);
 

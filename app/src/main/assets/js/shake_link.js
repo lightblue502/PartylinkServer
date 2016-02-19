@@ -1,6 +1,11 @@
+var audio_shaking = new Audio("sounds/ElectricityShock.mp3");
+
+
+
 function getCurrentScore(scoreA ,scoreB){
   // console.log("hello getCurrentScore");
   angular.element(document.body).scope().$apply(function($scope){
+  audio_shaking.play();
     if($scope.realScore.A < scoreA)
         shakeAnimate("left",$scope);
     if($scope.realScore.B < scoreB)

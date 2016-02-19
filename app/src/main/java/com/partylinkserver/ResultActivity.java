@@ -21,6 +21,7 @@ public class ResultActivity extends GameActivity {
 //        wv.loadData("<h3> Hello world</h3>", "text/html","UTF-8");
         wv.loadUrl("file:///android_asset/result.html");
         wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
+        wv.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
         JavaScriptInterface javaScriptInterface = JavaScriptInterface.getInstance();
         javaScriptInterface.init(this);
@@ -43,7 +44,9 @@ public class ResultActivity extends GameActivity {
             return;
         }else if(event.equals("change_engine")){
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }else if(event.equals("getResultScores")){
             Log.d("DEBUG_getResultScores",params[0]+"");
             wv.loadUrl("javascript:getResultScores("+params[0]+")");

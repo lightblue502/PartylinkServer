@@ -33,7 +33,6 @@ public class QAEngine extends GameEngine{
     public GameManager gameManager;
     private ResultScore resultScore = new ResultScore();
     private boolean isInit = false;
-    private boolean answerAble = true;
     private boolean gamePaused = false;
 
     public QAEngine(GameContext gc, int playerAmount, String name, Context context, Class activityClass, String clientStart) {
@@ -104,10 +103,9 @@ public class QAEngine extends GameEngine{
         if(cntPlayer == playerAmount && isInit){
             Utils.debug("Player ready");
             gameManager.printReportRound();
-            if(gameManager.getRound() <= 3) {
+            if(length > 0) {
                 randomQuestion(length);
                 sendQuestionToggleTeam();
-                answerAble = true;
             }else{
                 endEngine();
             }
@@ -143,23 +141,15 @@ public class QAEngine extends GameEngine{
                 Utils.debug("Ready");
                 cntPlayer++;
                 onPlayerReady(playerAmount);
-            } else if (event.equals("qa_ans") && answerAble) {
+            } else if (event.equals("qa_ans")) {
                 if (correct_ans.equals(params[0])) {
                     Utils.debug("CORRECT !!!!!!!");
-                    answerAble = false;
                     gc.getGameLister().onIncommingEvent("qa_correct", new String[]{
                             String.valueOf(clientId)
                     });
                     cntPlayer = 0;
                     gameManager.scoreManage(clientId, 2);
-                    gameManager.countDownGameReady(2);
-                    gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
-                        @Override
-                        public void ready() {
-                            sendGameEventToClient("qa_change", new String[]{});
-                            gameManager.checkNumber();
-                        }
-                    });
+                    sendGameEventToClient("qa_change", new String[]{});
                 } else {
                     gc.getGameLister().onIncommingEvent("qa_wrong", new String[]{
                             String.valueOf(clientId)

@@ -48,16 +48,19 @@
  -->
   
     <div class="underRow"> 
-    <div class="left">
-        <div class="pl_logo">
-        </div>
-        <div style="margin-left:15vw;">
-          <div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft">
-            <span class="personName label label-default" style="bottom:30vh;">{{person.name}}</span>
+      <div class="left">
+          <div class="pl_logo">
           </div>
-        </div>
+          <div style="margin-left:15vw;">
+            <div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft">
+              <span class="personName label label-default" style="bottom:30vh;">{{person.name}}</span>
+            </div>
+          </div>
 
-    </div>
+      </div>
+      <div class="center animated infinite pulse">
+           <h1>PRESS BUTTON TO CONTINUE</h1>
+      </div>
   </div>
  
 </body>
