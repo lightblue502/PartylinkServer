@@ -48,11 +48,7 @@ public abstract class GameActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 String event = intent.getStringExtra("event");
                 String[] params = intent.getStringArrayExtra("params");
-                try {
-                    onGameEvent(event,  params);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                onGameEvent(event,  params);
             }
         };
 
@@ -76,7 +72,12 @@ public abstract class GameActivity extends AppCompatActivity {
         gc.onIncomingData(0, line.toString());
     }
 
-    public abstract void onGameEvent(String event, String[] params) throws ClassNotFoundException;
+    public void onGameEvent(String event, String[] params){
+        if(event.equals("back_Door")){
+            Log.d("backdoor press : ", params[0] + "");
+            // param[0] goes from 0-9
+        }
+    }
 
     @Override
     protected void onResume() {

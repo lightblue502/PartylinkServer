@@ -39,11 +39,17 @@ public class ShakeActivity extends GameActivity {
             public void ready() {
                 sendGameEvent("shakeUI_Start");
             }
+
+            @Override
+            public void backDoor(String num) {
+                sendGameEvent("back_Door",new String[]{num});
+            }
         });
     }
 
     @Override
-    public void onGameEvent(String event, String[] params) throws ClassNotFoundException {
+    public void onGameEvent(String event, String[] params){
+        super.onGameEvent(event,params);
 
         if(params ==  null){
             return;

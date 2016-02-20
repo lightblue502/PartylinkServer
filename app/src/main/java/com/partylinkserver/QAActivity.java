@@ -41,11 +41,16 @@ public class QAActivity extends GameActivity {
             public void ready() {
                 sendGameEvent("qaUI_Start");
             }
+            @Override
+            public void backDoor(String num) {
+                sendGameEvent("back_Door",new String[]{num});
+            }
         });
     }
 
     @Override
     public void onGameEvent(String event, String[] params) {
+        super.onGameEvent(event,params);
         Utils.debug("onGameEvent" + event);
         if(params ==  null){
             return;

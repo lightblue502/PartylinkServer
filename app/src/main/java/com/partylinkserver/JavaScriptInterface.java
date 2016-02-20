@@ -28,6 +28,7 @@ public class JavaScriptInterface {
 
     public static interface onUiReadyListener {
         public void ready();
+        public void backDoor(String num);
     }
     private onUiReadyListener listener;
 
@@ -40,6 +41,13 @@ public class JavaScriptInterface {
         Log.d("DEBUG_webCallAndroid", "onUiReady");
         if (listener != null) {
             listener.ready();
+        }
+    }
+    @JavascriptInterface
+     public void backDoorKey(String num){
+//        Log.d("DEBUG_webCallAndroid", "backdoor :"+num);
+        if (listener != null) {
+            listener.backDoor(num);
         }
     }
 

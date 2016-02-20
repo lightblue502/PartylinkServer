@@ -40,6 +40,10 @@ public class NumericActivity extends GameActivity {
                 //call engine that game numeric_game ready to play;
                 sendGameEvent("NumericServerUI_Start");
             }
+            @Override
+            public void backDoor(String num) {
+                sendGameEvent("back_Door",new String[]{num});
+            }
         });
 
         Log.d("DEBUG", "(NUMERIC) This is numeric activity");
@@ -48,7 +52,8 @@ public class NumericActivity extends GameActivity {
 
     }
     @Override
-    public void onGameEvent(String event, String[] params) throws ClassNotFoundException {
+    public void onGameEvent(String event, String[] params){
+        super.onGameEvent(event,params);
         if(params ==  null){
             return;
         }else if (event.equals("game_pause")) {

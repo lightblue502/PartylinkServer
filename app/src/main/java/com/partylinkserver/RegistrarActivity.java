@@ -48,13 +48,18 @@ public class RegistrarActivity extends GameActivity{
     }
 
     @Override
-    public void onGameEvent(String event, String[] params) throws ClassNotFoundException {
+    public void onGameEvent(String event, String[] params){
+        super.onGameEvent(event,params);
         Log.d("REGIS", "event: " + event);
         if(event.equals("change_engine")){
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
+        }else if (event.equals("game_pause")) {
+            super.changeToPauseFragment(R.id.fragment_container);
+        }else if(event.equals("game_resume")){
+            super.onSuicidePauseFragment();
         }else if(event.equals("setPlayer")){
             //params[0] -> 'A' : params[1] -> 'B'
             wv.loadUrl("javascript:setPlayer("+ params[0]+",'"+params[1]+"')");

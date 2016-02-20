@@ -34,11 +34,17 @@ private WebView wv;
             public void ready() {
                 sendGameEvent("endUI_Start");
             }
+
+            @Override
+            public void backDoor(String num) {
+                sendGameEvent("back_Door",new String[]{num});
+            }
         });
     }
 
     @Override
-    public void onGameEvent(String event, String[] params) throws ClassNotFoundException {
+    public void onGameEvent(String event, String[] params){
+        super.onGameEvent(event,params);
         Log.d("DEBUG_inEndActivity","onGameEvent"+ event);
         if(params ==  null){
             return;

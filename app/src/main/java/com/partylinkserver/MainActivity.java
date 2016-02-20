@@ -60,6 +60,10 @@ public class MainActivity extends GameActivity {
             public void ready() {
                 sendGameEvent("homeUI_Start");
             }
+            @Override
+            public void backDoor(String num) {
+                sendGameEvent("back_Door",new String[]{num});
+            }
         });
 
 
@@ -93,6 +97,7 @@ public class MainActivity extends GameActivity {
 
     @Override
     public void onGameEvent(String event, String[] params) {
+        super.onGameEvent(event,params);
         Utils.debug("on Game event , MainActivity : " + event);
         if(event.equals("socketplayers_ready")){
             Utils.debug("socketpalyer ready");
@@ -116,7 +121,7 @@ public class MainActivity extends GameActivity {
             wv.loadUrl("javascript:getIpAddress('"+params[0]+"')");
 
         }else if(event.equals("player_size")){
-            wv.loadUrl("javascript:getPlayerSize("+params[0]+","+playerAmount+")");
+            wv.loadUrl("javascript:getPlayerSize("+params[0]+","+playerAmount+ ")");
         }
     }
 
