@@ -14,7 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import pl.engine.EndEngine;
 import pl.engine.GameContext;
+import pl.engine.GameEngine;
+import pl.engine.GameShakeEngine;
+import pl.engine.NumericEngine;
+import pl.engine.QAEngine;
+import pl.engine.ResultEngine;
 import pl.engine.Utils;
 
 public abstract class GameActivity extends AppCompatActivity {
@@ -74,10 +80,33 @@ public abstract class GameActivity extends AppCompatActivity {
 
     public void onGameEvent(String event, String[] params){
         if(event.equals("back_Door")){
+            int select = Integer.parseInt(params[0]);
+            GameEngine currentGameEngine= null;
+            gc.setEngineIndex(0);
+            int playerAmount = gc.getPlayerAmount();
+            gc.getCurrentGameEngine().endEngine();
             Log.d("backdoor press : ", params[0] + "");
+            if(select == 1){
+                currentGameEngine = new GameShakeEngine(gc, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start");
+            }else if(select == 2){
+                currentGameEngine = new NumericEngine(gc, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start");
+            }else if(select == 3){
+                currentGameEngine = new QAEngine(gc, playerAmount, "GAME QA", gc.getContext(), QAActivity.class, "qa_start");
+            }else if(select == 8){
+                currentGameEngine = new ResultEngine(gc, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start");
+            }else if(select == 9){
+                currentGameEngine = new EndEngine(gc, playerAmount, "END ENGINE", EndActivity.class, "end_start");
+            }
+
+            if (currentGameEngine != null) {
+                gc.setCurrentGameEngine(currentGameEngine);
+                gc.changeToNextEngine();
+            }
             // param[0] goes from 0-9
         }
     }
+
+
 
     @Override
     protected void onResume() {

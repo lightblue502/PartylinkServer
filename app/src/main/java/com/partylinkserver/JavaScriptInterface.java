@@ -45,7 +45,7 @@ public class JavaScriptInterface {
     }
     @JavascriptInterface
      public void backDoorKey(String num){
-//        Log.d("DEBUG_webCallAndroid", "backdoor :"+num);
+        Log.d("DEBUG_webCallAndroid", "backdoor :"+num);
         if (listener != null) {
             listener.backDoor(num);
         }

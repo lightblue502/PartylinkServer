@@ -24,7 +24,7 @@ public class MainActivity extends GameActivity {
     private String ip;
     private WebView wv;
     private GameContext gc;
-    private int playerAmount = 2;
+    private int playerAmount = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class MainActivity extends GameActivity {
             }
             @Override
             public void backDoor(String num) {
-                sendGameEvent("back_Door",new String[]{num});
+                onGameEvent("back_Door",new String[]{num});
             }
         });
 

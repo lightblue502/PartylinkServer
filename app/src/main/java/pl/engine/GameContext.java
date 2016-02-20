@@ -53,7 +53,7 @@ public class GameContext implements CommunicationListener{
         engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
         engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
         engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start"));
-        engines.add(new ResultEngine(this, playerAmount, "REShULT SCORE", ResultActivity.class, "result_start"));
+        engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
         engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class, "qa_start"));
         engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
         engines.add(new EndEngine(this, playerAmount, "END ENGINE", EndActivity.class, "end_start"));
@@ -71,7 +71,15 @@ public class GameContext implements CommunicationListener{
 	public void setPlayerAmount(int playerAmount){
 		this.playerAmount = playerAmount;
 	}
-	
+	public int getPlayerAmount(){
+        return  playerAmount;
+    }
+    public void setEngineIndex(int engineIndex){
+        this.engineIndex = engineIndex;
+    }
+    public Context getContext(){
+        return context;
+    }
 	public void begin(){
 		currentGameEngine = engines.get(engineIndex);
 		Utils.debug("(GameContext) is begining --> CurrentGameengine is " + currentGameEngine.getName());
@@ -80,12 +88,30 @@ public class GameContext implements CommunicationListener{
 	public void nextEngine(){
 
 		currentGameEngine = engines.get(++engineIndex);
-        Log.d("DEBUG"," "+currentGameEngine.getName());
-		currentGameEngine.startEngine();
+        Log.d("DEBUG", " " + currentGameEngine.getName());
 //		sendGameEvent(currentGameEngine.getClientStart());
-
-		gameLister.onIncommingEvent("change_engine", new String[0]);
+        changeToNextEngine();
+        if(engineIndex > engines.size()-1 )
+            engineIndex = 0;
 	}
+
+    public void changeToNextEngine(){
+        currentGameEngine.startEngine();
+        gameLister.onIncommingEvent("change_engine", new String[0]);
+    }
+
+    public void setCurrentGameEngine(GameEngine currentGameEngine){
+        this.currentGameEngine = currentGameEngine;
+    }
+
+    public GameEngine getGameEngineByClass(Class selectClass){
+        for ( GameEngine engine : engines){
+            if(engine.getClass().getName().equals(selectClass.getName())){
+                return engine;
+            }
+        }
+        return  null;
+    }
 	
 	public void onIncomingData(int clientId, String line){
 		if(currentGameEngine != null){

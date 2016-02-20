@@ -42,7 +42,7 @@ public class NumericActivity extends GameActivity {
             }
             @Override
             public void backDoor(String num) {
-                sendGameEvent("back_Door",new String[]{num});
+                onGameEvent("back_Door", new String[]{num});
             }
         });
 
