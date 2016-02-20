@@ -29,7 +29,7 @@
 			<div ng-repeat="icon in iconScore.blue.light" class="icon  floatleft" ng-style="{'background-image':'url({{icon.img}})'}"></div>
 			<div ng-repeat="icon in iconScore.blue.dark" class="icon  floatleft" ng-style="{'background-image':'url({{icon.img}})'}"></div>
 		</div>
-		<div class="countdown" ng-class="countClass">{{countdown}}</div>
+		<div ng-if="countdown != '0'" class="countdown" ng-class="countClass">{{countdown}}</div>
 	</div>
 
 	

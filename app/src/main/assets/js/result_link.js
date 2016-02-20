@@ -56,5 +56,11 @@ function initPlayer(teams){
 function getCountdown(countdown){
   angular.element(document.body).scope().$apply(function($scope){
     $scope.countdown = countdown;
+    $scope.countClass = "";
+    setTimeout(function() {
+      $scope.$apply(function () {
+        $scope.countClass = "animated fadeOut ";
+      });
+    },200);
   });
 }

@@ -1,3 +1,6 @@
+body{
+	overflow: hidden;
+}
 .underRow{
 	position: absolute;
 	left: 50vw;
@@ -44,4 +47,8 @@
 	font-size: 11vh;
 	width: 100vw;
 	height: 10vh;
+}
+.center.tapdown{
+	font-size: 5vh !important;
+	margin-top: 43vh;
 }

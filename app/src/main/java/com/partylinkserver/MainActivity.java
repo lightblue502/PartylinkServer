@@ -1,5 +1,6 @@
 package com.partylinkserver;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -95,16 +96,27 @@ public class MainActivity extends GameActivity {
         Utils.debug("on Game event , MainActivity : " + event);
         if(event.equals("socketplayers_ready")){
             Utils.debug("socketpalyer ready");
-            gc.begin();
-            if (gc.getCurrentGameEngine() instanceof RegistrarEngine) {
-                Intent intent = new Intent(this, RegistrarActivity.class);
-                startActivity(intent);
-            }else {
-                Log.d("MAIN", "cannot get instance");
-            }
+            final Context that = this;
+            new CountDownTimer(1000 * 2, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                }
+                public void onFinish() {
+                    gc.begin();
+                    if (gc.getCurrentGameEngine() instanceof RegistrarEngine) {
+                        Intent intent = new Intent(that, RegistrarActivity.class);
+                        startActivity(intent);
+                    }else {
+                        Log.d("MAIN", "cannot get instance");
+                    }
+                }
+            }.start();
         }else if(event.equals("getIpAddress")){
             Log.d("DEBUG_getIpAddress", params[0] + "");
             wv.loadUrl("javascript:getIpAddress('"+params[0]+"')");
+
+        }else if(event.equals("player_size")){
+            wv.loadUrl("javascript:getPlayerSize("+params[0]+","+playerAmount+")");
         }
     }
 
