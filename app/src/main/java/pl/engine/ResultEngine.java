@@ -55,12 +55,12 @@ public class ResultEngine extends GameEngine{
                 playerConfirm(clientId);
                 cntPlayer++;
                 onPlayerReady(playerAmount);
-            }else if(event.equals("game_pause")) {
-                sendGameEventToClient("game_pause", new String[]{});
-                gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
-                gameManager.stopTimer();
-                gamePaused = true;
             }
+        }
+        if(event.equals("game_pause")) {
+            sendGameEventToClient("game_pause", new String[]{});
+            gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
+            gamePaused = true;
         }
         else if(event.equals("game_resume")){
             cntResumePlayer++;
@@ -69,7 +69,6 @@ public class ResultEngine extends GameEngine{
             if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
                 cntResumePlayer = 0;
                 gamePaused = false;
-                gameManager.runTimerAgain();
                 sendGameEventToClient("game_resume", new String[]{});
                 gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
             }
