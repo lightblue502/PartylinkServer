@@ -13,12 +13,14 @@
 <body ng-controller="BodyController">
 
 	<div class="headertextBox">
-		<!-- <span class="headertext"> ROUND {{round}} </span> -->
+		<span class="headertext"> ROUND {{round}} </span>
 		<div class="red floatleft">
 			<div class="textTeam left floatleft"><div>RED</div><div>:</div><div>{{score.A}}</div></div>
+			<div class="headertext" style="color:#f30009;text-align:left; margin:5vh;line-height:5vh;">{{winA}}</div>
 		</div>
 		<div class="blue floatright">
 			<div class="textTeam right floatright"><div>BLUE</div><div>:</div><div>{{score.B}}</div></div>
+			<div class="headertext" style="color:#0067f3;text-align:right; margin:5vh;line-height:5vh;">{{winB}}</div>
 		</div>
 	</div>
 

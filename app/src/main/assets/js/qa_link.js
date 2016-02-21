@@ -22,7 +22,13 @@ function getWinRound(winRoundA, winRoundB){
     console.log("winRoundA :"+winRoundA );
     console.log("winRoundB :"+winRoundB );
 
-    $scope.iconScore = generateIconScore(3, winRoundA, winRoundB);
+    $scope.winA = "";
+    while(winRoundA--)
+      $scope.winA += "I";
+    
+    $scope.winB = "";
+    while(winRoundB--)
+      $scope.winB += "I";
     
   });
 }

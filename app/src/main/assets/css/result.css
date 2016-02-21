@@ -235,13 +235,15 @@ div.pic.inRight{
 	font-size: 3vh;
 }
 .personName{
-	display: inherit !important;
+	display: inline-block !important;
 	word-wrap:break-word;
 	margin-top:1vh;
 	width:8.5vw;
 	height: 5vh;
 	padding: 1vh;
 	font-size: 3vh;
+  	text-overflow: ellipsis;
+  	overflow: hidden;
 }
 .floatleft{
 	float: left;
