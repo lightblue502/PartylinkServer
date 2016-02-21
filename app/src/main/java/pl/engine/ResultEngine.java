@@ -10,7 +10,6 @@ public class ResultEngine extends GameEngine{
     private int playerAmount;
     private int cntPlayer = 0;
     private int cntResumePlayer = 0;
-    private boolean gamePaused = false;
     private GameManager gameManager;
     public ResultEngine(GameContext gc, int playerAmount, String name, Class activityClass, String clientStart) {
         super(gc, name, activityClass, clientStart);
@@ -56,6 +55,10 @@ public class ResultEngine extends GameEngine{
                 cntPlayer++;
                 onPlayerReady(playerAmount);
             }
+        }if(event.equals("backdoor_pause")) {
+            pauseGame();
+        }else if(event.equals("backdoor_resume")){
+            resumeGame();
         }
         if(event.equals("game_pause")) {
             sendGameEventToClient("game_pause", new String[]{});
@@ -73,7 +76,6 @@ public class ResultEngine extends GameEngine{
                 gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
             }
         }
-		
 	}
 
     @Override
@@ -93,11 +95,6 @@ public class ResultEngine extends GameEngine{
     }
 
     public void playerConfirm(int clientId){
-//        Player player = gc.getPlayerByClientID(clientId);
-//        String name = player.getName();
-//        String teamName = gc.getTeamByClientId(clientId).getName();
-//        String str = "{'clientId':"+clientId+",'name':'"+name+"','team':'"+teamName+"'}";
-
         gc.getGameLister().onIncommingEvent("playerConfirm",new String[]{String.valueOf(clientId)});
     }
 

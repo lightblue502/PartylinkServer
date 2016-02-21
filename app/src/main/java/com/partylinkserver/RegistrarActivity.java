@@ -32,7 +32,7 @@ public class RegistrarActivity extends GameActivity{
         wv = (WebView) findViewById(R.id.registerWebview);
         wv.loadUrl("file:///android_asset/gameLobby.html");
         wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
-//        wv.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        wv.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
         JavaScriptInterface javaScriptInterface = JavaScriptInterface.getInstance();
         javaScriptInterface.init(this);
@@ -52,6 +52,7 @@ public class RegistrarActivity extends GameActivity{
         super.onGameEvent(event,params);
         Log.d("REGIS", "event: " + event);
         if(event.equals("change_engine")){
+            wv.loadUrl("javascript:stopAudio()");
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

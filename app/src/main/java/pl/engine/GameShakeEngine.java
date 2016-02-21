@@ -16,7 +16,6 @@ public class GameShakeEngine extends GameEngine{
 	private Player playerA;
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
-	private boolean gamePaused = false;
 	private ResultScore resultScore = new ResultScore();
 	public GameShakeEngine(GameContext gc, int playerAmount, String name, Class activityClass, String clientStart) {
 		super(gc, name,activityClass,clientStart);
@@ -30,32 +29,44 @@ public class GameShakeEngine extends GameEngine{
 			if (event.equals("shakeUI_Start")) {
 				gameManager.initPlayerstoUI(teams);
 			} else if (event.equals("shake_ready")) {
+				Utils.debug("in shake_ready condition");
 				cntPlayer++;
 				onPlayerReady(playerAmount);
 			} else if (event.equals("shake_game")) {
 				gameManager.printScoreToNumber();
 				gameManager.scoreManage(clientId, 10);
 			}
+		}if(event.equals("backdoor_pause")) {
+			pauseGame();
+		}else if(event.equals("backdoor_resume")){
+			resumeGame();
 		}
 		if(event.equals("game_pause")) {
 			sendGameEventToClient("game_pause", new String[]{});
 			gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
-			gameManager.stopTimer();
-			gamePaused = true;
+			pauseGame();
 		}else if(event.equals("game_resume")){
 			cntResumePlayer++;
 			Player player = new Player(clientId, params[0]);
 			gc.sendGameEvent(player, "resume_ok");
 			if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
 				cntResumePlayer = 0;
-				gamePaused = false;
-				gameManager.runTimerAgain();
+				resumeGame();
 				sendGameEventToClient("game_resume", new String[]{});
 				gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
 			}
 		}
 	}
-	
+	@Override
+	public void pauseGame(){
+		super.pauseGame();
+		gameManager.stopTimer();
+	}
+	@Override
+	public void resumeGame(){
+		super.resumeGame();
+		gameManager.runTimerAgain();
+	}
 	@Override
 	public void startEngine() {
 		Utils.debug("========================================");

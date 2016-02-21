@@ -1,3 +1,5 @@
+var audio_result = new Audio("sounds/result.mp3");
+audio_result.play();
 var app = angular.module("myApp", []);
 app.controller('ResultCtrl', ['$scope','$interval','$timeout', function($scope, $interval, $timeout){
 
@@ -48,6 +50,13 @@ function Person(id, name, team, icon) {
 	this.team = team;
 }
 
+function stopAudio(){
+  console.log("stopAudio");
+  audio_result.pause();
+  audio_result.currentTime = 0;
+}
 
   
+
+
 

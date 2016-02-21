@@ -1,3 +1,6 @@
+var audio_home = new Audio("sounds/DiscoSmurfRumble.mp3");
+audio_home.play();
+
 var app = angular.module("myApp", []);
 app.controller('GameLobbyCtrl', ['$scope','$interval', function($scope, $interval){
 
@@ -21,6 +24,13 @@ function Person(id, name, icon) {
   this.name = name || "Anonymous";
   this.icon = icon || "img/person.png";
 }
+
+function stopAudio(){
+  console.log("stopAudio");
+  audio_home.pause();
+  audio_home.currentTime = 0;
+}
+
 
 function setPlayer(id, name){
   angular.element(document.body).scope().$apply(function($scope){
