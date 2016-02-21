@@ -6,7 +6,7 @@ app.controller('NumericCtrl', ['$scope','$interval','$timeout', function($scope,
  
 
   console.log("===== NumericCtrl =====");
-  // var a1 = new Person(1,"John","teamA","img/637.jpg");
+  // var a1 = new Person(1,"","teamA","img/637.jpg");
   // var a2 = new Person(3,"Jane",0);
   // var b1 = new Person(2,"Sam","teamB","img/coby.jpg");
   // var b2 = new Person(4,"",1);

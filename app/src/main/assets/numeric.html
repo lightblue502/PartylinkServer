@@ -59,14 +59,14 @@
   <div class="personRow">
     <div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft">
       <!-- <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div> -->
-      <span class="personName label label-success">{{person.name}}</span>
+      <span class="personName redname label label-success">{{person.name}}</span>
     </div>
   </div>
 
   <div class="personRow" style="right:0;">
     <div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatright">
       <!-- <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div> -->
-      <span class="personName label label-success">{{person.name}}</span>
+      <span class="personName bluename label label-success">{{person.name}}</span>
     </div>
   </div>
 </body>

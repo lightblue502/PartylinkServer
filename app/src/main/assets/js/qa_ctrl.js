@@ -3,12 +3,12 @@ audio_qa.play();
 
 var app = angular.module('PartyApp',[]);
 
-app.controller('BodyController', ['$scope', function($scope) {
+app.controller('BodyController', ['$scope','$timeout', function($scope,$timeout) {
 
 
-	var a1 = new Person(91,"John",'teamA',"img/637.jpg");
-	var a2 = new Person(3,"Jane",'teamA');
-	var b1 = new Person(92,"Sam",'teamB',"img/coby.jpg");
+	// var a1 = new Person(91,"John",'teamA',"img/637.jpg");
+	// var a2 = new Person(3,"Jane",'teamA');
+	// var b1 = new Person(92,"Sam",'teamB',"img/coby.jpg");
 	$scope.teamA= [];
 	$scope.teamB= [];
 	$scope.score={"A":"00", "B":"00"};
@@ -17,6 +17,17 @@ app.controller('BodyController', ['$scope', function($scope) {
 	$scope.show = [];
 	$scope.status = "";
 	$scope.animate = "animated bounceIn";
+
+	$scope.timeoutFLAG;
+	$scope.showAnimate = function() {
+		$scope.showClass = "animated zoomIn showAnimated";
+		$timeout.cancel($scope.timeoutFLAG);
+		$scope.timeoutFLAG = $timeout(function() {
+			$scope.showClass = "";
+			$scope.answerClass = "";
+			$scope.status = $scope.status.split(" ")[0];
+		},800);
+	}
 
 	Android.onUiReady();
 }]);

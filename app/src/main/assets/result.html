@@ -52,18 +52,17 @@
         <div class="pl_logo">
         </div>
         <div style="margin-left:15vw;">
-          <div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft">
+          <div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft animated flipInX">
             <span class="personName label label-default" style="bottom:30vh;">{{person.name}}</span>
           </div>
         </div>
         
 
     </div>
-    <div ng-if="conShow" class="center animated infinite pulse ">
+    <div ng-if="conShow" class="center " ng-class="conClass">
          <h1>PRESS BUTTON TO CONTINUE</h1>
     </div>
   </div>
-
     
 </body>
 </html>

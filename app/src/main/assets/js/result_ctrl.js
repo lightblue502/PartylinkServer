@@ -16,6 +16,11 @@ app.controller('ResultCtrl', ['$scope','$interval','$timeout', function($scope, 
   $scope.conShow = false;
   $timeout(function () {
     $scope.conShow = true;
+    $scope.conClass = "animated zoomIn ";
+
+    $timeout(function () {
+      $scope.conClass = "animated infinite pulse ";
+    },1000);
   },1000);
 
 

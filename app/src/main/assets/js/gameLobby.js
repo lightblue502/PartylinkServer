@@ -2,12 +2,12 @@ var app = angular.module("myApp", []);
 app.controller('GameLobbyCtrl', ['$scope','$interval', function($scope, $interval){
 
 
-  var a1 = new Person(91,"John","img/637.jpg");
-  var a2 = new Person(93,"Jane");
-  var a3 = new Person(95,"joe");
-  var b1 = new Person(92,"Sam","img/coby.jpg");
-  var b2 = new Person(94);
-  var b3 = new Person(96,"eiei");
+  // var a1 = new Person(91,"John","img/637.jpg");
+  // var a2 = new Person(93,"Jane");
+  // var a3 = new Person(95,"joe");
+  // var b1 = new Person(92,"Sam","img/coby.jpg");
+  // var b2 = new Person(94);
+  // var b3 = new Person(96,"eiei");
 
   $scope.allPlayers=[];
 
