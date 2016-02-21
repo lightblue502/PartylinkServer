@@ -83,6 +83,7 @@ function getRound(round){
     $scope.display = "display status center";
     $scope.displayText = "ROUND" + round;
   });
+  getCurrentScore(0,0);
 };
 
 function getWinRound(winRoundA, winRoundB){

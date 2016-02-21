@@ -14,7 +14,7 @@
 </head>
 <body ng-controller="ResultCtrl">
   <div class="topRow"> 
-    <div class="center animated tada">
+    <div ng-if="recentGame.team" class="center animated tada">
       {{recentGame.team+"!!"}}
     </div>
   </div>
@@ -59,33 +59,11 @@
         
 
     </div>
-    <div class="center animated infinite pulse ">
+    <div ng-if="conShow" class="center animated infinite pulse ">
          <h1>PRESS BUTTON TO CONTINUE</h1>
     </div>
   </div>
 
-
-	<!-- <div class="headertextBox">
-    	<span class="headertext"> Result Score </span>
-  	</div>
-    {{resultScores}}
-    <div ng-repeat="rs in resultScores">
-      {{rs.team}}  -- {{rs.gameName}} --A: {{rs.winRoundA}} -- B: {{rs.winRoundB}} 
-    </div>  -->
-
-  <!--   <div class="personRow">
-      <div ng-repeat="person in allPlayers" id="{{person.id}}" class="personBox floatleft">
-        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
-        <span class="personName label label-success">{{person.name}}</span>
-      </div>
-    </div>
-
-    <div class="personRow" style="right:0;">
-      <div ng-repeat="person in showTeamB" id="{{person.id}}" class="personBox floatright">
-        <div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
-        <span class="personName label label-success">{{person.name}}</span>
-      </div>
-    </div> -->
     
 </body>
 </html>

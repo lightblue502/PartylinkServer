@@ -5,6 +5,12 @@ function getIpAddress(ipAddress){
   });
 };
 
+function setDisplay(text){
+  angular.element(document.body).scope().$apply(function($scope){
+          $scope.display = text;
+  });
+}
+
 function loading(times){
   console.log(times);
   angular.element(document.body).scope().$apply(function($scope){

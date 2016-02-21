@@ -109,6 +109,7 @@ public class MainActivity extends GameActivity {
                 public void onFinish() {
                     gc.begin();
                     if (gc.getCurrentGameEngine() instanceof RegistrarEngine) {
+                        wv.loadUrl("javascript:stopAudio()");
                         Intent intent = new Intent(that, RegistrarActivity.class);
                         startActivity(intent);
                     }else {

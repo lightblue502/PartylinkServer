@@ -52,6 +52,11 @@
             android:name=".EndActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape"></activity>
+
+        <activity
+            android:name=".BlankActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

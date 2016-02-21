@@ -55,4 +55,9 @@ app.controller('NumericCtrl', ['$scope','$interval','$timeout', function($scope,
   Android.onUiReady();
 
 }]);
-  
+
+function stopAudio(){
+  console.log("stopAudio");
+  audio_numeric.pause();
+  audio_numeric.currentTime = 0;
+}
