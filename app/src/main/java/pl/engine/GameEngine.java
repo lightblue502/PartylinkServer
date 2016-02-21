@@ -5,6 +5,7 @@ public abstract class GameEngine {
 	private String name;
 	private Class activityClass;
 	private String clientStart;
+	protected boolean gamePaused = false;
 	public GameEngine(GameContext gc){
 		this.gc = gc;		
 	}
@@ -34,5 +35,11 @@ public abstract class GameEngine {
 			return true;
 		}
 		return false;
+	}
+	public void pauseGame(){
+		gamePaused = true;
+	}
+	public void resumeGame(){
+		gamePaused = false;
 	}
 }

@@ -92,6 +92,10 @@ public abstract class GameActivity extends AppCompatActivity {
                 currentGameEngine = new NumericEngine(gc, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start");
             }else if(select == 3){
                 currentGameEngine = new QAEngine(gc, playerAmount, "GAME QA", gc.getContext(), QAActivity.class, "qa_start");
+            }else if(select == 5){
+                sendGameEvent("backdoor_pause");
+            }else if(select == 6){
+                sendGameEvent("backdoor_resume");
             }else if(select == 8){
                 currentGameEngine = new ResultEngine(gc, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start");
             }else if(select == 9){
