@@ -1,3 +1,5 @@
+var audio_end = new Audio("sounds/DiscoSmurfRumble.mp3");
+audio_end.play();
 var app = angular.module("myApp", []);
 app.controller('EndCtrl', ['$scope','$interval', function($scope, $interval){
 
@@ -25,6 +27,11 @@ function Person(id, name, team, icon) {
 	this.team = team;
 }
 
+function stopAudio(){
+  console.log("stopAudio");
+  audio_end.pause();
+  audio_end.currentTime = 0;
+}
 
   
 
