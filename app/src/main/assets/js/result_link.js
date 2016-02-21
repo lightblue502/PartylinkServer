@@ -15,8 +15,11 @@ function getResultScores(resultScores){
 function playerConfirm(clientId){
 	var person = getPerson(clientId);
   	angular.element(document.body).scope().$apply(function($scope){
-    console.log(person);
-    $scope.allPlayers.push(person);
+      console.log(person);
+      $scope.allPlayers.push(person);
+
+      if($scope.allPlayers.length == $scope.teamA.length + $scope.teamB.length)
+        $scope.conShow = false;
   	// if(person.team == 'teamA')
   	// 	$scope.showTeamA.push(person)
   	// else

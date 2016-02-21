@@ -1,5 +1,5 @@
 var app = angular.module("myApp", []);
-app.controller('ResultCtrl', ['$scope','$interval', function($scope, $interval){
+app.controller('ResultCtrl', ['$scope','$interval','$timeout', function($scope, $interval, $timeout){
 
   var a1 = new Person(1,"John","img/637.jpg");
   var a2 = new Person(3,"Jane");
@@ -13,7 +13,10 @@ app.controller('ResultCtrl', ['$scope','$interval', function($scope, $interval){
 
   $scope.allPlayers = [];
   // $scope.allPlayers = [a1, a2, b1, b2];
-
+  $scope.conShow = false;
+  $timeout(function () {
+    $scope.conShow = true;
+  },1000);
 
 
   //web call android UI Ready;

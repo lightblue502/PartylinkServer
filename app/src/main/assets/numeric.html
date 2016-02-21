@@ -34,7 +34,7 @@
     <div class="score redScorePosition">{{score.A}}</div>
     <div class="line_left"><img src="img/numeric_line.png"></div>
     <div class="icon icon_left">
-      <a ng-repeat="icon in iconScore.red track by $index">
+      <a ng-repeat="icon in iconScore.red track by $index" style="margin:0 1vh; float:right;">
         <!-- <span class="glyphicon glyphicon-tower" ng-style="{'color': icon.color}"></span> -->
         <span ng-style="{'color': icon.color,'font-family': 'Return_To_Sender'}">I</span>
 
@@ -47,7 +47,7 @@
     <div class="score blueScorePosition">{{score.B}}</div>
     <div class="line_right"><img src="img/numeric_line.png"></div>
     <div class="icon icon_right">
-      <a ng-repeat="icon in iconScore.blue track by $index">
+      <a ng-repeat="icon in iconScore.blue track by $index" style="margin:0 1vh; float:left;">
         <!-- <span class="glyphicon glyphicon-tower" ng-style="{'color': icon.color}"></span> -->
         <span ng-style="{'color': icon.color, 'font-family': 'Return_To_Sender'}">I</span>
       </a>
@@ -69,6 +69,7 @@
       <span class="personName label label-success">{{person.name}}</span>
     </div>
   </div>
-
+  <script type="text/javascript">
+  setTimeout(function() {getWinRound(2,2)}, 2000);</script>
 </body>
 </html>

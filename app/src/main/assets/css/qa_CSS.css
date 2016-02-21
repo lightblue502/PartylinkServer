@@ -113,7 +113,7 @@ body{
 /*-----------------------------------*/
 
 .textTeam{
-  width: 20vw;
+  min-width: 20vw;
   white-space: pre-wrap;
   text-align:center;
   font-size: 5vh;
