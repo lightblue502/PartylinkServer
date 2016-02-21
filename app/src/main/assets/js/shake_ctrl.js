@@ -44,6 +44,12 @@ app.controller('BodyController', ['$scope','$interval', function($scope,$interva
 	Android.onUiReady();
 }]);
 
+function stopAudio(){
+	console.log("stopAudio");
+	audio_shake.pause();
+	audio_shake.currentTime = 0;
+}
+
 function Person(id, name, team, icon) {
 	this.id = id;
 	this.name = name || "Anonymous";

@@ -19,6 +19,8 @@ function Person(id, name, team, icon) {
 	this.team = team;
 }
 
-
-  
-
+function stopAudio(){
+	console.log("stopAudio");
+	audio_home.pause();
+	audio_home.currentTime = 0;
+}

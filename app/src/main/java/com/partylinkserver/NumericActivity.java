@@ -61,6 +61,7 @@ public class NumericActivity extends GameActivity {
         }else if(event.equals("game_resume")){
             super.onSuicidePauseFragment();
         }else if(event.equals("change_engine")){
+            wv.loadUrl("javascript:stopAudio()");
             Intent intent = new Intent(this, gc.getCurrentGameEngine().getActivityClass());
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
