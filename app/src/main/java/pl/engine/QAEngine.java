@@ -34,7 +34,6 @@ public class QAEngine extends GameEngine{
     private ResultScore resultScore = new ResultScore();
     private boolean isInit = false;
     private boolean answerAble = true;
-    private boolean gamePaused = false;
 
     public QAEngine(GameContext gc, int playerAmount, String name, Context context, Class activityClass, String clientStart) {
         super(gc, name, activityClass, clientStart);
@@ -123,7 +122,6 @@ public class QAEngine extends GameEngine{
                 String.valueOf(ask_player.getCliendId()), team.getName()
         });
         sendGameEventToClient(ask_player, "qa_question", new String[]{question});
-//        gc.sendGameEvent(ask_player, "qa_question", new String[]{question});
         broadcastChoice();
 
     }
@@ -169,17 +167,22 @@ public class QAEngine extends GameEngine{
                 gameManager.printScoreToNumber();
             }
         }
+        if(event.equals("backdoor_pause")) {
+            pauseGame();
+        }else if(event.equals("backdoor_resume")){
+            resumeGame();
+        }
         if(event.equals("game_pause")) {
             sendGameEventToClient("game_pause", new String[]{});
             gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
-            gamePaused = true;
+            pauseGame();
         }else if(event.equals("game_resume")){
             cntResumePlayer++;
             Player player = new Player(clientId, params[0]);
             gc.sendGameEvent(player, "resume_ok");
             if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
                 cntResumePlayer = 0;
-                gamePaused = false;
+                resumeGame();
                 sendGameEventToClient("game_resume", new String[]{});
                 gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
             }
