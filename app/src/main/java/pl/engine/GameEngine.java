@@ -37,9 +37,11 @@ public abstract class GameEngine {
 		return false;
 	}
 	public void pauseGame(){
+		Utils.debug("==================== GAME PAUSE ===============");
 		gamePaused = true;
 	}
 	public void resumeGame(){
+		Utils.debug("==================== GAME RESUME ===============");
 		gamePaused = false;
 	}
 }
