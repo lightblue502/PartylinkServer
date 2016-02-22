@@ -10,6 +10,10 @@
     font-family: Return_To_Sender;
     src: url(../fonts/Return_To_Sender.ttf);
 }
+@font-face {
+    font-family: Franklin;
+    src: url(../fonts/Franklin-Gothic-Heavy_18503.ttf);
+}
 
 body {
   padding: 40px 0px;
@@ -54,12 +58,14 @@ body {
   z-index: -1;
   color: white;
   font-size: 12vw;
+  text-align: center;
   font-weight: 300;
   text-shadow: 6px 3px #080808;
   border: 0px;
 }
 .display.status{
   font-family: KraftNineDEMO;
+  font-size: 11vw;
 }
 .display.content{
   font-family: handwriting;
@@ -165,24 +171,6 @@ div.centerline{
   padding: 10px 17px;
   font-size: 27px;
 }
-div.boxleft{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 50%;
-  background-color: #faa;
-  z-index: -5;
-}
-div.boxright{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  right: 0;
-  background-color: #acf;
-  z-index: -5;
-}
 
 .personPic{
   width:  10vh;
@@ -203,18 +191,26 @@ div.boxright{
 
 }
 .personBox{
-  width:  15vh;
+  width:  18vh;
   height: 5vh;
   /*overflow: hidden;*/
   margin: 2vh;
   text-align: center;
-  font-family: cursive;
+  font-family: Franklin;
   font-size: 4vh;
   font-weight: bolder;
 }
 .personName{
   display: inherit !important;
   word-wrap:break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.personName.redname{
+  background-color: #ff553e !important;
+}
+.personName.bluename{
+  background-color: #399DC5 !important;
 }
 
 .floatleft{

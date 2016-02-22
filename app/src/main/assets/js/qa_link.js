@@ -1,3 +1,7 @@
+var audio_correct = "sounds/correct.mp3";
+var audio_wrong = "sounds/wrong.mp3";
+var audio_ding = "sounds/ding.wav";
+
 function getCurrentScore(scoreA ,scoreB){
   // console.log("hello getCurrentScore");
   angular.element(document.body).scope().$apply(function($scope){
@@ -18,7 +22,13 @@ function getWinRound(winRoundA, winRoundB){
     console.log("winRoundA :"+winRoundA );
     console.log("winRoundB :"+winRoundB );
 
-    $scope.iconScore = generateIconScore(3, winRoundA, winRoundB);
+    $scope.winA = "";
+    while(winRoundA--)
+      $scope.winA += "I";
+    
+    $scope.winB = "";
+    while(winRoundB--)
+      $scope.winB += "I";
     
   });
 }
@@ -45,18 +55,20 @@ function ask(id, team){
   console.log("id:"+id+" "+team+" ask");
   var elem = document.getElementById(id);
   var person = getPerson(id, team);
-  elem.style.visibility = "hidden";
+  elem.className += " animated zoomOut showAnimated";
 
   angular.element(document.body).scope().$apply(
     function($scope){
       $scope.status = "ask "+$scope.animate;
       $scope.show.push(person);
       console.log(person);
+      $scope.showAnimate();
     });
+  play(audio_ding);
   return true;
 }
 
-function correct(id){
+function correct(id, string){
   var elem = document.getElementById(id);
   var person = getPerson(id);
 
@@ -68,8 +80,12 @@ function correct(id){
       console.log(person);
 
       console.log("id:"+id+" correct");
-      elem.style.visibility = "hidden";
+      elem.className += " animated zoomOut showAnimated";
+      $scope.showAnimate();
+      $scope.answer = string;
+      $scope.answerClass = "animated tada"
     });
+  play(audio_correct);
   return true;
 }
 function wrong(id){
@@ -84,8 +100,10 @@ function wrong(id){
       console.log(person);
 
       console.log("id:"+id+" wrong");
-      elem.style.visibility = "hidden";
+      elem.className += " animated zoomOut showAnimated";
+      $scope.showAnimate();
     });
+  play(audio_wrong);
   return true;
 }
 
@@ -96,11 +114,13 @@ function resetStage () {
   function($scope){
     clone = $scope.show;
     $scope.show = [];
+    $scope.answer = "";
   });
 
   clone.forEach(function(person){
     elem = document.getElementById(person.id);
-    elem.style.visibility = "visible";
+    var a = elem.className.split(" ");
+    elem.className = a[0]+" "+a[1]+" animated bounceIn";
   });
 }
 
@@ -116,7 +136,8 @@ function clearLayer ($scope) { //allow just ask
 
   clone.forEach(function(person){
     elem = document.getElementById(person.id);
-    elem.style.visibility = "visible";
+    var a = elem.className.split(" ");
+    elem.className = a[0]+" "+a[1]+" animated bounceIn";
   });
 }
 
@@ -130,4 +151,12 @@ function getCountdown(countdown){
       });
     },200);
   });
+}
+
+var current_audio;
+function play(src){
+  if(current_audio != null)
+    current_audio.remove();
+  current_audio = new Audio(src);
+  current_audio.play();
 }

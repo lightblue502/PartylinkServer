@@ -13,12 +13,14 @@
 <body ng-controller="BodyController">
 
 	<div class="headertextBox">
-		<!-- <span class="headertext"> ROUND {{round}} </span> -->
+		<span class="headertext"> ROUND {{round}} </span>
 		<div class="red floatleft">
 			<div class="textTeam left floatleft"><div>RED</div><div>:</div><div>{{score.A}}</div></div>
+			<div class="headertext" style="color:#f30009;text-align:left; margin:5vh;line-height:5vh;">{{winA}}</div>
 		</div>
 		<div class="blue floatright">
 			<div class="textTeam right floatright"><div>BLUE</div><div>:</div><div>{{score.B}}</div></div>
+			<div class="headertext" style="color:#0067f3;text-align:right; margin:5vh;line-height:5vh;">{{winB}}</div>
 		</div>
 	</div>
 
@@ -26,29 +28,38 @@
 		<div id="show" class="showbox">
 			<div ng-repeat="person in show" ng-if="$index == show.length-1" class="showPersonBox">
 				<div ng-class="status" class="status"></div>
-				<div class="animated zoomIn showAnimated">
+				<div ng-class="showClass">
 					<div ng-if="person.team == 'teamA'" class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
 					<div ng-if="person.team == 'teamB'" class="showPersonPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
-					<span class="personName label label-success">{{person.name}}</span>
+					<span ng-if="person.team == 'teamA'" class="showPersonName left label label-success">{{person.name}}</span>
+					<span ng-if="person.team == 'teamB'" class="showPersonName right label label-success">{{person.name}}</span>
 				</div>
 			</div>
 		</div>
+		<div ng-if="answer" ng-class="answerClass" class="answer"><span>{{answer}}</span></div>
       	<div ng-if="countdown != '0'" class="countdown" ng-class="countClass">{{countdown}}</div>
 	</div>
 
 	<div class="personRow">
-		<div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft">
-			<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
-			<span class="personName label label-success">{{person.name}}</span>
+		<div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft ">
+			<div class="personPic left" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#f66'}"></div>
+			<span class="personName left label label-success">{{person.name}}</span>
 		</div>
 	</div>
 
 	<div class="personRow" style="right:0;">
-		<div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatright">
-			<div class="personPic" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
-			<span class="personName label label-success">{{person.name}}</span>
+		<div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatright ">
+			<div class="personPic right" ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
+			<span class="personName right label label-success">{{person.name}}</span>
 		</div>
 	</div>
-
+<!--<script type="text/javascript">
+	setTimeout(function() {getCountdown(2)}, 200);
+	setTimeout(function() {ask(91,"teamA")}, 1200);
+	setTimeout(function() {wrong(3,"teamA")}, 1800);
+	setTimeout(function() {wrong(92,"teamB")}, 2500);
+	setTimeout(function() {correct(92,"ยะลา")}, 4200);
+	setTimeout(function() {resetStage()}, 6200);
+	</script> -->
 </body>
 </html>

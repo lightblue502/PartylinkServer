@@ -4,6 +4,10 @@
 	font-weight:normal;
 	font-style:normal;
 }
+@font-face {
+    font-family: conBold;
+    src: url(../fonts/contb.ttf);
+}
 
 body {
 	overflow: hidden;
@@ -227,17 +231,19 @@ div.pic.inRight{
 	/*overflow: hidden;*/
 	margin: 2vh;
 	text-align: center;
-	font-family: cursive;
+	font-family: Arial;
 	font-size: 3vh;
-	font-weight: bolder;
 }
 .personName{
-	display: inherit !important;
+	display: inline-block !important;
 	word-wrap:break-word;
 	margin-top:1vh;
 	width:8.5vw;
 	height: 5vh;
+	padding: 1vh;
 	font-size: 3vh;
+  	text-overflow: ellipsis;
+  	overflow: hidden;
 }
 .floatleft{
 	float: left;

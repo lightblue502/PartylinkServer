@@ -148,7 +148,8 @@ public class QAEngine extends GameEngine{
                     Utils.debug("CORRECT !!!!!!!");
                     answerAble = false;
                     gc.getGameLister().onIncommingEvent("qa_correct", new String[]{
-                            String.valueOf(clientId)
+                            String.valueOf(clientId),
+                            correct_ans
                     });
                     cntPlayer = 0;
                     gameManager.scoreManage(clientId, 2);

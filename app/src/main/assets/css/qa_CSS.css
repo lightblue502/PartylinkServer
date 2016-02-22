@@ -1,3 +1,7 @@
+@font-face {
+    font-family: Franklin;
+    src: url(../fonts/Franklin-Gothic-Heavy_18503.ttf);
+}
 .headertextBox{
 	width: 100%;
 	text-align: center;
@@ -7,9 +11,8 @@
 }
 .headertext{
 	color: white;
-	background-color: gray;
 	font-size: 8vh;
-	font-family: cursive;
+	font-family: Franklin;
 	white-space: pre-wrap;
 	
 }
@@ -17,20 +20,43 @@
 body{
 	overflow: hidden;
 	background-color: #363636;
-	/*background-image: url("../img/qa/bg.png");*/
-	/*background-size: 100% 100%;*/
+	background-image: url("../img/qa/spotlight.png");
+	background-position: top;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+
 }
 .countdown{
 	position: absolute;
-	left: -10vh;
-	width: 20vh;
+	left: -25vw;
+	width: 50vw;
 	font-size: 15vh;
-	top: 50vh;
+	top: 40vh;
 	text-align: center;
 	color: white;
 }
+.answer{
+	position: absolute;
+	left: -30vw;
+	width: 60vw;
+	top: 40vh;
+	text-align: center;
+	z-index: 10;
+	/*-webkit-text-stroke: 0.2vh #363636;*/
+}
+.answer span{
+	border: 1vh solid gray;
+	border-radius: 2vh;
+	background-color: gray;
+	font-family:Franklin;
+	font-size: 15vh;
+	color: white;
+	padding: 0 5vh;
+}
+
 .center{
 	position: relative;
+	width:50%;
 	left: 50%;
 	top: 30%;
 }
@@ -62,7 +88,20 @@ body{
 	background-position: 50%;
 	background-size: 100%;
 	overflow: hidden;
-	border: 0.5vh solid gray;
+	border: 1vh solid white;
+}
+.showPersonName{
+	font-family: Franklin;
+	word-wrap:break-word;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	background-color: white !important;
+}
+.showPersonName.left{
+	color: #f30009;
+}
+.showPersonName.right{
+	color: #0067f3;
 }
 
 .personPic{
@@ -75,8 +114,15 @@ body{
 	background-position: 50%;
 	background-size: 100%;
 	overflow: hidden;
-	border: 0.5vh solid gray;
+	border: 0.5vh solid #fff;
 }
+.personPic.left{
+	box-shadow: 1.2vh 0.5vh 0 #555;
+}
+.personPic.right{
+	box-shadow: -1.2vh 0.5vh 0 #555;
+}
+
 .personRow{
 	position: absolute;
 	bottom: 0;
@@ -89,12 +135,25 @@ body{
 	/*overflow: hidden;*/
 	margin: 2vh;
 	text-align: center;
-	font-family: cursive;
-	font-size: 3vh;
+	font-family: Franklin;
+	font-size: 4vh;
 	font-weight: bolder;
 }
 .personName{
+	max-width: 15vh;
+	text-overflow: ellipsis;
+	overflow: hidden;
 	word-wrap:break-word;
+  	display: inline-block !important;
+	background-color: white !important;
+}
+.personName.left{
+	color: #f30009;
+	box-shadow: 1.2vh 0.5vh 0 #555;
+}
+.personName.right{
+	color: #0067f3;
+	box-shadow: -1.2vh 0.5vh 0 #555;
 }
 
 .floatleft{

@@ -13,6 +13,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 
 import pl.engine.EndEngine;
 import pl.engine.GameContext;
@@ -106,6 +107,20 @@ public abstract class GameActivity extends AppCompatActivity {
         }
     }
 
+
+    /** Called when the activity is first created. */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 
 
     @Override
