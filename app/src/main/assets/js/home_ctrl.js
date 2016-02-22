@@ -7,7 +7,7 @@ app.controller('HomeCtrl', ['$scope','$interval','$timeout', function($scope, $i
   
   
   //web call android UI Ready;
-  // Android.onUiReady();
+  Android.onUiReady();
   $scope.display = "loading...";
 
   $scope.timeoutFn = function (fn, duration) {
