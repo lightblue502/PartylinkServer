@@ -51,7 +51,7 @@ public class CommunicationManager extends Thread {
 				if(handler == null){
 					given_client_id = currentClientId++;
 				}else{
-					listener.onConnectionStateChanged(given_client_id, CommunicationListener.STATE_DISCONNECTED);
+//					listener.onConnectionStateChanged(given_client_id, CommunicationListener.STATE_DISCONNECTED);
 					handler.close();
 				}
 				handler = new ClientHandler(socket, given_client_id);

@@ -38,17 +38,20 @@ public class GameShakeEngine extends GameEngine{
 			}
 		}
 		if(event.equals("game_pause")) {
+			Utils.debug("============ game is pause ============");
 			sendGameEventToClient("game_pause", new String[]{});
 			gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
 			gameManager.stopTimer();
 			gamePaused = true;
 		}else if(event.equals("game_resume")){
+			Utils.debug("============ game is resume ============");
 			cntResumePlayer++;
 			Player player = new Player(clientId, params[0]);
 			gc.sendGameEvent(player, "resume_ok");
 			if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
 				cntResumePlayer = 0;
 				gamePaused = false;
+				Utils.debug("============ start timer ============");
 				gameManager.runTimerAgain();
 				sendGameEventToClient("game_resume", new String[]{});
 				gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
@@ -129,7 +132,7 @@ public class GameShakeEngine extends GameEngine{
         gameManager.resetTimer();
 		if(!gameManager.timerWasStarted())
 		    gameManager.startTimer(randomTime, "change_shake");
-//		gameManager.countdown(, randomTime, true);
+
 		cntPlayer = 0;
 	}
 	public Player getCurrentPlayer(){

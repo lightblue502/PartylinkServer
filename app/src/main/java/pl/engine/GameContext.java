@@ -3,6 +3,7 @@ package pl.engine;
 import android.content.Context;
 import android.util.Log;
 
+import com.partylinkserver.BlankActivity;
 import com.partylinkserver.EndActivity;
 import com.partylinkserver.QAActivity;
 import com.partylinkserver.ResultActivity;
@@ -57,6 +58,7 @@ public class GameContext implements CommunicationListener{
         engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class, "qa_start"));
         engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
         engines.add(new EndEngine(this, playerAmount, "END ENGINE", EndActivity.class, "end_start"));
+		engines.add(new BlankEngine(this, playerAmount, "BLANK ENGINE", BlankActivity.class, "blank_start"));
 
 
 
@@ -226,11 +228,9 @@ public class GameContext implements CommunicationListener{
 		//make game decision
 		if(state == STATE_CONNECTED){
 			checkConnectionReady();
-
 		}else if(state == STATE_DISCONNECTED){
 			Utils.debug("Player DISCONNECTED");
-			sendGameEvent("game_pause");
-			gameLister.onIncommingEvent("game_pause", new String[]{});
+			onIncomingData(clientId, "game_pause"); //tell engine
 		}
 	}
 

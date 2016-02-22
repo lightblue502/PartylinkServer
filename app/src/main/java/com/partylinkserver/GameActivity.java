@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 
+import pl.engine.BlankEngine;
 import pl.engine.EndEngine;
 import pl.engine.GameContext;
 import pl.engine.GameEngine;
@@ -97,6 +98,8 @@ public abstract class GameActivity extends AppCompatActivity {
                 currentGameEngine = new ResultEngine(gc, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start");
             }else if(select == 9){
                 currentGameEngine = new EndEngine(gc, playerAmount, "END ENGINE", EndActivity.class, "end_start");
+            }else{
+                currentGameEngine = new BlankEngine(gc, playerAmount, "BLANK ENGINE", BlankActivity.class, "blank_start");
             }
 
             if (currentGameEngine != null) {
