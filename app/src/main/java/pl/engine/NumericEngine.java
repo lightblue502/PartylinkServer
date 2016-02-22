@@ -17,6 +17,7 @@ public class NumericEngine extends GameEngine{
 	private List<Team> teams = gc.getTeams();
 	private GameManager gameManager;
 	private ResultScore resultScore = new ResultScore();
+	private boolean gamePaused = false;
 	public NumericEngine(GameContext gc,int playerAmount, String name, Class activityClass,String clientStart) {
 		super(gc, name, activityClass,clientStart);
 		this.answer = null;
@@ -87,38 +88,24 @@ public class NumericEngine extends GameEngine{
 				gameManager.printScoreToNumber();
 			}
 		}
-		if(event.equals("backdoor_pause")) {
-			pauseGame();
-		}else if(event.equals("backdoor_resume")){
-			resumeGame();
-		}
 		if(event.equals("game_pause")) {
 			sendGameEventToClient("game_pause", new String[]{});
 			gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
-			pauseGame();
-		}
-		else if(event.equals("game_resume")){
+			gameManager.stopTimer();
+			gamePaused = true;
+		}else if(event.equals("game_resume")){
 			cntResumePlayer++;
 			Player player = new Player(clientId, params[0]);
 			gc.sendGameEvent(player, "resume_ok");
 			if(super.onPlayerResumeReady(playerAmount, cntResumePlayer)) {
 				cntResumePlayer = 0;
-				resumeGame();
+				gamePaused = false;
 				gc.sendGameEvent("game_resume");
 				gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
+				gameManager.countDownGameReady(5);
 			}
 		}
 
-	}
-	@Override
-	public void pauseGame(){
-		super.pauseGame();
-		gameManager.stopTimer();
-	}
-	@Override
-	public void resumeGame(){
-		super.resumeGame();
-		gameManager.countDownGameReady(5);
 	}
 
 	@Override

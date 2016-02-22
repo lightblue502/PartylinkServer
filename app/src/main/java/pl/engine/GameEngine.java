@@ -5,7 +5,6 @@ public abstract class GameEngine {
 	private String name;
 	private Class activityClass;
 	private String clientStart;
-	protected boolean gamePaused = false;
 	public GameEngine(GameContext gc){
 		this.gc = gc;		
 	}
@@ -35,13 +34,5 @@ public abstract class GameEngine {
 			return true;
 		}
 		return false;
-	}
-	public void pauseGame(){
-		Utils.debug("==================== GAME PAUSE ===============");
-		gamePaused = true;
-	}
-	public void resumeGame(){
-		Utils.debug("==================== GAME RESUME ===============");
-		gamePaused = false;
 	}
 }

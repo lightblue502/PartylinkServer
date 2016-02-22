@@ -3,7 +3,6 @@ package pl.engine;
 import android.content.Context;
 import android.util.Log;
 
-import com.partylinkserver.BlankActivity;
 import com.partylinkserver.EndActivity;
 import com.partylinkserver.QAActivity;
 import com.partylinkserver.ResultActivity;
@@ -51,21 +50,20 @@ public class GameContext implements CommunicationListener{
 		engineIndex = 0;
 
 		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class,""));
-        engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
-        engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
-        engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start"));
-        engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
+		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
+		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
+		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start"));
+		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
         engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class, "qa_start"));
         engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
         engines.add(new EndEngine(this, playerAmount, "END ENGINE", EndActivity.class, "end_start"));
-		engines.add(new BlankEngine(this, playerAmount, "Blank ENGINE", BlankActivity.class, "blank_start"));
 
 
 
 		cm = new CommunicationManager(address , port, this);
 		cm.start();
 	}
-	
+
 	private GameContext(){
 
 	}
@@ -114,15 +112,15 @@ public class GameContext implements CommunicationListener{
         }
         return  null;
     }
-	
+
 	public void onIncomingData(int clientId, String line){
 		if(currentGameEngine != null){
-			int idx = line.indexOf('|');			
+			int idx = line.indexOf('|');
 			String event = null;
 			String[] params = null;
 			if(idx > 0){
 				event = line.substring(0, idx);
-				params = line.substring(idx + 1).split(",");				
+				params = line.substring(idx + 1).split(",");
 			}else if(idx < 0 && line.length() > 0){
 				event = line;
 				params = BLANK_PARAMS;
@@ -134,13 +132,13 @@ public class GameContext implements CommunicationListener{
 					if(getPlayerByClientID(clientId) != null)
 						Utils.debug("-- name: " + getPlayerByClientID(clientId).getName() + "\n");
 				}
-				
+
 				currentGameEngine.onIncomingEvent(clientId, event, params);
 			}
-				
+
 		}
 	}
-	
+
 	public void sendGameEvent(String event){
 		cm.broadcastData(event);
 	}
@@ -157,11 +155,11 @@ public class GameContext implements CommunicationListener{
 //        Log.d("DEBUG_gc.sendGameEvent","params --->"+sb.toString());
 		cm.broadcastData(sb.toString());
 	}
-	
+
 	public void sendGameEvent(Player player, String event){
 		sendGameEvent(player, event, BLANK_PARAMS);
 	}
-	
+
 	public void sendGameEvent(Player player, String event, String[] params){
 		StringBuilder sb = new StringBuilder(event);
         sb.append('|');
@@ -178,11 +176,11 @@ public class GameContext implements CommunicationListener{
 	public List<Team> getTeams() {
 		return teams;
 	}
-	
+
 	public void addTeams(Team team){
 		teams.add(team);
 	}
-	
+
 	public List<Player> getAllPlayer(){
 		List<Player> allPlayers = new ArrayList<Player>();
 		for (Team team : teams) {
@@ -192,7 +190,7 @@ public class GameContext implements CommunicationListener{
 		}
 		return allPlayers;
 	}
-	
+
 	public Player getPlayerByClientID(int clientId) {
 		for (Player player : getAllPlayer()) {
 			if(player.getCliendId() == clientId){
@@ -213,11 +211,11 @@ public class GameContext implements CommunicationListener{
 		}
 		return null;
 	}
-	
+
 	public void addResultScore(ResultScore resultScore){
 		resultScoreLists.add(resultScore);
 	}
-	
+
 	public List<ResultScore> getResultScores(){
 		return resultScoreLists;
 	}
@@ -230,7 +228,9 @@ public class GameContext implements CommunicationListener{
 			checkConnectionReady();
 
 		}else if(state == STATE_DISCONNECTED){
-
+			Utils.debug("Player DISCONNECTED");
+			sendGameEvent("game_pause");
+			gameLister.onIncommingEvent("game_pause", new String[]{});
 		}
 	}
 
