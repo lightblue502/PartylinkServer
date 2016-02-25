@@ -1,4 +1,5 @@
 var audio_result = new Audio("sounds/result.mp3");
+audio_result.loop = true;
 audio_result.play();
 var app = angular.module("myApp", []);
 app.controller('ResultCtrl', ['$scope','$interval','$timeout', function($scope, $interval, $timeout){

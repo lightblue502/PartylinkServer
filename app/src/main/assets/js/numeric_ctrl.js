@@ -1,4 +1,5 @@
 var audio_numeric = new Audio("sounds/MDKJellyCastle.mp3");
+audio_numeric.loop = true;
 audio_numeric.play();
 
 var app = angular.module("myApp", []);

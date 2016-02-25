@@ -1,4 +1,5 @@
 var audio_shake = new Audio("sounds/shake.mp3");
+audio_shake.loop = true;
 audio_shake.play();
 
 var app = angular.module('PartyApp',[]);

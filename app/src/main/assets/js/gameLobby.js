@@ -1,4 +1,5 @@
 var audio_home = new Audio("sounds/DiscoSmurfRumble.mp3");
+audio_home.loop = true;
 audio_home.play();
 
 var app = angular.module("myApp", []);

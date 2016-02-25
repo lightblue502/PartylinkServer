@@ -11,7 +11,7 @@ public class NumericEngine extends GameEngine{
 	private Integer answer;
 	private int cntPlayer = 0;
 	private int cntResumePlayer = 0;
-	private int topicPerPlayer = 1;
+	private int topicPerPlayer = 3;
     private boolean firstTime = false;
 	private boolean isPlaying = false;
 	private List<Team> teams = gc.getTeams();

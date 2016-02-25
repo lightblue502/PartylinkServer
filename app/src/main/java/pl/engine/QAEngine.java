@@ -40,7 +40,7 @@ public class QAEngine extends GameEngine{
         super(gc, name, activityClass, clientStart);
         this.playerAmount = playerAmount;
         this.context = context;
-        this.gameManager = new GameManager(resultScore, gc, playerAmount, 3);
+        this.gameManager = new GameManager(resultScore, gc, playerAmount*2, 3);
     }
 
     @Override

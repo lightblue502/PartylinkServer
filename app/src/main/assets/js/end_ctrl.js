@@ -1,4 +1,5 @@
 var audio_end = new Audio("sounds/DiscoSmurfRumble.mp3");
+audio_end.loop = true;
 audio_end.play();
 var app = angular.module("myApp", []);
 app.controller('EndCtrl', ['$scope','$interval', function($scope, $interval){
