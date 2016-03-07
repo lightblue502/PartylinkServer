@@ -9,6 +9,7 @@
   <script type="text/javascript" src="js/backdoor.js"></script>
   <!-- <link rel="stylesheet" href="css/gameLobby.css"> -->
   <script src="lib/angular/angular.js"></script>
+  <script src="lib/qrcode.js"></script>
   <script src="js/home_ctrl.js"></script>
   <script src="js/home_link.js"></script>
 </head>
@@ -19,11 +20,17 @@
   <div class="underRow"> 
     <div class="center"></div>
   </div>
+    
   
   <div class="middleRow">
     <div class="center" ng-class="ip">{{display}}</div>
     <div class="center tapdown" ng-class="conClass">{{connect}}</div>
   </div> 
+    <div id="qrcode"></div>
+
+  <script type="text/javascript">
+  // new QRCode(document.getElementById("qrcode"), "IPAddress");
+  // </script>
 
     <!-- 
   <audio src="sounds/DiscoSmurf - Rumble.mp3" autoplay>

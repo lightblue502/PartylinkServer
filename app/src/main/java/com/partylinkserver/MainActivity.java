@@ -2,16 +2,25 @@ package com.partylinkserver;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Formatter;
+import android.util.Base64;
 import android.util.Log;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+
+import java.io.ByteArrayOutputStream;
 import java.nio.LongBuffer;
 
 import pl.engine.GameContext;
@@ -25,6 +34,11 @@ public class MainActivity extends GameActivity {
     private WebView wv;
     private GameContext gc;
     private int playerAmount = 4;
+    public final static int WHITE = 0xFFFFFFFF;
+    public final static int BLACK = 0xFF000000;
+    public final static int WIDTH = 500;
+    public final static int HEIGHT = 500;
+    public final static String STR = "Hello QR code";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +94,6 @@ public class MainActivity extends GameActivity {
                 onGameEvent("player_size", new String[]{String.valueOf(0)});
             }
         }.start();
-
-
-
 
         if(gc != null) {
             if (gc.getCurrentGameEngine() instanceof RegistrarEngine) {

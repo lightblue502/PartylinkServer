@@ -3,7 +3,7 @@ body{
 }
 .underRow{
 	position: absolute;
-	left: 50vw;
+	left: 40vw;
 	height: 100vh;
 	z-index: -1;
 }
@@ -41,10 +41,10 @@ body{
 }
 .middleRow .center{
 	position: absolute;
-	top: 43vh;
+	top: 45vh;
 	text-align: center;
 	font-weight: bold;
-	font-size: 11vh;
+	font-size: 8vh;
 	width: 100vw;
 	height: 10vh;
 }
@@ -52,3 +52,13 @@ body{
 	font-size: 5vh !important;
 	margin-top: 43vh;
 }
+
+#qrcode img{
+  position:absolute;
+  width:40vh;
+  height:40vh;
+  bottom:3vh;
+  right: 13vh;
+  /*margin-top:15px !important;*/
+
+ }
