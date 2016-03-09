@@ -57,6 +57,11 @@
             android:name=".BlankActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape"></activity>
+
+        <activity
+            android:name=".BallActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

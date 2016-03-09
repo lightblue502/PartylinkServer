@@ -3,6 +3,7 @@ package pl.engine;
 import android.content.Context;
 import android.util.Log;
 
+import com.partylinkserver.BallActivity;
 import com.partylinkserver.BlankActivity;
 import com.partylinkserver.EndActivity;
 import com.partylinkserver.QAActivity;
@@ -51,6 +52,7 @@ public class GameContext implements CommunicationListener{
 		engineIndex = 0;
 
 		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class,""));
+		engines.add(new BallEngine(this, playerAmount,"GAME BALL", BallActivity.class, "ball_start"));
 		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
 		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
 		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start"));
