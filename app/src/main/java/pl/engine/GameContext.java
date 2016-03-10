@@ -1,6 +1,9 @@
 package pl.engine;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
 
 import com.partylinkserver.BlankActivity;
@@ -12,14 +15,26 @@ import com.partylinkserver.NumericActivity;
 import com.partylinkserver.RegistrarActivity;
 import com.partylinkserver.ShakeActivity;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
+
 
 public class GameContext implements CommunicationListener{
 	private Context context;
 	private int engineIndex;
 	private int playerAmount;
+	private String mCurrentPhotoPath;
     private GameCommunicationListener gameLister;
 	private static final String[] BLANK_PARAMS = new String[0];
 	private GameEngine currentGameEngine;
@@ -27,6 +42,7 @@ public class GameContext implements CommunicationListener{
 	private List<GameEngine> engines = new ArrayList<GameEngine>();
 	private List<Team> teams = new ArrayList<Team>();
 	private CommunicationManager cm;
+	private PictureManager pm;
 
 	public static GameContext instance;
 	public static GameContext getInstance() {
@@ -63,7 +79,9 @@ public class GameContext implements CommunicationListener{
 
 
 		cm = new CommunicationManager(address , port, this);
+		pm = new PictureManager(address, port+1, this);
 		cm.start();
+		pm.start();
 	}
 
 	private GameContext(){
@@ -91,7 +109,6 @@ public class GameContext implements CommunicationListener{
 
 		currentGameEngine = engines.get(++engineIndex);
         Log.d("DEBUG", " " + currentGameEngine.getName());
-//		sendGameEvent(currentGameEngine.getClientStart());
         changeToNextEngine();
         if(engineIndex > engines.size()-1 )
             engineIndex = 0;
@@ -232,6 +249,12 @@ public class GameContext implements CommunicationListener{
 			Utils.debug("Player DISCONNECTED");
 			onIncomingData(clientId, "game_pause"); //tell engine
 		}
+	}
+
+	@Override
+	public void setPicturePath(String path) {
+		this.mCurrentPhotoPath = path;
+		Utils.debug("Picture path : " + mCurrentPhotoPath);
 	}
 
 	private boolean connectionReadyIssued = false;

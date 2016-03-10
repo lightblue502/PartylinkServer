@@ -16,6 +16,7 @@ import pl.engine.Utils;
 public class GameCommunicationService extends Service implements GameCommunicationListener {
     private final IBinder binder = new GameCommunicationServiceBinder();
     private GameContext gc;
+    private String mCurrentPhotoPath;
     public GameCommunicationService() {
     }
 
@@ -31,7 +32,6 @@ public class GameCommunicationService extends Service implements GameCommunicati
     }
     @Override
     public void onIncommingEvent(String event, String[] params) {
-//        Log.d("DEBUG_gcs.onIncome", "event--->" + event + ":" + "params" + params);
         sendEvent(event, params);
     }
 
@@ -39,7 +39,6 @@ public class GameCommunicationService extends Service implements GameCommunicati
         Intent intent = new Intent("game-event");
         intent.putExtra("event", event);
         intent.putExtra("params", params);
-//        Log.d("DEBUG_gcs.sendEvent", "broadcasting game event: " + event);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 

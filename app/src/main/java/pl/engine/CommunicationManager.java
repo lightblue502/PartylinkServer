@@ -36,14 +36,12 @@ public class CommunicationManager extends Thread {
 		ServerSocket serverSocket = null;
 		try{
 			serverSocket = new ServerSocket(port, 1, InetAddress.getByName(address));
-			Utils.debug("Waiting for new connection");
+			Utils.debug("================= Server Waiting for new connection =================");
 			while(!closed){
 				Socket socket = serverSocket.accept();
 				Utils.debug("Socket accpet" + socket);
 				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//				Utils.debug("=============================================================");
-//				Utils.debug("read line socket: " + reader);
-//				Utils.debug("=============================================================");
+
 				String initial_message = reader.readLine();	//expect ID=x
 				int given_client_id = Integer.parseInt(initial_message.substring(3));
 				Utils.debug(initial_message + " ====> " + given_client_id);
