@@ -23,7 +23,7 @@ app.controller('GameLobbyCtrl', ['$scope','$interval', function($scope, $interva
 function Person(id, name, icon) {
   this.id = id;
   this.name = name || "Anonymous";
-  this.icon = icon || "img/person.png";
+  this.icon = icon || "/storage/emulated/0/Pictures/PartyLinks/clientId"+id+".jpeg";
 }
 
 function stopAudio(){

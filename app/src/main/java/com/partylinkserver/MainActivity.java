@@ -10,12 +10,7 @@ import android.os.Bundle;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.webkit.WebView;
-import android.widget.TextView;
-
-import java.nio.LongBuffer;
-
 import pl.engine.GameContext;
-import pl.engine.GameShakeEngine;
 import pl.engine.RegistrarEngine;
 import pl.engine.Utils;
 
@@ -24,7 +19,7 @@ public class MainActivity extends GameActivity {
     private String ip;
     private WebView wv;
     private GameContext gc;
-    private int playerAmount = 4;
+    private int playerAmount = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +75,6 @@ public class MainActivity extends GameActivity {
                 onGameEvent("player_size", new String[]{String.valueOf(0)});
             }
         }.start();
-
-
-
 
         if(gc != null) {
             if (gc.getCurrentGameEngine() instanceof RegistrarEngine) {

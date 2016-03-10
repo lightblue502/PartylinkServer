@@ -1,8 +1,11 @@
 function getIpAddress(ipAddress){
   console.log(ipAddress);
   angular.element(document.body).scope().$apply(function($scope){
-          $scope.display = "IP: "+ipAddress;
-          $scope.ip = " animated fadeIn";
+          $scope.display = "SCAN QR-code FOR JOIN ROOM";
+          if(ipAddress == "0.0.0.0")
+             $scope.display = "wrong room.."
+          new QRCode(document.getElementById("qrcode"), ipAddress);
+          $scope.ip = "animated pulse infinite";
 
   });
 };
