@@ -62,8 +62,8 @@ public class RegistrarActivity extends GameActivity{
         }else if(event.equals("game_resume")){
             super.onSuicidePauseFragment();
         }else if(event.equals("setPlayer")){
-            //params[0] -> 'A' : params[1] -> 'B'
-            wv.loadUrl("javascript:setPlayer("+ params[0]+",'"+params[1]+"')");
+            //params[0] -> 'ClientId' : params[1] -> 'name' : params[2] -> icon path
+            wv.loadUrl("javascript:setPlayer("+ params[0]+",'"+params[1]+"','"+params[2]+"')");
         }else if(event.equals("getCountdown")){
             wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
         }

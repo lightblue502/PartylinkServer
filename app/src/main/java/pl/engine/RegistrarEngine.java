@@ -3,6 +3,7 @@ package pl.engine;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -11,6 +12,7 @@ public class RegistrarEngine extends GameEngine{
 	private int playerAmount;
 	private int numOfTeam;
 	private GameManager gameManager;
+    private HashMap<Integer,String> clients = new HashMap<Integer,String>();
 	private List<Team> teams = gc.getTeams();
 	private List<Player> players = new ArrayList<Player>();
 	public RegistrarEngine(GameContext gc, int playerAmount, String name, Class activityClass,String clientStart){
@@ -27,13 +29,21 @@ public class RegistrarEngine extends GameEngine{
 	
 	
 	
-	public void onIncomingEvent(int clientId, String event, String[] params){		
+	public void onIncomingEvent(int clientId, String event, String[] params){
+
 		if("register".equals(event)){
-			Player player = new Player(clientId, params[0]);
-			sendPlayerToUI(player);
+            clients.put(clientId,params[0]);
+//			Player player = new Player(clientId, params[0]);
+//			sendPlayerToUI(player);
+//			players.add(player);
+//			gc.sendGameEvent(player, "register_ok");
+
+		}else if("pathFinish".equals(event)){
+            Player player = new Player(clientId,clients.get(clientId), params[0]);
+            gc.sendGameEvent(player,"register_ok");
+            sendPlayerToUI(player);
 			players.add(player);
-			gc.sendGameEvent(player, "register_ok");
-		}
+        }
 		onPlayerReady(playerAmount);
 		
 	}
@@ -41,7 +51,8 @@ public class RegistrarEngine extends GameEngine{
 	public void sendPlayerToUI(Player player){
 		String cliendId = String.valueOf(player.getCliendId());
 		String name = String.valueOf(player.getName());
-		gc.getGameLister().onIncommingEvent("setPlayer",new String[]{cliendId, name});
+		String iconPath = player.getImagePath();
+		gc.getGameLister().onIncommingEvent("setPlayer",new String[]{cliendId, name, iconPath});
 	}
 
 	public void randomTeam(List<Player> players){

@@ -31,7 +31,7 @@ function generateIconScore(maxIcon, winRoundA, winRoundB){
 function Person(id, name, team, icon) {
   this.id = id;
   this.name = name || "Anonymous";
-  this.icon = icon || "/storage/emulated/0/Pictures/PartyLinks/clientId"+id+".jpeg";
+  this.icon = icon || "img/person.png";
   this.team = team;
 }
 
@@ -100,10 +100,10 @@ function initPlayer(teams){
     teams.forEach(function(team, index){
       team.forEach(function(player){
         if(index == 0){
-          $scope.teamA.push(new Person(player.id, player.name, 'A') );
+          $scope.teamA.push(new Person(player.id, player.name, 'A', player.icon) );
         }
         else{
-          $scope.teamB.push(new Person(player.id, player.name, 'B') );
+          $scope.teamB.push(new Person(player.id, player.name, 'B', player.icon) );
         }
       });
     });

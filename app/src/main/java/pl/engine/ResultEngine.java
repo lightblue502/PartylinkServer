@@ -64,7 +64,7 @@ public class ResultEngine extends GameEngine{
         }
         else if(event.equals("game_resume")){
             cntResumePlayer++;
-            Player player = new Player(clientId, params[0]);
+            Player player = new Player(clientId, params[0], null);
             gc.sendGameEvent(player, "resume_ok");
             if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
                 cntResumePlayer = 0;

@@ -21,9 +21,10 @@ app.controller('GameLobbyCtrl', ['$scope','$interval', function($scope, $interva
 }]);
 
 function Person(id, name, icon) {
+  console.log(icon);
   this.id = id;
   this.name = name || "Anonymous";
-  this.icon = icon || "/storage/emulated/0/Pictures/PartyLinks/clientId"+id+".jpeg";
+  this.icon = icon || "img/person.png";
 }
 
 function stopAudio(){
@@ -33,9 +34,10 @@ function stopAudio(){
 }
 
 
-function setPlayer(id, name){
+function setPlayer(id, name, iconPath){
+  console.log(iconPath);
   angular.element(document.body).scope().$apply(function($scope){
-    $scope.allPlayers.push(new Person(id, name));
+    $scope.allPlayers.push(new Person(id, name, iconPath));
     updateStyle($scope);
   });
 }

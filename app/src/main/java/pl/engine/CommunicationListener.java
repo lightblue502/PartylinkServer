@@ -12,5 +12,5 @@ public interface CommunicationListener {
 
 	public void onIncomingData(int clientId, String line);
 	public void onConnectionStateChanged(int clientId, int state);
-	public void setPicturePath(String path);
+	public void setPicturePath(String path,int clientId);
 }
