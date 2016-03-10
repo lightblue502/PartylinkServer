@@ -68,8 +68,8 @@ public class GameContext implements CommunicationListener{
 		engineIndex = 0;
 
 		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class,""));
-		engines.add(new BallEngine(this, playerAmount,"GAME BALL", BallActivity.class, "ball_start"));
 		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
+		engines.add(new BallEngine(this, playerAmount,"GAME BALL", BallActivity.class, "ball_start"));
 		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
 		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start"));
 		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
@@ -254,9 +254,14 @@ public class GameContext implements CommunicationListener{
 	}
 
 	@Override
-	public void setPicturePath(String path) {
+	public void setPicturePath(String path,int clientId) {
 		this.mCurrentPhotoPath = path;
 		Utils.debug("Picture path : " + mCurrentPhotoPath);
+		if(path != null)
+			currentGameEngine.onIncomingEvent(clientId, "pathFinish", new String[]{path});
+	}
+	public String getPicturePath(){
+		return mCurrentPhotoPath;
 	}
 
 	private boolean connectionReadyIssued = false;

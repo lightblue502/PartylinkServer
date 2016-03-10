@@ -49,6 +49,7 @@ public class GameManager {
 			for(Player player : team.getPlayers()){
 				strs += "{'id':" + player.getCliendId();
 				strs += ",'name':'" + player.getName();
+                strs += "','icon':'" + player.getImagePath();
 				strs += "'},";
 			}
             if(strs.charAt(strs.length()-1) == ',')

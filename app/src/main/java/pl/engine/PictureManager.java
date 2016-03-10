@@ -140,7 +140,7 @@ public class PictureManager extends Thread {
             if(!path.exists()){
                 path.mkdirs();
             }
-            File image = new File(path, "client" + imageFileName+".jpeg");
+            File image = new File(path, "clientId" + imageFileName+".jpeg");
 
             FileOutputStream fos = null;
             try {
@@ -155,8 +155,8 @@ public class PictureManager extends Thread {
             }
 
             // Save a file: path for use with ACTION_VIEW intents
-            mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-//            listener.setPicturePath(mCurrentPhotoPath);
+            mCurrentPhotoPath = "file://" + image.getAbsolutePath();
+            listener.setPicturePath(mCurrentPhotoPath, clientId);
             Utils.debug("Save to Internal Storage: " + mCurrentPhotoPath + " --- clientId: " + clientId);
             return image;
         }

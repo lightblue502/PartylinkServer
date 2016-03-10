@@ -41,10 +41,10 @@ function initPlayer(teams){
     teams.forEach(function(team, index){
       team.forEach(function(player){
         if(index == 0){
-          $scope.teamA.push(new Person(player.id, player.name, 'teamA') );
+          $scope.teamA.push(new Person(player.id, player.name, 'teamA', player.icon));
         }
         else{
-          $scope.teamB.push(new Person(player.id, player.name, 'teamB') );
+          $scope.teamB.push(new Person(player.id, player.name, 'teamB', player.icon));
         }
       });
     });
