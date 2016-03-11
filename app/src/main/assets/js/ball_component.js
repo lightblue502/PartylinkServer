@@ -10,7 +10,7 @@ function component(width, height, color, x, y, type) {
 
     this.update = function() {
         if (this.image == "edge") {
-            drawLineImage(this.x, this.y, this.width, this.height, this.angle, "gray");
+            drawLineImage(this.x, this.y, this.width, this.height, this.angle, "#246A86");
         }
         else if(this.image == "line"){
             drawLineImage(this.x, this.y, this.width, this.height, this.angle);
@@ -47,7 +47,6 @@ function component(width, height, color, x, y, type) {
         var min ={};
         var max ={};
         var scale = {};
-        var space = 0.5; // available area that can place bomb
 
         if(this.plu.y < this.pru.y){
             min = this.plu;
@@ -59,16 +58,18 @@ function component(width, height, color, x, y, type) {
         }
         scale.x = max.x-min.x;
         scale.y = max.y-min.y;
-        min.x += scale.x*(1-space)/2;
-        min.y += scale.y*(1-space)/2;
-        scale.x *= space;
-        scale.y *= space;
+        min.x += scale.x*(1-bombSpace)/2;
+        min.y += scale.y*(1-bombSpace)/2;
+        scale.x *= bombSpace;
+        scale.y *= bombSpace;
+        max.x = scale.x+min.x;
+        max.y = scale.y+min.y;
 
         for (var i = 0; i < array.length; i++) {
             var x = array[i]*scale.x + min.x;
             var y = array[i]*scale.y + min.y;
 
-            new bombObject(x, y, this.angle);
+            new bombObject(x, y, this.angle, min, max, this.id);
             // console.log(bombs);
         };
     }

@@ -9,11 +9,11 @@ function startGame() {
     startPos = 0;
     var objSize = 50 * unit;
 
-    ball = new ballObject(objSize, objSize, path.ball, 80*unit, 80*unit, "image");
+    ball = new ballObject(objSize, objSize, 80*unit, 80*unit);
 
-    edge.left = new component(objSize, height, "edge", 0, height/2);
-    edge.right = new component(objSize, height, "edge", width, height/2);
-    edge.top = new component(width/2, objSize, "edge", width/2, -height/2);
+    edge.left = new component(objSize/2, height, "edge", 0, height/2);
+    edge.right = new component(objSize/2, height, "edge", width, height/2);
+    edge.top = new component(width/2, objSize/2, "edge", width/2, -height/2);
 
     var line = new component(width*lineWidth/2, objSize, "line", width*lineWidth/2, height*1/2);
     line.initLine(0);
@@ -49,6 +49,7 @@ var myGameArea = {
 function updateGameArea() {
 
     myGameArea.clear();
+    makeBG();
 
     ball.newPos();
 
@@ -127,6 +128,19 @@ function shiftFocus () {
         };
     }
     return gap;
+}
+function makeBG () {
+    canvas = myGameArea.canvas;
+    bg = new Image();
+    bg.src = path.bg;
+    BGheight = canvas.height;
+    BGwidth = BGheight*bg.naturalWidth/bg.naturalHeight;
+    if(BGwidth < canvas.width){
+        BGwidth = canvas.width;
+        BGheight = BGwidth*bg.naturalHeight/bg.naturalWidth;
+    }
+    myGameArea.context.drawImage(bg, (BGwidth-canvas.width)/2, canvas.height-BGheight,
+     BGwidth, BGheight);
 }
 function updateDistance (gap) {
     if(gap > 0)

@@ -1,11 +1,10 @@
 
-function ballObject(width, height, color, x, y, type) {
-    this.type = type;
-    this.image = color;
-    if (type == "image") {
-        this.image = new Image();
-        this.image.src = color;
-    }
+function ballObject(width, height, x, y) {
+    this.image = new Image();
+    this.image.src = path.ball;
+    this.imageHead = new Image();
+    this.imageHead.src = path.ballHead;
+
     this.width = width;
     this.height = height;
     this.x = x;
@@ -23,6 +22,7 @@ function ballObject(width, height, color, x, y, type) {
 
     this.update = function() {
         drawObject(this.image, this.x, this.y, this.width, this.height, this.angle);
+        drawObject(this.imageHead, this.x, this.y-this.height, this.width, this.height, 0);
     }
     this.newPos = function() {
         this.gravitySpeed += this.gravity * this.mass*unit;
