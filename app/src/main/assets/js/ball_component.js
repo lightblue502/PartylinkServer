@@ -20,20 +20,19 @@ function component(width, height, color, x, y, type) {
         this.id = id;
         // console.log(id);
         side = id%2;
-        if(this.lu == null){
-            if( side == 0){
-                this.angle = lineAngle;
-            }
-            else{
-                this.angle = -lineAngle;
-            }
-            this.lu = new point(-this.width, -this.height, this.angle);
-            this.ru = new point(-this.width,  this.height, this.angle);
-            this.ld = new point( this.width, -this.height, this.angle);
-            this.rd = new point( this.width,  this.height, this.angle);
 
-            this.genBombs();
+        if( side == 0){
+            this.angle = lineAngle;
         }
+        else{
+            this.angle = -lineAngle;
+        }
+        this.lu = new point(-this.width, -this.height, this.angle);
+        this.ru = new point(-this.width,  this.height, this.angle);
+        this.ld = new point( this.width, -this.height, this.angle);
+        this.rd = new point( this.width,  this.height, this.angle);
+
+        this.genBombs();
     }
     this.genPosition = function(){ // for line
         this.plu = pointPosition(this, this.lu);
@@ -91,7 +90,7 @@ function drawLineImage(x, y, width, height, angle, color) {
         var edge = new Image();
         var line = new Image();
         line.src = path.line;
-        lineWidth = height*2*line.naturalWidth/line.naturalHeight;
+        var lineWidth = height*2*line.naturalWidth/line.naturalHeight;
 
         if(x < myGameArea.canvas.width/2){
             edge.src = path.lineEdgeR;

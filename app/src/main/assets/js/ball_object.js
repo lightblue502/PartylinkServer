@@ -1,9 +1,17 @@
 
 function ballObject(width, height, x, y) {
-    this.image = new Image();
-    this.image.src = path.ball;
-    this.imageHead = new Image();
-    this.imageHead.src = path.ballHead;
+    this.image = {
+        L : new Image(),
+        R : new Image()
+    }
+    this.imageHead = {
+        L : new Image(),
+        R : new Image()
+    }
+    this.image.L.src = path.ballL;
+    this.imageHead.L.src = path.ballLHead;
+    this.image.R.src = path.ballR;
+    this.imageHead.R.src = path.ballRHead;
 
     this.width = width;
     this.height = height;
@@ -19,10 +27,14 @@ function ballObject(width, height, x, y) {
     this.bounce = 0.6;
     this.maxLevel = 0; //lowest height that ball go
     this.distance = -1;
+    this.side = 0;
 
     this.update = function() {
-        drawObject(this.image, this.x, this.y, this.width, this.height, this.angle);
-        drawObject(this.imageHead, this.x, this.y-this.height, this.width, this.height, 0);
+        drawObject(this.image[this.side?"L":"R"], this.x, this.y, 
+            this.width, this.height, this.angle);
+
+        drawObject(this.imageHead[this.side?"L":"R"], this.x, this.y-this.height, 
+            this.width, this.height, -this.speedAngle*2);
     }
     this.newPos = function() {
         this.gravitySpeed += this.gravity * this.mass*unit;
@@ -50,8 +62,10 @@ function ballObject(width, height, x, y) {
         }
 
         for (i = 0; i < lines.length; i += 1) {
-        	if(this.checkLine(lines[i]))
+        	if(this.checkLine(lines[i])){
                 focus = Math.max(lines[i].plu.y, lines[i].pru.y, focus);
+                this.side = lines[i].id%2;
+            }
         }
         writeLine("magenta", {y:focus});
     }

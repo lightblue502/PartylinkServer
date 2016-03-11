@@ -11,6 +11,10 @@ function jump(){
     ball.gravitySpeed = -20*unit;
 }
 
+function bomb(){
+    bombActivate();
+}
+
 function pause(){
     myGameArea.pause();
 }

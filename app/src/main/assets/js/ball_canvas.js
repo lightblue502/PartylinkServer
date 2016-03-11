@@ -15,7 +15,7 @@ function startGame() {
     edge.right = new component(objSize/2, height, "edge", width, height/2);
     edge.top = new component(width/2, objSize/2, "edge", width/2, -height/2);
 
-    var line = new component(width*lineWidth/2, objSize, "line", width*lineWidth/2, height*1/2);
+    var line = new component(width*lineWidth/2, objSize, "line", width*lineWidth/2, height*3/2);
     line.initLine(0);
     lines.push(line);
 
@@ -30,7 +30,7 @@ var myGameArea = {
         this.canvas.height = height;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.resume();       
+        this.resume();
     },
     resume : function() {
         if(this.interval)

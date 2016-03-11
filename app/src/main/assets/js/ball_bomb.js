@@ -26,3 +26,7 @@ function bombObject (x, y, angle, minPos, maxPos, lineId) {
     }
 
 }
+
+function bombActivate () {
+	
+}

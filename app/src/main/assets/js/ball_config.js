@@ -10,14 +10,16 @@ var levelSpace = 0.5; // space from line a to line b in y-axis
 var levelToShift = 0.4; // pos y-axis % to shift background
 var focus; //focus point in y-axis
 var unit;
-var debugEnable = false;
+var debugEnable = 0;
 var startPos;
-var bombPos = [[0],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1],
-[0.2,0.7],[0.1,0.5],[0.4,0.8],[0.2,0.3],[0.6],[]];
+var bombPos = [[-1],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1],
+[0.2,0.7],[0.1,0.5],[0.4,0.8],[0.2,0.3],[0.6]];
 
 var path = {
-	ball: "img/ball/ball.png",
-	ballHead: "img/ball/ball-head.png",
+	ballL: "img/ball/ball-look-left.png",
+	ballLHead: "img/ball/ball-head-look-left.png",
+	ballR: "img/ball/ball-look-right.png",
+	ballRHead: "img/ball/ball-head-look-right.png",
 	// bomb: "img/ball/bomb.png",
 	bomb: "img/ball/bomb_lineup.png",
 	line: "img/ball/ground.png",
