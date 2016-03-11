@@ -127,6 +127,13 @@ public class QAEngine extends GameEngine{
         broadcastChoice();
 
     }
+    public void askPlayer(int askerClientId){
+        for(Player player :gc.getAllPlayer()){
+            if(player.getCliendId() != askerClientId){
+                sendGameEventToClient(player,"choiceOpen",new String[]{});
+            }
+        }
+    }
 
     public void broadcastChoice(){
         sendGameEventToClient("qa_choices", choices);
@@ -168,6 +175,8 @@ public class QAEngine extends GameEngine{
                     gameManager.scoreManage(clientId, -1);
                 }
                 gameManager.printScoreToNumber();
+            }else if(event.equals("readyQuestion")){
+                askPlayer(clientId);
             }
         }
         if(event.equals("game_pause")) {
