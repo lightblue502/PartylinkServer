@@ -1,17 +1,16 @@
 
-function component(width, height, color, x, y, type) {
+function ballObject(width, height, color, x, y, type) {
     this.type = type;
-    if (type == "ball") {
+    this.image = color;
+    if (type == "image") {
         this.image = new Image();
         this.image.src = color;
     }
-    this.color = color;
     this.width = width;
     this.height = height;
     this.x = x;
     this.y = y;    
     this.speedX = 0;
-    this.speedY = 0;
     this.angle = 0;
     this.speedAngle = 0;
     this.accelerate = 0;
@@ -23,20 +22,7 @@ function component(width, height, color, x, y, type) {
     this.distance = -1;
 
     this.update = function() {
-        ctx = myGameArea.context;
-        if (type == "ball") {
-            drawRotatedImage(this.image, this.x, this.y, this.width, this.height, this.angle);
-        } 
-        else if (type == "circle"){
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI, true);
-            ctx.closePath();
-            ctx.fillStyle = this.color;
-            ctx.fill();
-        }
-        else {
-            drawRotatedImage(this.color, this.x, this.y, this.width, this.height, this.angle);
-        }
+        drawObject(this.image, this.x, this.y, this.width, this.height, this.angle);
     }
     this.newPos = function() {
         this.gravitySpeed += this.gravity * this.mass*unit;
@@ -44,7 +30,7 @@ function component(width, height, color, x, y, type) {
         this.speedX += this.accelerate;
         this.speedX -= this.speedX * this.gravity;
         this.x += this.speedX + this.accelerate;
-        this.y += this.speedY + this.gravitySpeed;
+        this.y += this.gravitySpeed;
         this.angle += this.speedAngle/unit;
         this.speedAngle *= 0.99;
 
@@ -55,7 +41,9 @@ function component(width, height, color, x, y, type) {
             this.maxLevel = this.y;//Math.max(this.y, (lines[2]?lines[1].y:0));/*(lines[0].plu?lines[0].plu.y:0)*/
             focus = Math.max(this.y, focus);
         }
-        writeLine({x:0, y:this.maxLevel}, {x:myGameArea.canvas.width, y:this.maxLevel});
+        writeLine("lightblue", {x:this.x});
+        writeLine("lightblue", {y:this.y});
+        writeLine("pink", {y:this.maxLevel});
 
         for(var i in edge){
         	this.chechBounceWith(edge[i]);
@@ -65,7 +53,7 @@ function component(width, height, color, x, y, type) {
         	if(this.checkLine(lines[i]))
                 focus = Math.max(lines[i].plu.y, lines[i].pru.y, focus);
         }
-        writeLine({x:0, y:focus}, {x:myGameArea.canvas.width, y:focus});
+        writeLine("magenta", {y:focus});
     }
     this.chechBounceWith = function(rectobj){
         var distX = this.x - rectobj.x;// rect are origin
@@ -97,31 +85,9 @@ function component(width, height, color, x, y, type) {
             }
         }
     }
-    this.initLine = function(side){ // for line
-
-    	if(this.lu == null){
-    		var angle = 5;
-    		if( side == 0){
-    			this.angle = angle;
-    		}
-    		else{
-    			this.angle = -angle;
-    		}
-    		this.lu = new point(-this.width, -this.height, this.angle);
-    		this.ru = new point(-this.width,  this.height, this.angle);
-    		this.ld = new point( this.width, -this.height, this.angle);
-    		this.rd = new point( this.width,  this.height, this.angle);
-    	}
-    }
-    this.genPosition = function(){ // for line
-		this.plu = pointPosition(this, this.lu);
-		this.pru = pointPosition(this, this.ru);
-		this.pld = pointPosition(this, this.ld);
-		this.prd = pointPosition(this, this.rd);
-    }
     this.checkCollision = function(p1, p2) { 
     	var dist = distToSegment(this, p1, p2); //distant point to line
-    	writeLine(p1, p2);
+    	writeLine("yellow", p1, p2);
 
     	if( dist - this.width < 0 ){
     		this.layOnCollision(p1, p2, dist, this.width-dist);
@@ -145,12 +111,11 @@ function component(width, height, color, x, y, type) {
     	this.y += padding/originDist*(this.y - ref.y);
     }
     this.checkLine = function(line) { 
-    		line.genPosition();
+		line.genPosition();
     	//if on areana
-    	writeLine(line.pru, line.plu);
+    	writeLine("black", line.pru, line.plu);
     	if(	this.y + this.width > Math.min(line.lu.y, line.ru.y)+line.y && 
     		this.y - this.width < Math.max(line.ld.y, line.rd.y)+line.y){
-    		line.genPosition();
     		var u = this.checkCollision(line.plu, line.pru);
     		var d = this.checkCollision(line.pld, line.prd);
     		var l = this.checkCollision(line.plu, line.pld);
@@ -160,6 +125,5 @@ function component(width, height, color, x, y, type) {
             else return false;
     	}
         return false;
-
     }
 }

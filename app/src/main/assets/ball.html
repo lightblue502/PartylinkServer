@@ -5,14 +5,23 @@
 
  	<link rel="stylesheet" type="text/css" href="css/ball_CSS.css">
  	<script src="lib/angular/angular.js"></script>
- 	<script type="text/javascript" src="js/ball_canvas.js"></script>
+
+ 	<script type="text/javascript" src="js/ball_config.js"></script>
+ 	
+ 	<script type="text/javascript" src="js/ball_component.js"></script>
  	<script type="text/javascript" src="js/ball_object.js"></script>
- 	<script type="text/javascript" src="js/ball_ctrl.js"></script>
  	<script type="text/javascript" src="js/ball_bomb.js"></script>
+
+ 	<script type="text/javascript" src="js/ball_canvas.js"></script>
+ 	<script type="text/javascript" src="js/ball_ctrl.js"></script>
+ 	<script type="text/javascript" src="js/ball_link.js"></script>
  </head>
- <body onload="startGame()" ng-controller="BallCtrl">
+ <body ng-controller="BallCtrl">
  	<div class="description">
 
  	</div>
+ 	<script type="text/javascript">
+ 		start();
+ 	</script>
  </body>
  </html>

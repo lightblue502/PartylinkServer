@@ -5,6 +5,7 @@ myApp.controller('BallCtrl', ['$scope', function($scope){
     //web call android UI Ready;
     Android.onUiReady();
 }]);
+
 // 'ball' for ball
 document.onkeydown = function (button) {
     // console.log(button.code);
@@ -12,6 +13,14 @@ document.onkeydown = function (button) {
         ball.accelerate = -1*unit;
     else if(button.code == "KeyD")
         ball.accelerate = 1*unit;
+    else if(button.code == "KeyS"){
+        if(myGameArea.interval)
+            myGameArea.pause();
+        else
+            myGameArea.resume();
+    }
+    else if(button.code == "KeyN")
+        start();
     else if(button.code == "Space")
         ball.gravitySpeed = -20*unit;
     else
@@ -22,15 +31,4 @@ document.onkeyup = function (button) {
         ball.accelerate = 0;
 }
 
-function move(accelerate){
-  if(accelerate > 3){
-    ball.accelerate = 1*unit;
-  }else if(accelerate < 3){
-    ball.accelerate = -1*unit;
-  }else{
-    ball.accelerate = 0;
-  }
-}
-function jump(){
-    ball.gravitySpeed = -20*unit;
-}
+
