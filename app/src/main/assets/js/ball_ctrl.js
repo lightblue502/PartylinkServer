@@ -30,5 +30,3 @@ document.onkeyup = function (button) {
     if(button.code != "Space")
         ball.accelerate = 0;
 }
-
-

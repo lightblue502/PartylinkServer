@@ -11,7 +11,9 @@ public class Player {
 		this.name = name;
 		this.imagePath = imagePath;
 	}
-
+	public void setImagePath(String imagePath){
+		this.imagePath = imagePath;
+	}
 	public int getCliendId() {
 		return clientId;
 	}

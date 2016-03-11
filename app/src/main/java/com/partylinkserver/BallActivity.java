@@ -7,6 +7,9 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import pl.engine.Utils;
 
 public class BallActivity extends GameActivity {
@@ -43,6 +46,11 @@ public class BallActivity extends GameActivity {
             public void backDoor(String num) {
                 onGameEvent("back_Door", new String[]{num});
             }
+
+            public void getDistance(int distance){
+                sendGameEvent("getDistance", new String[]{String.valueOf(distance)});
+            }
+
         });
     }
 
@@ -52,8 +60,9 @@ public class BallActivity extends GameActivity {
         Utils.debug("onGameEvent" + event);
         if(params ==  null){
             return;
-        }
-        else if (event.equals("game_pause")) {
+        }else if (event.equals("initial_bomb")) {
+            wv.loadUrl("javascript:getInitialBomb("+ Arrays.toString(params) + ")");
+        }else if (event.equals("game_pause")) {
             super.changeToPauseFragment(R.id.fragment_container);
         }
         else if(event.equals("game_resume")){
@@ -82,10 +91,13 @@ public class BallActivity extends GameActivity {
             wv.loadUrl("javascript:initPlayer("+params[0]+")");
         }
         else if(event.equals("getCountdown")){
-            wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
+            wv.loadUrl("javascript:getCountdown("+params[0]+")");
         }
         else if(event.equals("jump")){
             wv.loadUrl("javascript:jump()");
+        }
+        else if(event.equals("stop")){
+            wv.loadUrl("javascript:stop()");
         }
         else if(event.equals("move")){
             wv.loadUrl("javascript:move("+params[0]+")");

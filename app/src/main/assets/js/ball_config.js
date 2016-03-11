@@ -9,7 +9,7 @@ var levelSpace = 0.5; // space from line a to line b in y-axis
 var levelToShift = 0.4; // pos y-axis % to shift background
 var focus; //focus point in y-axis
 var unit;
-var debugEnable = true;
+var debugEnable = false;
 var startPos;
 var bombPos = [[0,1]];
 

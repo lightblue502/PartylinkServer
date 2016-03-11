@@ -257,8 +257,12 @@ public class GameContext implements CommunicationListener{
 	public void setPicturePath(String path,int clientId) {
 		this.mCurrentPhotoPath = path;
 		Utils.debug("Picture path : " + mCurrentPhotoPath);
-		if(path != null)
+		if(path.isEmpty()) {
+			Utils.debug("path is empty");
+			currentGameEngine.onIncomingEvent(clientId, "pathFinish", new String[]{"empty"});
+		}else{
 			currentGameEngine.onIncomingEvent(clientId, "pathFinish", new String[]{path});
+		}
 	}
 	public String getPicturePath(){
 		return mCurrentPhotoPath;

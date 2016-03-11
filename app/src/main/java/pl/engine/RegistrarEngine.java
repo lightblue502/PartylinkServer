@@ -30,27 +30,35 @@ public class RegistrarEngine extends GameEngine{
 	
 	
 	public void onIncomingEvent(int clientId, String event, String[] params){
-
+		// from user
 		if("register".equals(event)){
-            clients.put(clientId,params[0]);
-//			Player player = new Player(clientId, params[0]);
-//			sendPlayerToUI(player);
-//			players.add(player);
-//			gc.sendGameEvent(player, "register_ok");
+			Player player = new Player(clientId, null, null);
+			gc.sendGameEvent(player , "register_ok");
+			clients.put(clientId, params[0]);
+			if(params[1].equals("empty")){
+				// no picture
+				Utils.debug("from User empty picture");
+				createPlayer(clientId, clients.get(clientId), new String());
+			}
+			Utils.debug("clients: " + clients.toString());
 
-		}else if("pathFinish".equals(event)){
-            Player player = new Player(clientId,clients.get(clientId), params[0]);
-            gc.sendGameEvent(player,"register_ok");
-            sendPlayerToUI(player);
-			players.add(player);
-        }
+		}else if("pathFinish".equals(event)){ // from GameContext
+			Utils.debug("from GameContext");
+			createPlayer(clientId, clients.get(clientId), params[0]);
+		}
 		onPlayerReady(playerAmount);
 		
+	}
+	public void createPlayer(int clientId, String name, String path){
+		Player player = new Player(clientId, name, path);
+		sendPlayerToUI(player);
+		players.add(player);
+
 	}
 
 	public void sendPlayerToUI(Player player){
 		String cliendId = String.valueOf(player.getCliendId());
-		String name = String.valueOf(player.getName());
+		String name = player.getName();
 		String iconPath = player.getImagePath();
 		gc.getGameLister().onIncommingEvent("setPlayer",new String[]{cliendId, name, iconPath});
 	}

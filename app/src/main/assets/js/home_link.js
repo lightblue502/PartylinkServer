@@ -1,9 +1,8 @@
 function getIpAddress(ipAddress){
   console.log(ipAddress);
   angular.element(document.body).scope().$apply(function($scope){
-          $scope.display = "SCAN QR-code FOR JOIN ROOM";
           if(ipAddress == "0.0.0.0")
-             $scope.display = "wrong room.."
+             $scope.display = "Room Wrong .."
           new QRCode(document.getElementById("qrcode"), ipAddress);
           $scope.ip = "animated pulse infinite";
 
@@ -19,13 +18,13 @@ function setDisplay(text){
 function loading(times){
   console.log(times);
   angular.element(document.body).scope().$apply(function($scope){
-          $scope.display = "loading... "+times;
+          $scope.connect = "Loading... "+times;
   });
 };
 
 function getPlayerSize(now, size){
   angular.element(document.body).scope().$apply(function($scope){
-          $scope.connect = "Waiting for "+(size-now)+" player";
+          $scope.connect = "Waiting for "+(size-now)+" player"; 
           if(size-now>1) $scope.connect +="s";
           $scope.connect +=".";
 
