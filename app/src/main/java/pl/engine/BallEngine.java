@@ -1,13 +1,16 @@
 package pl.engine;
 
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by nuhwi_000 on 8/3/2559.
- */
+ */import android.util.Log;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 public class BallEngine extends GameEngine{
     private int playerAmount;
     private int cntPlayer = 0;
@@ -19,6 +22,8 @@ public class BallEngine extends GameEngine{
     private boolean gamePaused = false;
     private ResultScore resultScore = new ResultScore();
     private Event jump,bomb;
+    private int all_bar = 20;
+    private String[] bombs;
     public BallEngine(GameContext gc) {
         super(gc);
     }
@@ -31,6 +36,7 @@ public class BallEngine extends GameEngine{
         this.gameManager = new GameManager(resultScore, gc, 2, 3);
         jump = new Event("jump");
         bomb = new Event("bomb");
+        bombs = new String[all_bar];
     }
 
     @Override
@@ -41,6 +47,7 @@ public class BallEngine extends GameEngine{
         for (Team team: teams) {
             team.printPlayers();
         }
+        createBombs();
         gc.sendGameEvent("ball_start");
     }
 
@@ -78,6 +85,54 @@ public class BallEngine extends GameEngine{
 
         }
     }
+
+    public void createBombs(){
+        int group = 4;
+        int tmp = 0;
+        // per five bar
+        int[] bomb_amount = {1,2,3,2,1};
+
+        while(tmp < 20){
+            for(int i = 0; i < bomb_amount.length; i++){
+                float[] co_or = new float[bomb_amount[i]];
+                bombs[i+(tmp > 1 ? tmp : 0)] = randomBombPoint(co_or, bomb_amount[i]);
+            }
+            shuffle(bomb_amount);
+            tmp+=5;
+        }
+    }
+    public String randomBombPoint(float[] co_or, int amount){
+        Random random = new Random();
+        int num;
+        int tmp = 0;
+        int length = 10;
+        String point;
+        String temp;
+        int[] used = new int[length];
+        while(tmp < amount) {
+            num = random.nextInt(10) + 1;
+            int index = num - 1;
+            if(used[index] == 0){
+                used[index]++;
+                co_or[tmp] = (float)((index + 1) * 0.1);
+                tmp++;
+            }
+        }
+        temp = Arrays.toString(co_or);
+
+        return temp;
+    }
+    public void shuffle(int[] bomb_amount){
+        Random random = new Random();
+        int index, temp;
+        for (int i = bomb_amount.length - 1; i > 0; i--){
+            index = random.nextInt(i + 1);
+            temp = bomb_amount[index];
+            bomb_amount[index] = bomb_amount[i];
+            bomb_amount[i] = temp;
+        }
+    }
+
     public void swapTeams(){
         Team temp;
         temp = players;
@@ -142,6 +197,7 @@ public class BallEngine extends GameEngine{
         if(!gamePaused) {
             if (event.equals("ballUI_Start")) {
                 gameManager.initPlayerstoUI(teams);
+                gc.getGameLister().onIncommingEvent("initial_bomb", bombs);
             } else if (event.equals("ball_ready")) {
                 cntPlayer++;
                 onPlayerReady(playerAmount);

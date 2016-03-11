@@ -7,6 +7,9 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import pl.engine.Utils;
 
 public class BallActivity extends GameActivity {
@@ -52,8 +55,9 @@ public class BallActivity extends GameActivity {
         Utils.debug("onGameEvent" + event);
         if(params ==  null){
             return;
-        }
-        else if (event.equals("game_pause")) {
+        }else if (event.equals("initial_bomb")) {
+            wv.loadUrl("javascript:getInitialBomb("+ Arrays.toString(params) + ")");
+        }else if (event.equals("game_pause")) {
             super.changeToPauseFragment(R.id.fragment_container);
         }
         else if(event.equals("game_resume")){
