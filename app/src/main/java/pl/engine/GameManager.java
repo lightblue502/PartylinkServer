@@ -181,6 +181,11 @@ public class GameManager {
         if(count == times){
 
             if (isInRound()) {
+
+                if(changeEvent.equals("change_ball")){
+                    //for game ball
+                    gc.getGameLister().onIncommingEvent("stop", new String[]{});
+                }
                 checkNumber();
                 if (!changeEvent.isEmpty()) {
                     gc.sendGameEvent(changeEvent);

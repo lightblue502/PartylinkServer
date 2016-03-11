@@ -22,14 +22,8 @@ document.onkeyup = function (button) {
         ball.accelerate = 0;
 }
 
-function move(accelerate){
-  if(accelerate > 3){
-    ball.accelerate = 1*unit;
-  }else if(accelerate < 3){
-    ball.accelerate = -1*unit;
-  }else{
-    ball.accelerate = 0;
-  }
+function move(delta){
+    ball.accelerate = delta/10*unit;
 }
 function jump(){
     ball.gravitySpeed = -20*unit;

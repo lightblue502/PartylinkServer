@@ -43,6 +43,11 @@ public class BallActivity extends GameActivity {
             public void backDoor(String num) {
                 onGameEvent("back_Door", new String[]{num});
             }
+
+            public void getDistance(int distance){
+                sendGameEvent("getDistance", new String[]{String.valueOf(distance)});
+            }
+
         });
     }
 
@@ -82,10 +87,13 @@ public class BallActivity extends GameActivity {
             wv.loadUrl("javascript:initPlayer("+params[0]+")");
         }
         else if(event.equals("getCountdown")){
-            wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
+            wv.loadUrl("javascript:getCountdown("+params[0]+")");
         }
         else if(event.equals("jump")){
             wv.loadUrl("javascript:jump()");
+        }
+        else if(event.equals("stop")){
+            wv.loadUrl("javascript:stop()");
         }
         else if(event.equals("move")){
             wv.loadUrl("javascript:move("+params[0]+")");

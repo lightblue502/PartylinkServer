@@ -29,8 +29,6 @@ public class BallEngine extends GameEngine{
         players = teams.get(0);
         enemys = teams.get(1);
         this.gameManager = new GameManager(resultScore, gc, 2, 3);
-        jump = new Event("jump");
-        bomb = new Event("bomb");
     }
 
     @Override
@@ -54,9 +52,9 @@ public class BallEngine extends GameEngine{
     public void onPlayerReady(int playerAmount) {
         if(cntPlayer == playerAmount){
             if(gameManager.getRound() <= 3) {
-                if (gameManager.getNumber() == 1) {
                     Log.d("DEBUG", "NEW ROUND");
-//                    sendGameEventToClient("ball_newRound", new String[]{});
+                    init();
+                    sendGameEventToClient("ball_newRound", new String[]{});
                     gameManager.printReportRound();
                     gameManager.countDownGameReady(5);
                     gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
@@ -67,16 +65,16 @@ public class BallEngine extends GameEngine{
                             sendEventToTeams();
                         }
                     });
-                } else {
-                    gameManager.printReportRound();
-                    sendEventToTeams();
-                }
             }else{
                 endEngine();
             }
 
 
         }
+    }
+    public void init(){
+        jump = new Event("jump");
+        bomb = new Event("bomb");
     }
     public void swapTeams(){
         Team temp;
@@ -89,8 +87,11 @@ public class BallEngine extends GameEngine{
         sendEventToEnemy();
         sendEventToPlayer();
         gameManager.resetTimer();
+
+//        gameManager.stopTimer();
         if(!gameManager.timerWasStarted())
             gameManager.startTimer(20, "change_ball");
+
 
         cntPlayer = 0;
     }
@@ -119,23 +120,24 @@ public class BallEngine extends GameEngine{
     }
     public void combineEvent(final Event event, Long currentTime, int clientId){
 
-        event.counter();
-        event.addTimes(currentTime);
+        event.update(currentTime);
 
-        if(event.getTime() == 0)
-            event.setTime(currentTime);
-        else{
-            if((currentTime - event.getTime()) < (1000 / 2)){
-                event.killCounter();
-            }
+        if(!event.haveClientIds(clientId)) {
+            event.counter(clientId);
+            event.addTimes(currentTime);
         }
 
         Team team = gc.getTeamByClientId(clientId);
         int playerAmountByTeam = team.getMaxPlayerAmount();
         if(event.getCount() >= playerAmountByTeam){
             gc.getGameLister().onIncommingEvent(event.getName(),new String[]{});
+            event.reset();
         }
         Utils.debug("EVENT : "+event.getName()+" | count "+event.getCount());
+    }
+    public void scoreProcess(Integer distance){
+        Player player = players.getPlayers().get(0);
+        gameManager.scoreManage(player.getCliendId(),distance);
     }
     @Override
     public void onIncomingEvent(int clientId, String event, String[] params) {
@@ -155,8 +157,8 @@ public class BallEngine extends GameEngine{
                 combineEvent(jump, Long.parseLong(params[0]), clientId);
             }else if(event.equals("bombEvent")){
                 combineEvent(bomb, Long.parseLong(params[0]),clientId);
-            }else if(event.equals("distance")){
-
+            }else if(event.equals("getDistance")){
+                scoreProcess(Integer.parseInt(params[0]));
             }
         }
         if(event.equals("game_pause")) {
@@ -185,39 +187,42 @@ public class BallEngine extends GameEngine{
 //class Event
 class Event{
     private String name;
-    private long time;
-    private Integer count;
+    private List<Integer> clientIds = new ArrayList<Integer>();
     private List<Long> times = new ArrayList<Long>();
 
     public Event(String name){
         this.name = name;
-        this.count = 0;
-        this.time = 0;
     }
     public String getName(){
         return name;
     }
+    public void update(Long currentime){
+        while ( times.size()>0 && currentime - times.get(0) > 500 ) {
+            killCounter();
+        }
+    }
     public int getCount(){
-        return count;
-    }
-    public void setTime(Long time){
-        this.time = time;
-    }
-    public long getTime(){
-        return time;
+        return clientIds.size();
     }
     public void killCounter(){
-        count--;
-        if(count < 0)
-            count = 0;
+        clientIds.remove(0);
+        times.remove(0);
     }
-    public void counter(){
-        count++;
+    public void counter(int clientId){
+        clientIds.add(clientId);
     }
-
     public void addTimes(Long time){
         times.add(time);
     }
+
+    public boolean haveClientIds(int clientId){
+        return clientIds.contains(clientId);
+    }
+    public void reset(){
+        clientIds.clear();
+        times.clear();
+    }
+
 
 
 }
