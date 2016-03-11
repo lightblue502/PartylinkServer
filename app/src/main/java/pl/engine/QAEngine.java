@@ -142,7 +142,7 @@ public class QAEngine extends GameEngine{
     public void onIncomingEvent(int clientId, String event, String[] params) {
         if(!gamePaused) {
             if (event.equals("qaUI_Start")) {
-                initPlayerstoUI();
+                gameManager.initPlayerstoUI(teams);
                 isInit = true;
                 onPlayerReady(playerAmount);
                 sendGameEventToClient(gc.getCurrentGameEngine().getClientStart(), new String[]{});
@@ -231,24 +231,5 @@ public class QAEngine extends GameEngine{
 
     }
 
-    public void initPlayerstoUI(){
 
-        String strs = "[";
-        for (Team team: teams) {
-            strs += "[";
-            for(Player player : team.getPlayers()){
-                strs += "{'id':" + player.getCliendId();
-                strs += ",'name':'" + player.getName();
-                strs += "'},";
-            }
-            if(strs.charAt(strs.length()-1) == ',')
-                strs = strs.substring(0,strs.length()-1);
-            strs += "],";
-        }
-        if(strs.charAt(strs.length()-1) == ',')
-            strs = strs.substring(0,strs.length()-1);
-        strs += "]";
-        Log.d("DEBUG_init_PL", strs + "");
-        gc.getGameLister().onIncommingEvent("initPlayer", new String[]{strs});
-    }
 }

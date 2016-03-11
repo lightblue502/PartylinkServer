@@ -14,6 +14,7 @@ public class GameManager {
 	private int number;
 	private int currentRound = 1;
 	private int currentNumber = 1;
+    private long currentTimer = 0;
     private boolean isGameEnd = false;
     private boolean isReady = false;
     private Handler customHandler = new Handler();
@@ -201,7 +202,12 @@ public class GameManager {
     public  void resetTimer(){
         count = 0;
     }
-
+    public void setCurrentTimer(){
+        currentTimer = count;
+    }
+    public void getCurrentTimer(){
+        count = currentTimer;
+    }
     public boolean timerWasStarted(){
         return wasStarted;
     }

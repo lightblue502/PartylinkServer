@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BallEngine extends GameEngine{
+
     private int playerAmount;
     private int cntPlayer = 0;
     private int cntResumePlayer = 0;
@@ -60,8 +61,11 @@ public class BallEngine extends GameEngine{
         if(cntPlayer == playerAmount){
             if(gameManager.getRound() <= 3) {
                     Log.d("DEBUG", "NEW ROUND");
+
                     init();
+                    gc.getGameLister().onIncommingEvent("start", new String[]{});
                     sendGameEventToClient("ball_newRound", new String[]{});
+
                     gameManager.printReportRound();
                     gameManager.countDownGameReady(5);
                     gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
@@ -130,7 +134,6 @@ public class BallEngine extends GameEngine{
             bomb_amount[i] = temp;
         }
     }
-
     public void swapTeams(){
         Team temp;
         temp = players;
@@ -142,7 +145,6 @@ public class BallEngine extends GameEngine{
         sendEventToEnemy();
         sendEventToPlayer();
         gameManager.resetTimer();
-
 //        gameManager.stopTimer();
         if(!gameManager.timerWasStarted())
             gameManager.startTimer(20, "change_ball");
@@ -200,6 +202,7 @@ public class BallEngine extends GameEngine{
             if (event.equals("ballUI_Start")) {
                 gameManager.initPlayerstoUI(teams);
                 gc.getGameLister().onIncommingEvent("initial_bomb", bombs);
+                gc.getGameLister().onIncommingEvent("game_pause",new String[]{});
             } else if (event.equals("ball_ready")) {
                 cntPlayer++;
                 onPlayerReady(playerAmount);
@@ -221,7 +224,8 @@ public class BallEngine extends GameEngine{
             Utils.debug("============ game is pause ============");
             sendGameEventToClient("game_pause", new String[]{});
             gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
-            gameManager.stopTimer();
+            gameManager.setCurrentTimer();
+//            gameManager.stopTimer();
             gamePaused = true;
         }else if(event.equals("game_resume")){
             Utils.debug("============ game is resume ============");
@@ -230,6 +234,7 @@ public class BallEngine extends GameEngine{
             gc.sendGameEvent(player, "resume_ok");
             if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
                 cntResumePlayer = 0;
+                gameManager.getCurrentTimer();
                 gamePaused = false;
                 Utils.debug("============ start timer ============");
                 gameManager.runTimerAgain();
@@ -238,6 +243,7 @@ public class BallEngine extends GameEngine{
             }
         }
     }
+
 }
 
 //class Event
