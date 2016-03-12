@@ -13,8 +13,9 @@ var focus; //focus point in y-axis
 var unit;
 var debugEnable = 0;
 var startPos;
-var bombPos = [[-1],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1],
-[0.2,0.7],[0.1,0.5],[0.4,0.8],[0.2,0.3],[0.6]];
+var bombPos; 
+// = [[-1],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1],
+// [0.2,0.7],[0.1,0.5],[0.4,0.8],[0.2,0.3],[0.6]];
 
 var path = {
 	ballL: "img/ball/ball-look-left.png",

@@ -68,13 +68,13 @@ public class GameContext implements CommunicationListener{
 		engineIndex = 0;
 
 		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class,""));
-		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
 		engines.add(new BallEngine(this, playerAmount,"GAME BALL", BallActivity.class, "ball_start"));
+		engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class, "qa_start"));
 		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
 		engines.add(new NumericEngine(this, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start"));
 		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
-        engines.add(new QAEngine(this, playerAmount, "GAME QA", context, QAActivity.class, "qa_start"));
-        engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
+		engines.add(new GameShakeEngine(this, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start"));
+		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
         engines.add(new EndEngine(this, playerAmount, "END ENGINE", EndActivity.class, "end_start"));
 		engines.add(new BlankEngine(this, playerAmount, "BLANK ENGINE", BlankActivity.class, "blank_start"));
 
