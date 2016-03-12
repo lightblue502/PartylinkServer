@@ -64,6 +64,7 @@ public class BallEngine extends GameEngine{
 
                     init();
                     gc.getGameLister().onIncommingEvent("start", new String[]{});
+                    gc.getGameLister().onIncommingEvent("pause", new String[]{});
                     sendGameEventToClient("ball_newRound", new String[]{});
 
                     gameManager.printReportRound();
@@ -71,6 +72,7 @@ public class BallEngine extends GameEngine{
                     gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
                         @Override
                         public void ready() {
+                            gc.getGameLister().onIncommingEvent("resume", new String[]{});
                             if(gameManager.timerWasStarted())
                                 gameManager.runTimerAgain();
                             sendEventToTeams();
@@ -225,7 +227,7 @@ public class BallEngine extends GameEngine{
             sendGameEventToClient("game_pause", new String[]{});
             gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
             gameManager.setCurrentTimer();
-//            gameManager.stopTimer();
+            gameManager.stopTimer();
             gamePaused = true;
         }else if(event.equals("game_resume")){
             Utils.debug("============ game is resume ============");
@@ -234,11 +236,12 @@ public class BallEngine extends GameEngine{
             gc.sendGameEvent(player, "resume_ok");
             if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
                 cntResumePlayer = 0;
-                gameManager.getCurrentTimer();
+
                 gamePaused = false;
                 Utils.debug("============ start timer ============");
                 gameManager.runTimerAgain();
-                sendGameEventToClient("game_resume", new String[]{});
+                gameManager.getCurrentTimer();
+                sendGameEventToClient("game_resume_ball", new String[]{});
                 gc.getGameLister().onIncommingEvent("game_resume", new String[]{});
             }
         }
