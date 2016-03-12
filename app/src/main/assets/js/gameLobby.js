@@ -18,6 +18,8 @@ app.controller('GameLobbyCtrl', ['$scope','$interval', function($scope, $interva
   $scope.showStyle = {'row':{},'box':{},'name':{}};
   updateStyle($scope);
 
+  Android.onUiReady();
+  
 }]);
 
 function Person(id, name, icon) {

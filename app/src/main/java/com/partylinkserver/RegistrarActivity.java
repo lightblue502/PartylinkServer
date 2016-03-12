@@ -38,13 +38,18 @@ public class RegistrarActivity extends GameActivity{
         javaScriptInterface.init(this);
         wv.addJavascriptInterface(javaScriptInterface, "Android");
 
-//        javaScriptInterface.setOnGameReadyListener(new JavaScriptInterface.onUiReadyListener() {
-//            @Override
-//            public void ready() {
-//                //call engine that game numeric_game ready to play;
-//                sendGameEvent("RegisterServerUI_Start");
-//            }
-//        });
+        javaScriptInterface.setOnGameReadyListener(new JavaScriptInterface.onUiReadyListener() {
+            @Override
+            public void ready() {
+                //call engine that game numeric_game ready to play;
+                sendGameEvent("RegisterServerUI_Start");
+            }
+
+            @Override
+            public void backDoor(String num) {
+
+            }
+        });
     }
 
     @Override

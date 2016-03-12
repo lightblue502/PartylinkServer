@@ -63,10 +63,12 @@ public class BallActivity extends GameActivity {
         }else if (event.equals("initial_bomb")) {
             wv.loadUrl("javascript:getInitialBomb("+ Arrays.toString(params) + ")");
         }else if (event.equals("game_pause")) {
-            super.changeToPauseFragment(R.id.fragment_container);
+            wv.loadUrl("javascript:pause()");
+//            super.changeToPauseFragment(R.id.fragment_container);
         }
         else if(event.equals("game_resume")){
-            super.onSuicidePauseFragment();
+            wv.loadUrl("javascript:resume()");
+//            super.onSuicidePauseFragment();
         }
         else if(event.equals("change_engine")){
             wv.loadUrl("javascript:stopAudio()");
@@ -98,6 +100,9 @@ public class BallActivity extends GameActivity {
         }
         else if(event.equals("stop")){
             wv.loadUrl("javascript:stop()");
+        }
+        else if(event.equals("start")){
+            wv.loadUrl("javascript:start()");
         }
         else if(event.equals("move")){
             wv.loadUrl("javascript:move("+params[0]+")");

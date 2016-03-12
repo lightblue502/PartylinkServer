@@ -31,6 +31,7 @@ public class RegistrarEngine extends GameEngine{
 	
 	public void onIncomingEvent(int clientId, String event, String[] params){
 		// from user
+
 		if("register".equals(event)){
 			Player player = new Player(clientId, null, null);
 			gc.sendGameEvent(player , "register_ok");
@@ -45,6 +46,8 @@ public class RegistrarEngine extends GameEngine{
 		}else if("pathFinish".equals(event)){ // from GameContext
 			Utils.debug("from GameContext");
 			createPlayer(clientId, clients.get(clientId), params[0]);
+		}else if("RegisterServerUI_Start".equals(event)){
+			gc.sendGameEvent("uiServerReady");
 		}
 		onPlayerReady(playerAmount);
 		
