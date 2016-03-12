@@ -8,6 +8,7 @@ import java.util.SimpleTimeZone;
 
 public class NumericEngine extends GameEngine{
 	private int playerAmount;
+	private int roundAmount = 3;
 	private Integer answer;
 	private int cntPlayer = 0;
 	private int cntResumePlayer = 0;
@@ -22,7 +23,7 @@ public class NumericEngine extends GameEngine{
 		super(gc, name, activityClass,clientStart);
 		this.answer = null;
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, topicPerPlayer*playerAmount, 3);
+		this.gameManager = new GameManager(resultScore, gc, topicPerPlayer*playerAmount, roundAmount);
 	}
 
 	@Override
@@ -111,7 +112,7 @@ public class NumericEngine extends GameEngine{
 	@Override
 	public void onPlayerReady(int playerAmount) {
 		if(cntPlayer == playerAmount){
-			if(gameManager.getRound() <= 3) {
+			if(gameManager.getRound() <= roundAmount) {
 				if (gameManager.getNumber() == 1) {
 					Log.d("DEBUG","NEW ROUND");
 					sendGameEventToClient("numeric_newRound", new String[]{});

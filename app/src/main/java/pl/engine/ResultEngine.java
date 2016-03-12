@@ -49,11 +49,9 @@ public class ResultEngine extends GameEngine{
                 sendGameEventToClient(gc.getCurrentGameEngine().getClientStart(), new String[]{});
                 gameManager.initPlayerstoUI(teams);
             }else if(event.equals("result_ready")){
-                cntPlayer++;
                 showResultScore();
             }else if(event.equals("playerConfirm")){
                 playerConfirm(clientId);
-                cntPlayer++;
                 onPlayerReady(playerAmount);
             }
         }
@@ -63,11 +61,10 @@ public class ResultEngine extends GameEngine{
             gamePaused = true;
         }
         else if(event.equals("game_resume")){
-            cntResumePlayer++;
             //for disable resume button
             Player player = new Player(clientId, params[0], null);
            gc.sendGameEvent(player, "resume_ok");
-            if(super.onPlayerResumeReady(playerAmount,cntResumePlayer)) {
+            if(super.onPlayerResumeReady(playerAmount,++cntResumePlayer)) {
                 cntResumePlayer = 0;
                 gamePaused = false;
                 sendGameEventToClient("game_resume", new String[]{});
@@ -79,7 +76,7 @@ public class ResultEngine extends GameEngine{
 
     @Override
     public void onPlayerReady(int playerAmount) {
-        if(cntPlayer == playerAmount){
+        if(++cntPlayer == playerAmount){
             Log.d("DEBUG", "ResultEngine : Player Ready");
             gameManager.countDownGameReady(5);
             gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
@@ -104,7 +101,7 @@ public class ResultEngine extends GameEngine{
 
     public void showResultScore(){
         Log.d("DEBUG","showResultScore, Call function |player amount:" + cntPlayer + "| playerAmount:"+playerAmount);
-        if(cntPlayer == playerAmount){
+        if(++cntPlayer == playerAmount){
             Utils.debug("========================================");
             Utils.debug("==========  SUMMARY SCORE !!! ==========");
             Utils.debug("========================================");

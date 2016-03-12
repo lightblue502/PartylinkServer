@@ -44,6 +44,11 @@ public class NumericActivity extends GameActivity {
             public void backDoor(String num) {
                 onGameEvent("back_Door", new String[]{num});
             }
+
+            @Override
+            public void sendScore(int score) {
+
+            }
         });
 
         Log.d("DEBUG", "(NUMERIC) This is numeric activity");

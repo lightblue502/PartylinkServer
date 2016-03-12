@@ -109,7 +109,7 @@ function makeBG () {
         BGwidth = canvas.width;
         BGheight = BGwidth*bg.naturalHeight/bg.naturalWidth;
     }
-    myGameArea.context.drawImage(bg, (BGwidth-canvas.width)/2, canvas.height-BGheight,
+    myGameArea.context.drawImage(bg, (canvas.width-BGwidth)/2, canvas.height-BGheight,
      BGwidth, BGheight);
 }
 function updateText () {

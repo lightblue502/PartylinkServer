@@ -20,6 +20,7 @@ import org.json.JSONObject;
  * Created by lucksikalosuvalna on 1/18/16 AD.
  */
 public class QAEngine extends GameEngine{
+    private int roundAmount = 3;
     private JSONArray json_array;
     private String question;
     private String[] choices;
@@ -40,7 +41,7 @@ public class QAEngine extends GameEngine{
         super(gc, name, activityClass, clientStart);
         this.playerAmount = playerAmount;
         this.context = context;
-        this.gameManager = new GameManager(resultScore, gc, playerAmount+2, 3);
+        this.gameManager = new GameManager(resultScore, gc, playerAmount+2, roundAmount);
     }
 
     @Override
@@ -104,7 +105,7 @@ public class QAEngine extends GameEngine{
         if(cntPlayer == playerAmount && isInit){
             Utils.debug("Player ready");
             gameManager.printReportRound();
-            if(gameManager.getRound() <= 3) {
+            if(gameManager.getRound() <= roundAmount) {
                 randomQuestion(length);
                 sendQuestionToggleTeam();
                 answerAble = true;

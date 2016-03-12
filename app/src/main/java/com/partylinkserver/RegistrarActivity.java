@@ -49,6 +49,11 @@ public class RegistrarActivity extends GameActivity{
             public void backDoor(String num) {
 
             }
+
+            @Override
+            public void sendScore(int score) {
+
+            }
         });
     }
 

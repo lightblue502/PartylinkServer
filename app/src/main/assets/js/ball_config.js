@@ -15,8 +15,13 @@ var debugEnable = 0;
 var startPos;
 var currBomb; 
 var bombPos; 
+
 var GAMEround = 1;
 var GAMEteam = "white";
+var audio_ball = new Audio("sounds/ball.mp3");
+var audio_explode = "sounds/explode.mp3";
+var audio_jump = "sounds/jump.mp3";
+var audio_poof = "sounds/poof.mp3";
 // = [[-1],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1],
 // [0.2,0.7],[0.1,0.5],[0.4,0.8],[0.2,0.3],[0.6]];
 

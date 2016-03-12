@@ -124,6 +124,7 @@ public class GameManager {
 	public void scoreManage(int clientId, int score){
 		Team team = gc.getTeamByClientId(clientId);
 		if(team != null){
+            Log.d("DEBUG","SCOREMANGE"+team.getName() +"score "+ score);
 			if(team.getName().equals("teamA")){
 				teamA.put("currentScore", teamA.get("currentScore") + score);
 			}else if(team.getName().equals("teamB")){
@@ -185,8 +186,8 @@ public class GameManager {
 
                 if(changeEvent.equals("change_ball")){
                     //for game ball
-                    stopTimer();
                     gc.getGameLister().onIncommingEvent("stop", new String[]{});
+                    stopTimer();
                 }
                 checkNumber();
                 if (!changeEvent.isEmpty()) {

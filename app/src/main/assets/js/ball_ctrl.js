@@ -1,3 +1,6 @@
+audio_ball.loop = true;
+audio_ball.play();
+
 var myApp = angular.module("myApp",[]);
 myApp.controller('BallCtrl', ['$scope', function($scope){
     console.log("===== BallCtrl =====");
@@ -21,6 +24,11 @@ myApp.controller('BallCtrl', ['$scope', function($scope){
     Android.onUiReady();
 }]);
 
+function stopAudio(){
+    console.log("stopAudio");
+    audio_ball.pause();
+    audio_ball.currentTime = 0;
+}
 // 'ball' for ball
 document.onkeydown = function (button) {
     // console.log(button.code);

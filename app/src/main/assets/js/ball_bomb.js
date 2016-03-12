@@ -60,6 +60,7 @@ function explodeObject (x, y, width, height, angle, type) {
 
 	this.image = new Image();
 	if(type == "deny"){
+		play(audio_poof);
 		this.image.src = path.explodeDeny;
 	    this.width = width;
 		this.imageSmoke = new Image();

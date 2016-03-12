@@ -11,6 +11,7 @@ import java.util.TimerTask;
 
 public class GameShakeEngine extends GameEngine{
 	private int playerAmount;
+	private int roundAmount = 3;
 	private int cntPlayer = 0;
 	private int cntResumePlayer = 0;
 	private Player playerA;
@@ -21,7 +22,7 @@ public class GameShakeEngine extends GameEngine{
 	public GameShakeEngine(GameContext gc, int playerAmount, String name, Class activityClass, String clientStart) {
 		super(gc, name,activityClass,clientStart);
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, 5, 3);
+		this.gameManager = new GameManager(resultScore, gc, 5, roundAmount);
 	}
 	
 	@Override
@@ -92,7 +93,7 @@ public class GameShakeEngine extends GameEngine{
 		Utils.debug("CHECK cntPlayer :"+(cntPlayer+1)+" == "+playerAmount);
 		if(++cntPlayer == playerAmount){
 
-			if(gameManager.getRound() <= 3) {
+			if(gameManager.getRound() <= roundAmount) {
 				if (gameManager.getNumber() == 1) {
 					gameManager.countDownGameReady(5);
 					gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
