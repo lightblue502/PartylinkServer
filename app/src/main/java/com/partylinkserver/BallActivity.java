@@ -98,6 +98,9 @@ public class BallActivity extends GameActivity {
         else if(event.equals("jump")){
             wv.loadUrl("javascript:jump()");
         }
+        else if(event.equals("bomb")){
+            wv.loadUrl("javascript:bomb()");
+        }
         else if(event.equals("stop")){
             wv.loadUrl("javascript:stop()");
         }
