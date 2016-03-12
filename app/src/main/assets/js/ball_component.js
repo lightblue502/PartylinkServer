@@ -74,6 +74,39 @@ function component(width, height, color, x, y, type) {
 
 
 
+
+
+function updateLines () {
+    var canvas = myGameArea.canvas;
+    var gap = lines[0].height*2 + levelSpace*canvas.height;
+
+    if (Math.max(lines[0].pld.y, lines[0].prd.y) < 0) {
+        lines[1].y = lines[0].y + gap;
+        lines.shift();
+    }
+    var numToCreate = Math.ceil(canvas.height/gap) - lines.length + 3;
+
+    for (var i = 0; i < numToCreate; i++) { // create new line
+        var x = (lines.length)%2;
+        var line = new component(lines[0].width, lines[0].height, lines[0].image,
+         (x != 0)? canvas.width-lines[0].x : lines[0].x, 
+         lines[0].y + gap*lines.length, lines[0].type);
+
+        line.initLine(lines[lines.length-1].id + 1);
+        lines.push(line);
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+        if(i > 0)
+            lines[i].y = lines[i-1].y + gap;
+        lines[i].update();
+    }
+}
+
+
+
+
+
 function drawLineImage(x, y, width, height, angle, color) { 
     var context = myGameArea.context;
     context.save(); 

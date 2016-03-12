@@ -51,7 +51,8 @@ function bombObject (x, y, angle) {
 }
 
 function explodeObject (x, y, width, height, angle, type) {
-    bombs.shift();
+    // bombs.shift();
+    currBomb++;
     this.x = x;
     this.y = y;
     this.angle = angle;
@@ -65,7 +66,7 @@ function explodeObject (x, y, width, height, angle, type) {
 		this.imageSmoke.src = path.explodeDenySmoke;
 		this.smokeWidth = width;
 		this.smokeHeight = this.smokeWidth*this.imageSmoke.naturalHeight/this.imageSmoke.naturalWidth;
-    	this.time = 100;
+    	this.time = 50;
 	}
 	else{
 		this.image.src = path.explode;
@@ -81,6 +82,9 @@ function explodeObject (x, y, width, height, angle, type) {
 	explodes.push(this);
 
 	this.update = function() {
+		if(this.time <= 0)
+			return;
+
 		if(angle>0)
 			writeLine("yellow", {x:this.x-ball.width});
 		else
@@ -88,9 +92,9 @@ function explodeObject (x, y, width, height, angle, type) {
 		writeLine("yellow", {y:this.y-this.originHeight*2});
 
 		if (this.type == "deny") {
-			myGameArea.context.globalAlpha = Math.min(this.time,50)/50;
+			myGameArea.context.globalAlpha = Math.min(this.time,10)/10;
 			drawObject(this.image, this.x, this.y-this.height, this.width, this.height, this.angle);
-			myGameArea.context.globalAlpha = 1-Math.abs(this.time-50)/50;
+			myGameArea.context.globalAlpha = 1-Math.abs(this.time-25)/25;
 			drawObject(this.imageSmoke, this.x, this.y-this.height, this.smokeWidth, this.smokeHeight, this.angle);
 			myGameArea.context.globalAlpha = 1;
 		}
@@ -99,11 +103,27 @@ function explodeObject (x, y, width, height, angle, type) {
 		}
 
 		this.time--;
-		if(this.time <= 0)
-			explodes.shift();
 	}
 }
 
 function bombActivate () {
-	bombs[0].explode();
+	bombs[currBomb].explode();
+}
+
+function updateBombs () {
+
+    if (bombs[0]!=null && bombs[0].y+bombs[0].height*2 < 0) {
+        bombs.shift();
+        currBomb--;
+    }
+    if (explodes[0]!=null && explodes[0].y+explodes[0].height*2 < 0) {
+        explodes.shift();
+    }
+
+    for (var i = currBomb; i < bombs.length; i++) {
+        bombs[i].update();
+    };
+    for (var i = 0; i < explodes.length; i++) {
+        explodes[i].update();
+    };
 }

@@ -4,17 +4,24 @@ function ballObject(width, height, x, y) {
         L : new Image(),
         R : new Image()
     }
+    this.imageDie = {
+        L : new Image(),
+        R : new Image()
+    }
     this.imageHead = {
         L : new Image(),
         R : new Image()
     }
     this.image.L.src = path.ballL;
+    this.imageDie.L.src = path.ballLDie;
     this.imageHead.L.src = path.ballLHead;
     this.image.R.src = path.ballR;
+    this.imageDie.R.src = path.ballRDie;
     this.imageHead.R.src = path.ballRHead;
 
     this.width = width;
     this.height = height;
+    this.headHeight = width*this.imageHead.L.naturalHeight/this.imageHead.L.naturalWidth;
     this.x = x;
     this.y = y;    
     this.speedX = 0;
@@ -33,18 +40,23 @@ function ballObject(width, height, x, y) {
     this.update = function() {
         drawObject(this.image[this.lineId%2?"L":"R"], this.x, this.y, 
             this.width, this.height, this.angle);
+        if(this.stunTime >= 0)
+            drawObject(this.imageDie[this.lineId%2?"L":"R"], this.x, this.y, 
+                this.width, this.height, this.speedAngle);
 
-        drawObject(this.imageHead[this.lineId%2?"L":"R"], this.x, this.y-this.height, 
-            this.width, this.height, -this.speedAngle*2);
+
+        drawObject(this.imageHead[this.lineId%2?"L":"R"], this.x, this.y, 
+            this.width, this.headHeight, -this.speedAngle*2);
     }
     this.newPos = function() {
         if(this.stunTime == 0){
-            // this.speedAngle = 0;
+            this.speedAngle = 0;
+            this.stunTime--;
         }
         if(this.stunTime >= 0){
-            // this.speedAngle+=this.stunTime;
+            this.speedAngle-= this.stunTime/5 * this.speedAngle/Math.abs(this.speedAngle);
             var shake = this.stunTime*1*unit*(this.stunTime%2?1:-1);
-            this.x += shake;
+            // this.x += shake;
             this.stunTime--;
             return;
         }
