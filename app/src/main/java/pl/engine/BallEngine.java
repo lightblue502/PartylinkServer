@@ -122,6 +122,7 @@ public class BallEngine extends GameEngine{
                 tmp++;
             }
         }
+        Arrays.sort(co_or);
         temp = Arrays.toString(co_or);
 
         return temp;
