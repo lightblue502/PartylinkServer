@@ -4,6 +4,8 @@ function start () {
 }
 
 function stop(){
+    pause();
+    Android.getDistance(ball.distance);
 	console.log("Game Stop");
 }
 
