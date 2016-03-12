@@ -61,18 +61,17 @@ public class BallEngine extends GameEngine{
         if(cntPlayer == playerAmount){
             if(gameManager.getRound() <= 3) {
                     Log.d("DEBUG", "NEW ROUND");
-
                     init();
-                    gc.getGameLister().onIncommingEvent("start", new String[]{});
-                    gc.getGameLister().onIncommingEvent("pause", new String[]{});
-                    sendGameEventToClient("ball_newRound", new String[]{});
+                    gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
+                    createBombs();
 
                     gameManager.printReportRound();
                     gameManager.countDownGameReady(5);
                     gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
                         @Override
                         public void ready() {
-                            gc.getGameLister().onIncommingEvent("resume", new String[]{});
+                            gc.getGameLister().onIncommingEvent("initial_bomb", bombs);
+                            gc.getGameLister().onIncommingEvent("start", new String[]{});
                             if(gameManager.timerWasStarted())
                                 gameManager.runTimerAgain();
                             sendEventToTeams();
@@ -205,7 +204,6 @@ public class BallEngine extends GameEngine{
             if (event.equals("ballUI_Start")) {
                 gameManager.initPlayerstoUI(teams);
                 gc.getGameLister().onIncommingEvent("initial_bomb", bombs);
-                gc.getGameLister().onIncommingEvent("game_pause",new String[]{});
             } else if (event.equals("ball_ready")) {
                 cntPlayer++;
                 onPlayerReady(playerAmount);
