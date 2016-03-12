@@ -29,8 +29,8 @@ public class GameShakeEngine extends GameEngine{
 		if(!gamePaused) {
 			if (event.equals("shakeUI_Start")) {
 				gameManager.initPlayerstoUI(teams);
+				sendGameEventToClient(gc.getCurrentGameEngine().getClientStart(), new String[]{});
 			} else if (event.equals("shake_ready")) {
-				cntPlayer++;
 				onPlayerReady(playerAmount);
 			} else if (event.equals("shake_game")) {
 				gameManager.printScoreToNumber();
@@ -67,7 +67,7 @@ public class GameShakeEngine extends GameEngine{
 		for (Team team: teams) {
 			team.printPlayers();
 		}
-		gc.sendGameEvent("shake-start");
+//		gc.sendGameEvent("shake-start");
 
 	}
 
@@ -89,7 +89,8 @@ public class GameShakeEngine extends GameEngine{
 	@Override
 	public void onPlayerReady(int playerAmount) {
 		resetPlayerShaketoUI();
-		if(cntPlayer == playerAmount){
+		Utils.debug("CHECK cntPlayer :"+(cntPlayer+1)+" == "+playerAmount);
+		if(++cntPlayer == playerAmount){
 
 			if(gameManager.getRound() <= 3) {
 				if (gameManager.getNumber() == 1) {
