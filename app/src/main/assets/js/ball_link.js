@@ -6,6 +6,15 @@ function stop(){
     pause();
     Android.sendScore(ball.distance);
 	console.log("Game Stop");
+    angular.element(document.body).scope().$apply(function($scope){
+        $scope.countdown = GAMEteam+" score: "+Math.round(ball.distance)+" m";
+        $scope.countClass = "";
+        setTimeout(function() {
+            $scope.$apply(function () {
+                $scope.countClass = "animated zoomIn ";
+            });
+        },100);
+    });
 }
 
 function move(delta){
