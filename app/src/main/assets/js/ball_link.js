@@ -1,5 +1,10 @@
 function start () {
     startGame();
+
+    angular.element(document.body).scope().$apply(function($scope){
+        $scope.show = "";
+    });
+    
 }
 
 function stop(){
@@ -7,11 +12,11 @@ function stop(){
     Android.sendScore(ball.distance);
 	console.log("Game Stop");
     angular.element(document.body).scope().$apply(function($scope){
-        $scope.countdown = GAMEteam+" score: "+Math.round(ball.distance)+" m";
-        $scope.countClass = "";
+        $scope.show = GAMEteam+" score: "+Math.round(ball.distance)+" m";
+        $scope.showClass = "";
         setTimeout(function() {
             $scope.$apply(function () {
-                $scope.countClass = "animated zoomIn ";
+                $scope.showClass = "animated zoomIn ";
             });
         },100);
     });

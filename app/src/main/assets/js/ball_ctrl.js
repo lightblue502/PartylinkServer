@@ -20,6 +20,9 @@ myApp.controller('BallCtrl', ['$scope', function($scope){
 
     $scope.iconScore = generateIconScore(3, 0 ,0); // 3 is max round
 
+    $scope.show = "press ready to play";
+    $scope.showClass = "animated infinite pulse ";
+
     //web call android UI Ready;
     Android.onUiReady();
 }]);

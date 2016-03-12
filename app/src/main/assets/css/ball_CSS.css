@@ -62,6 +62,18 @@ canvas {
     -webkit-text-stroke-width: 1vh;
    	-webkit-text-stroke-color: black;
 }
+.show{
+	position: absolute;
+	left: -50vw;
+	width: 100vw;
+	top: 25vh;
+	font-family: gameOver;
+	font-size: 8vh;
+	color: white;
+	text-align: center;
+    -webkit-text-stroke-width: 0.5vh;
+   	-webkit-text-stroke-color: black;
+}
 
 /************************************************************/
 
