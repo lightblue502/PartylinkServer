@@ -33,14 +33,14 @@ function bombObject (x, y, angle) {
     	if (this.y-this.height*2 < focus) {
 	    	if( (angle>0 && this.x < ball.x-ball.width )||// slope down \
 	    		(angle<0 && this.x > ball.x+ball.width ) )// slope up 	/
-	    			new explodeObject(this.x, this.y, this.width, this.height, angle);
+	    			new explodeObject(this.x, this.y, this.width, this.height, angle, "deny");
     	}
     }
     this.explode = function (){
     	if (this.y-this.height*2 < ball.y) {
 	    	if( (angle>0 && this.x-ball.width < ball.x+ball.width*2 )||// slope down 	\
 	    		(angle<0 && this.x+ball.width > ball.x-ball.width*2 )){// slope up 	/
-	    		new explodeObject(this.x, this.y, this.width, this.height, angle, true);
+	    		new explodeObject(this.x, this.y, this.width, this.height, angle, "stun");
 	    		return;
 	    	}
     	}
@@ -50,20 +50,32 @@ function bombObject (x, y, angle) {
 
 }
 
-function explodeObject (x, y, width, height, angle, stun) {
+function explodeObject (x, y, width, height, angle, type) {
     bombs.shift();
-    this.time = 50;
     this.x = x;
     this.y = y;
     this.angle = angle;
+    this.type = type;
 
 	this.image = new Image();
-	this.image.src = path.explode;
-    this.width = width*2;
-    this.originHeight = height;
+	if(type == "deny"){
+		this.image.src = path.explodeDeny;
+	    this.width = width;
+		this.imageSmoke = new Image();
+		this.imageSmoke.src = path.explodeDenySmoke;
+		this.smokeWidth = width;
+		this.smokeHeight = this.smokeWidth*this.imageSmoke.naturalHeight/this.imageSmoke.naturalWidth;
+    	this.time = 100;
+	}
+	else{
+		this.image.src = path.explode;
+	    this.width = width*2;
+    	this.time = 50;
+	}
+	this.originHeight = height;
     this.height = this.width*this.image.naturalHeight/this.image.naturalWidth;
 
-	if(stun == true){
+	if(type == "stun"){
 		ball.stun(this.time);
 	}
 	explodes.push(this);
@@ -75,7 +87,17 @@ function explodeObject (x, y, width, height, angle, stun) {
 			writeLine("yellow", {x:this.x+ball.width});
 		writeLine("yellow", {y:this.y-this.originHeight*2});
 
-		drawObject(this.image, this.x, this.y-this.height, this.width, this.height, this.angle);
+		if (this.type == "deny") {
+			myGameArea.context.globalAlpha = Math.min(this.time,50)/50;
+			drawObject(this.image, this.x, this.y-this.height, this.width, this.height, this.angle);
+			myGameArea.context.globalAlpha = 1-Math.abs(this.time-50)/50;
+			drawObject(this.imageSmoke, this.x, this.y-this.height, this.smokeWidth, this.smokeHeight, this.angle);
+			myGameArea.context.globalAlpha = 1;
+		}
+		else{
+			drawObject(this.image, this.x, this.y-this.originHeight, this.width, this.height, this.angle);
+		}
+
 		this.time--;
 		if(this.time <= 0)
 			explodes.shift();

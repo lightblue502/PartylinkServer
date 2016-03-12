@@ -19,12 +19,17 @@ var bombPos;
 
 var path = {
 	ballL: "img/ball/ball-look-left.png",
+	ballLDie: "img/ball/ball-die-left.png",
 	ballLHead: "img/ball/ball-head-look-left.png",
 	ballR: "img/ball/ball-look-right.png",
+	ballRDie: "img/ball/ball-die-right.png",
 	ballRHead: "img/ball/ball-head-look-right.png",
 	// bomb: "img/ball/bomb.png",
 	bomb: "img/ball/bomb_lineup.png",
 	explode: "img/ball/explode.png",
+	explodeDeny: "img/ball/explode-deny.png",
+	explodeDenySmoke: "img/ball/explode-deny-smoke.png",
+
 	line: "img/ball/ground.png",
 	lineEdgeL: "img/ball/ground-edge-left.png",
 	lineEdgeR: "img/ball/ground-edge-right.png",

@@ -25,5 +25,7 @@ function resume(){
 
 function getInitialBomb(initial_bomb){
   bombPos = initial_bomb;
+  start();
+  pause();
 };
 
