@@ -45,7 +45,13 @@ public class ResultScore {
 				counterTeamB++;
 			}
 		}
-		return (counterTeamA > counterTeamB) ? "teamA": (counterTeamA > counterTeamB) ? "teamB": "Draw";
+
+		if(counterTeamA == counterTeamB){
+			return "Draw";
+		}else if(counterTeamA > counterTeamB){
+			return "teamA";
+		}
+		return "teamB";
 	}
 	
 }

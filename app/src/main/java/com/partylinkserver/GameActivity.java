@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 
+import pl.engine.BallEngine;
 import pl.engine.BlankEngine;
 import pl.engine.EndEngine;
 import pl.engine.GameContext;
@@ -89,11 +90,13 @@ public abstract class GameActivity extends AppCompatActivity {
             gc.getCurrentGameEngine().endEngine();
             Log.d("backdoor press : ", params[0] + "");
             if(select == 1){
-                currentGameEngine = new GameShakeEngine(gc, playerAmount,"GAME SHAKE", ShakeActivity.class, "shake_start");
+                currentGameEngine = new GameShakeEngine(gc, playerAmount,"SHAKE IT OFF", ShakeActivity.class, "shake-start");
             }else if(select == 2){
-                currentGameEngine = new NumericEngine(gc, playerAmount, "GAME NUMBER", NumericActivity.class, "numeric_start");
+                currentGameEngine = new NumericEngine(gc, playerAmount, "WHERE IS MY NUMBER?", NumericActivity.class, "numeric_start");
             }else if(select == 3){
-                currentGameEngine = new QAEngine(gc, playerAmount, "GAME QA", gc.getContext(), QAActivity.class, "qa_start");
+                currentGameEngine = new QAEngine(gc, playerAmount, "ASK ME", gc.getContext(), QAActivity.class, "qa_start");
+            }else if(select == 4){
+                currentGameEngine = new BallEngine(gc, playerAmount,"KEEP ON ROLLIN`", BallActivity.class, "ball_start");
             }else if(select == 8){
                 currentGameEngine = new ResultEngine(gc, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start");
             }else if(select == 9){

@@ -112,5 +112,8 @@ public class BallActivity extends GameActivity {
         else if(event.equals("move")){
             wv.loadUrl("javascript:move("+params[0]+")");
         }
+        else if(event.equals("playerTeam")){
+            wv.loadUrl("javascript:playerTeam('"+params[0]+"')");
+        }
     }
 }
