@@ -185,8 +185,8 @@ public class GameManager {
 
                 if(changeEvent.equals("change_ball")){
                     //for game ball
-                    stopTimer();
                     gc.getGameLister().onIncommingEvent("stop", new String[]{});
+                    stopTimer();
                 }
                 checkNumber();
                 if (!changeEvent.isEmpty()) {

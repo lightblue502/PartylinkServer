@@ -39,6 +39,11 @@ private WebView wv;
             public void backDoor(String num) {
                 onGameEvent("back_Door",new String[]{num});
             }
+
+            @Override
+            public void sendScore(int score) {
+
+            }
         });
     }
 

@@ -23,12 +23,12 @@ public class JavaScriptInterface {
         //html ติดต่อไปหา android
         Log.d("JSI", "making toast from native code");
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-
     }
 
     public static interface onUiReadyListener {
         public void ready();
         public void backDoor(String num);
+        public void sendScore(int score);
     }
     private onUiReadyListener listener;
 
@@ -44,11 +44,19 @@ public class JavaScriptInterface {
         }
     }
     @JavascriptInterface
+    public void sendScore(int score){
+        Log.d("DEBUG_webCallAndroid", "sendScore" + score);
+        if (listener != null) {
+            listener.sendScore(score);
+        }
+    }
+    @JavascriptInterface
      public void backDoorKey(String num){
         Log.d("DEBUG_webCallAndroid", "backdoor :"+num);
         if (listener != null) {
             listener.backDoor(num);
         }
     }
+
 
 }

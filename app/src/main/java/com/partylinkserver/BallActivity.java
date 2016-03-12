@@ -46,10 +46,11 @@ public class BallActivity extends GameActivity {
             public void backDoor(String num) {
                 onGameEvent("back_Door", new String[]{num});
             }
-
-            public void getDistance(int distance){
-                sendGameEvent("getDistance", new String[]{String.valueOf(distance)});
+            @Override
+            public void sendScore(int score) {
+                sendGameEvent("getDistance", new String[]{String.valueOf(score)});
             }
+
 
         });
     }
@@ -102,6 +103,7 @@ public class BallActivity extends GameActivity {
             wv.loadUrl("javascript:bomb()");
         }
         else if(event.equals("stop")){
+            Log.d("DEBUG","IN BALLACTIVITY: STOP()");
             wv.loadUrl("javascript:stop()");
         }
         else if(event.equals("start")){

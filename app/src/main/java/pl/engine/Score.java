@@ -44,10 +44,10 @@ public class Score {
 	
 	
 //	public void versus(Team teamB){
-//		if(this.currentScore >= teamB.getScore()){
+//		if(this.currentScore >= teamB.sendScore()){
 //			this.win();
 //		}
-//		if(teamB.getScore() >= this.currentScore){
+//		if(teamB.sendScore() >= this.currentScore){
 //			teamB.win();
 //		}
 //	}
