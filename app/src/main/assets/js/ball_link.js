@@ -1,4 +1,3 @@
-
 function start () {
     startGame();
 }
@@ -15,10 +14,12 @@ function move(delta){
 
 function jump(){
     ball.gravitySpeed = -20*unit;
+    play(audio_jump);
 }
 
 function bomb(){
     bombActivate();
+    play(audio_explode);
 }
 
 function pause(){
@@ -34,7 +35,6 @@ function getInitialBomb(initial_bomb){
   start();
   pause();
 };
-
 
 function getCurrentScore(scoreA ,scoreB){
 	console.log("getCurrentScore");
@@ -105,6 +105,13 @@ function getCountdown(countdown){
   // });
 }
 
+var current_audio;
+function play(src){
+  if(current_audio != null)
+    current_audio.remove();
+  current_audio = new Audio(src);
+  current_audio.play();
+}
 
 // getCurrentScore
 // getWinRound
