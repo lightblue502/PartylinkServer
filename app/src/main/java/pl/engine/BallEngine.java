@@ -58,7 +58,7 @@ public class BallEngine extends GameEngine{
 
     @Override
     public void onPlayerReady(int playerAmount) {
-        if(cntPlayer == playerAmount){
+        if(++cntPlayer == playerAmount){
             if(gameManager.getRound() <= 3) {
                     Log.d("DEBUG", "NEW ROUND");
                     init();
@@ -72,8 +72,10 @@ public class BallEngine extends GameEngine{
                         public void ready() {
                             gc.getGameLister().onIncommingEvent("initial_bomb", bombs);
                             gc.getGameLister().onIncommingEvent("start", new String[]{});
-                            if(gameManager.timerWasStarted())
-                                gameManager.runTimerAgain();
+//                            if(gameManager.timerWasStarted()) {
+//                                Utils.debug("================== Timer was Started & count 20sec==================");
+//                                gameManager.runTimerAgain();
+//                            }
                             sendEventToTeams();
                         }
                     });
@@ -144,20 +146,20 @@ public class BallEngine extends GameEngine{
     }
     public void sendEventToTeams(){
         swapTeams();
-        sendEventToEnemy();
-        sendEventToPlayer();
+        sendEventStartToEnemy();
+        sendEventStartToPlayer();
         gameManager.resetTimer();
 //        gameManager.stopTimer();
-        if(!gameManager.timerWasStarted())
-            gameManager.startTimer(20, "change_ball");
+        Utils.debug("================== first Timer Start & count 20sec ==================");
+        gameManager.startTimer(20, "change_ball");
 
 
         cntPlayer = 0;
     }
-    public void sendEventToEnemy(){
+    public void sendEventStartToEnemy(){
         sendEventToTeam(enemys.getPlayers(), "enemy_start");
     };
-    public void sendEventToPlayer(){
+    public void sendEventStartToPlayer(){
         sendEventToTeam(players.getPlayers(), "player_start");
     }
     public void sendEventToTeam(List<Player> players,String event){
@@ -205,7 +207,6 @@ public class BallEngine extends GameEngine{
                 gameManager.initPlayerstoUI(teams);
                 gc.getGameLister().onIncommingEvent("initial_bomb", bombs);
             } else if (event.equals("ball_ready")) {
-                cntPlayer++;
                 onPlayerReady(playerAmount);
             } else if (event.equals("ball_game")) {
 //                gameManager.printScoreToNumber();
