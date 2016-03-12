@@ -3,6 +3,7 @@ function startGame() {
     var height = window.innerHeight;
     lines = [];
     bombs = [];
+    explodes = [];
     edge = {};
     focus = 0;
     unit = 0.001*height;
@@ -113,6 +114,9 @@ function updateBombs () {
     for (var i = 0; i < bombs.length; i++) {
         bombs[i].update();
     };
+    for (var i = 0; i < explodes.length; i++) {
+        explodes[i].update();
+    };
 }
 function shiftFocus () {
     var gap = focus - levelToShift*myGameArea.canvas.height;
@@ -125,6 +129,9 @@ function shiftFocus () {
         startPos -= shift;
         for (var i = 0; i < bombs.length; i++) {
             bombs[i].y -= shift;
+        };
+        for (var i = 0; i < explodes.length; i++) {
+            explodes[i].y -= shift;
         };
     }
     return gap;

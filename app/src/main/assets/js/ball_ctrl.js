@@ -21,12 +21,14 @@ document.onkeydown = function (button) {
     }
     else if(button.code == "KeyN")
         start();
+    else if(button.code == "KeyE")
+        bomb();
     else if(button.code == "Space")
         ball.gravitySpeed = -20*unit;
     else
         ball.accelerate = 0;
 }
 document.onkeyup = function (button) {
-    if(button.code != "Space")
+    if(button.code == "KeyA" || button.code == "KeyD")
         ball.accelerate = 0;
 }

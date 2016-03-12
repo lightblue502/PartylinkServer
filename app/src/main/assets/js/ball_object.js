@@ -27,16 +27,28 @@ function ballObject(width, height, x, y) {
     this.bounce = 0.6;
     this.maxLevel = 0; //lowest height that ball go
     this.distance = -1;
-    this.side = 0;
+    this.lineId = 0;
+    this.stunTime = -1;
 
     this.update = function() {
-        drawObject(this.image[this.side?"L":"R"], this.x, this.y, 
+        drawObject(this.image[this.lineId%2?"L":"R"], this.x, this.y, 
             this.width, this.height, this.angle);
 
-        drawObject(this.imageHead[this.side?"L":"R"], this.x, this.y-this.height, 
+        drawObject(this.imageHead[this.lineId%2?"L":"R"], this.x, this.y-this.height, 
             this.width, this.height, -this.speedAngle*2);
     }
     this.newPos = function() {
+        if(this.stunTime == 0){
+            // this.speedAngle = 0;
+        }
+        if(this.stunTime >= 0){
+            // this.speedAngle+=this.stunTime;
+            var shake = this.stunTime*1*unit*(this.stunTime%2?1:-1);
+            this.x += shake;
+            this.stunTime--;
+            return;
+        }
+
         this.gravitySpeed += this.gravity * this.mass*unit;
         this.gravitySpeed = Math.min(this.gravitySpeed,11*unit);
         this.speedX += this.accelerate;
@@ -64,7 +76,7 @@ function ballObject(width, height, x, y) {
         for (i = 0; i < lines.length; i += 1) {
         	if(this.checkLine(lines[i])){
                 focus = Math.max(lines[i].plu.y, lines[i].pru.y, focus);
-                this.side = lines[i].id%2;
+                this.lineId = lines[i].id;
             }
         }
         writeLine("magenta", {y:focus});
@@ -139,5 +151,10 @@ function ballObject(width, height, x, y) {
             else return false;
     	}
         return false;
+    }
+    this.stun = function (time) {
+        if(this.stunTime <= 0){
+            this.stunTime = time+1;
+        }
     }
 }

@@ -61,14 +61,12 @@ function component(width, height, color, x, y, type) {
         min.y += scale.y*(1-bombSpace)/2;
         scale.x *= bombSpace;
         scale.y *= bombSpace;
-        max.x = scale.x+min.x;
-        max.y = scale.y+min.y;
 
         for (var i = 0; i < array.length; i++) {
             var x = array[i]*scale.x + min.x;
             var y = array[i]*scale.y + min.y;
 
-            new bombObject(x, y, this.angle, min, max, this.id);
+            new bombObject(x, y, this.angle);
             // console.log(bombs);
         };
     }
