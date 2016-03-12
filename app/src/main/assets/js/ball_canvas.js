@@ -52,6 +52,7 @@ function updateGameArea() {
 
     myGameArea.clear();
     makeBG();
+    updateText();
 
     ball.newPos();
 
@@ -111,6 +112,32 @@ function makeBG () {
     myGameArea.context.drawImage(bg, (BGwidth-canvas.width)/2, canvas.height-BGheight,
      BGwidth, BGheight);
 }
+function updateText () {
+    var ctx = myGameArea.context;
+    var fontSize = 20;
+    canvas = myGameArea.canvas;
+    ctx.font = fontSize+"vh gameOver";
+    ctx.textAlign="center"; 
+    ctx.textBaseline="top"; 
+
+    ctx.lineWidth=fontSize*unit;
+    ctx.strokeStyle="black";
+    ctx.fillStyle="white";
+
+    var x = canvas.width/2,
+        y = startPos-canvas.height/2 -fontSize/100*canvas.height,
+        text = "ROUND "+GAMEround;
+    ctx.strokeText(text, x, y);
+    ctx.fillText(text, x, y);
+
+    y = startPos-canvas.height/2 +fontSize/100*canvas.height;
+    ctx.font = fontSize/2+"vh gameOver";
+    ctx.lineWidth=fontSize/1.5*unit;
+    ctx.fillStyle=GAMEteam;
+    text = GAMEteam.toUpperCase()+" ARE PLAYER";
+    ctx.strokeText(text, x, y);
+    ctx.fillText(text, x, y);
+}
 function updateDistance (gap) {
     if(gap > 0)
         if(ball.distance<0)
@@ -120,7 +147,7 @@ function updateDistance (gap) {
 
     var width = myGameArea.canvas.width,
         height = myGameArea.canvas.height,
-        padX = 5,
+        padX = 4,
         padY = 3,
         fontSize = 5,
         text;
@@ -131,18 +158,18 @@ function updateDistance (gap) {
 
     function __writeDistance (text, x, y, h) {
         var ctx = myGameArea.context;
-        ctx.font = fontSize+"vh cursive";
+        ctx.font = fontSize+"vh gameOver";
         ctx.textAlign="right"; 
         ctx.textBaseline="top"; 
 
         var gradient=ctx.createLinearGradient(0,y,0, y+h*height/100);
-        gradient.addColorStop("0","blue");
-        gradient.addColorStop("1","lightblue");
+        gradient.addColorStop("0","lightblue");
+        gradient.addColorStop("1","black");
 
-        ctx.lineWidth=2;
-        ctx.strokeStyle="gray";
+        ctx.lineWidth=fontSize*unit;
+        ctx.strokeStyle=gradient;
         ctx.strokeText(text, x, y);
-        ctx.fillStyle=gradient;
+        ctx.fillStyle=GAMEteam;
         ctx.fillText(text, x, y);
     }
 }

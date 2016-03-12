@@ -8,13 +8,15 @@ var lineWidth = 0.85; // width in % of x
 var lineAngle = 5;
 var bombSpace = 1; // available area that can place bomb
 var levelSpace = 0.5; // space from line a to line b in y-axis
-var levelToShift = 0.5; // pos y-axis % to shift background
+var levelToShift = 0.6; // pos y-axis % to shift background
 var focus; //focus point in y-axis
 var unit;
 var debugEnable = 0;
 var startPos;
 var currBomb; 
 var bombPos; 
+var GAMEround = 1;
+var GAMEteam = "white";
 // = [[-1],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1],
 // [0.2,0.7],[0.1,0.5],[0.4,0.8],[0.2,0.3],[0.6]];
 

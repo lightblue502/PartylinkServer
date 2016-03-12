@@ -4,6 +4,8 @@
  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
  	<link rel="stylesheet" type="text/css" href="css/ball_CSS.css">
+ 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  	<link rel="stylesheet" href="css/animate.css">
  	<script src="lib/angular/angular.js"></script>
 
  	<script type="text/javascript" src="js/ball_config.js"></script>
@@ -17,9 +19,36 @@
  	<script type="text/javascript" src="js/ball_link.js"></script>
  </head>
  <body ng-controller="BallCtrl" onload="preloadImage()">
- 	<div class="description">
+ 	<div class="status">
+ 		<div class="block floatleft" >
+ 			<div ng-repeat="person in teamA" id="{{person.id}}" class="personBox floatleft red">
+ 				<div class="personPic " ng-style="{'background-image': 'url({{person.icon}})','background-color': '#C23C45'}"></div>
+ 				<span class="personName red">{{person.name}}</span>
+ 			</div>
+ 			<div ng-repeat="icon in iconScore.red.light" class="icon floatleft" ng-style="{'background-color':icon.color}"></div> 
+			<div ng-repeat="icon in iconScore.red.dark" class="icon floatleft" ng-style="{'background-color':icon.color}"></div> 
+			<p class="dist">{{score.A==0?'?':score.A}} m</p>
+ 		</div>
 
+ 		<div class="block floatleft" >
+ 			<div ng-repeat="person in teamB" id="{{person.id}}" class="personBox floatleft blue">
+ 				<div class="personPic " ng-style="{'background-image': 'url({{person.icon}})','background-color': '#69d'}"></div>
+ 				<span class="personName blue">{{person.name}}</span>
+ 			</div>
+ 			<div ng-repeat="icon in iconScore.blue.light" class="icon floatleft" ng-style="{'background-color':icon.color}"></div> 
+			<div ng-repeat="icon in iconScore.blue.dark" class="icon floatleft" ng-style="{'background-color':icon.color}"></div> 
+			<p class="dist">{{score.B==0?'?':score.B}} m</p>
+ 		</div>
  	</div>
+
+ 	<div class="center">
+ 		<div class="context" ng-class="countClass">
+ 			{{countdown}}
+ 		</div>
+ 	</div>
+
+
+
  	<script type="text/javascript">
 		getInitialBomb([[0.5],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1],
 	 		[0.2,0.7],[0.1,0.5],[0.4,0.8],[0.2,0.3],[0.6]]);

@@ -40,74 +40,67 @@ function getCurrentScore(scoreA ,scoreB){
 	console.log("getCurrentScore");
 	console.log(scoreA);
 	console.log(scoreB);
-  // angular.element(document.body).scope().$apply(function($scope){
-  // audio_shaking.play();
-  //   if($scope.realScore.A < scoreA)
-  //       shakeAnimate("left",$scope);
-  //   if($scope.realScore.B < scoreB)
-  //       shakeAnimate("right",$scope);
-  //   $scope.realScore.A = scoreA;
-  //   $scope.realScore.B = scoreB;
-  // });
+    angular.element(document.body).scope().$apply(function($scope){
+        $scope.score.A = scoreA;
+        $scope.score.B = scoreB;
+    });
 };
 
 function getRound(round){
 	console.log("getRound");
 	console.log(round);
-  // angular.element(document.body).scope().$apply(function($scope){
-  //   $scope.round = round;
-  // });
-  // getCurrentScore(0 ,0);
-};
+    GAMEround = round;
+}
+function playerTeam (team) {
+    if(team == "teamA")
+        GAMEteam = "red";
+    else if(team == "teamB")
+        GAMEteam = "blue";
+    else
+        GAMEteam = "white";
+}
 
 function getWinRound(winRoundA, winRoundB){
 	console.log("getWinRound");
-	console.log(winRoundA);
-	console.log(winRoundB);
-  // angular.element(document.body).scope().$apply(function($scope){
-  //   console.log("winRoundA :"+winRoundA );
-  //   console.log("winRoundB :"+winRoundB );
+	// console.log(winRoundA);
+	// console.log(winRoundB);
+    angular.element(document.body).scope().$apply(function($scope){
+        console.log("winRoundA :"+winRoundA );
+        console.log("winRoundB :"+winRoundB );
 
-  //   $scope.iconScore = generateIconScore(3, winRoundA, winRoundB);
-    
-  // });
+        $scope.iconScore = generateIconScore(3, winRoundA, winRoundB);
+        
+    });
 }
 
 
 function initPlayer(teams){
 	console.log("initPlayer");
-  console.log(teams);
-  // angular.element(document.body).scope().$apply(function($scope){
-  //   teams.forEach(function(team, index){
-  //     team.forEach(function(player){
-  //       if(index == 0){
-  //         $scope.teamA.push(new Person(player.id, player.name,'teamA', player.icon) );
-  //       }
-  //       else{
-  //         $scope.teamB.push(new Person(player.id, player.name,'teamB', player.icon) );
-  //       }
-  //     });
-  //   });
-  // });
+    console.log(teams);
+    angular.element(document.body).scope().$apply(function($scope){
+        teams.forEach(function(team, index){
+            team.forEach(function(player){
+                if(index == 0){
+                    $scope.teamA.push(new Person(player.id, player.name,'teamA', player.icon) );
+                }
+                else{
+                    $scope.teamB.push(new Person(player.id, player.name,'teamB', player.icon) );
+                }
+            });
+        });
+    });
 }
 
 function getCountdown(countdown){
 	console.log("countdown");
 	console.log(countdown);
-  // angular.element(document.body).scope().$apply(function($scope){
-  //   $scope.countdown = countdown;
-  //   $scope.countClass = "";
-  //   setTimeout(function() {
-  //     $scope.$apply(function () {
-  //       $scope.countClass = "animated fadeOut ";
-  //     });
-  //   },200);
-  // });
+    angular.element(document.body).scope().$apply(function($scope){
+        $scope.countdown = countdown;
+        $scope.countClass = "";
+        setTimeout(function() {
+            $scope.$apply(function () {
+                $scope.countClass = "animated fadeOut ";
+            });
+        },200);
+    });
 }
-
-
-// getCurrentScore
-// getWinRound
-// getRound
-// initPlayer
-// getCountdown
