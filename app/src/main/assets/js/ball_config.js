@@ -16,7 +16,7 @@ var startPos;
 var currBomb; 
 var bombPos; 
 
-var GAMEround = 1;
+var GAMEround = 0;
 var GAMEteam = "white";
 var audio_ball = new Audio("sounds/ball.mp3");
 var audio_explode = "sounds/explode.mp3";
@@ -49,6 +49,8 @@ function preloadImage () {
 		__tmp_ = new Image();
 		__tmp_.src = path[i];
 	}
+    console.log("preloadImage complete");
+    // getCountdown("PLAY");
 }
 
 

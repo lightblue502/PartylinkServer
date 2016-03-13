@@ -3,6 +3,7 @@ function start () {
 
     angular.element(document.body).scope().$apply(function($scope){
         $scope.show = "";
+        $scope.dimDisplay = "animated zoomOut ";
     });
     
 }
@@ -12,11 +13,13 @@ function stop(){
     Android.sendScore(ball.distance);
 	console.log("Game Stop");
     angular.element(document.body).scope().$apply(function($scope){
-        $scope.show = GAMEteam+" score: "+Math.round(ball.distance)+" m";
+        $scope.show = "";
         $scope.showClass = "";
         setTimeout(function() {
             $scope.$apply(function () {
-                $scope.showClass = "animated zoomIn ";
+                $scope.show = GAMEteam+" score: "+Math.floor(ball.distance)+" m";
+                $scope.dimDisplay = "animated fadeIn ";
+                $scope.showClass = "animated zoomIn "+GAMEteam;
             });
         },100);
     });
@@ -108,15 +111,17 @@ function initPlayer(teams){
 function getCountdown(countdown){
 	console.log("countdown");
 	console.log(countdown);
-    angular.element(document.body).scope().$apply(function($scope){
-        $scope.countdown = countdown;
-        $scope.countClass = "";
-        setTimeout(function() {
-            $scope.$apply(function () {
-                $scope.countClass = "animated fadeOut ";
-            });
-        },200);
-    });
+    if(countdown){
+        angular.element(document.body).scope().$apply(function($scope){
+            $scope.countdown = countdown;
+            $scope.countClass = "";
+            setTimeout(function() {
+                $scope.$apply(function () {
+                    $scope.countClass = "animated fadeOut ";
+                });
+            },200);
+        });
+    }
 }
 
 var current_audio;

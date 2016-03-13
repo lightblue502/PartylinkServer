@@ -7,6 +7,12 @@ body{
 	height: 100vh;
 	z-index: -1;
 }
+.underRow div{
+	-webkit-animation-duration: 3s ;
+	animation-duration: 3s ;
+	-webkit-animation-delay: 1s ;
+	animation-delay: 1s ;
+}
 
 .underRow .center{
 	position: absolute;
@@ -15,6 +21,24 @@ body{
 	height: 45vh;
 	left: -35vh;
 	background-image: url('../img/home_people.png');
+	background-size: 100% 100%;
+}
+.underRow .left{
+	position: absolute;
+	bottom: 0vh;
+	width: 70vh;
+	height: 45vh;
+	left: -70vh;
+	background-image: url('../img/home_people_1.png');
+	background-size: 100% 100%;
+}
+.underRow .right{
+	position: absolute;
+	bottom: 0vh;
+	width: 70vh;
+	height: 45vh;
+	left: 0vh;
+	background-image: url('../img/home_people_2.png');
 	background-size: 100% 100%;
 }
 

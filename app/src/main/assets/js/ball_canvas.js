@@ -114,7 +114,7 @@ function makeBG () {
 }
 function updateText () {
     var ctx = myGameArea.context;
-    var fontSize = 20;
+    var fontSize = 15;
     canvas = myGameArea.canvas;
     ctx.font = fontSize+"vh gameOver";
     ctx.textAlign="center"; 
@@ -124,19 +124,21 @@ function updateText () {
     ctx.strokeStyle="black";
     ctx.fillStyle="white";
 
-    var x = canvas.width/2,
-        y = startPos-canvas.height/2 -fontSize/100*canvas.height,
-        text = "ROUND "+GAMEround;
-    ctx.strokeText(text, x, y);
-    ctx.fillText(text, x, y);
+    if(GAMEround){
+        var x = canvas.width/2,
+            y = startPos-canvas.height/2 -fontSize/100*canvas.height,
+            text = "ROUND "+GAMEround;
+        ctx.strokeText(text, x, y);
+        ctx.fillText(text, x, y);
 
-    y = startPos-canvas.height/2 +fontSize/100*canvas.height;
-    ctx.font = fontSize/2+"vh gameOver";
-    ctx.lineWidth=fontSize/1.5*unit;
-    ctx.fillStyle=GAMEteam;
-    text = GAMEteam.toUpperCase()+" ARE PLAYER";
-    ctx.strokeText(text, x, y);
-    ctx.fillText(text, x, y);
+        y = startPos-canvas.height/2 +fontSize/100*canvas.height;
+        ctx.font = fontSize/2+"vh gameOver";
+        ctx.lineWidth=fontSize/1.5*unit;
+        ctx.fillStyle=GAMEteam;
+        text = GAMEteam.toUpperCase()+" ARE PLAYER";
+        ctx.strokeText(text, x, y);
+        ctx.fillText(text, x, y);
+    }
 }
 function updateDistance (gap) {
     if(gap > 0)
