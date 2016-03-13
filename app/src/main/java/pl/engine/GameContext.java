@@ -68,15 +68,15 @@ public class GameContext implements CommunicationListener{
 		engineIndex = 0;
 
 		engines.add(new RegistrarEngine(this, playerAmount, "REGISTER" , RegistrarActivity.class,""));
-		engines.add(new BallEngine(this, playerAmount,"KEEP ON ROLLIN'", BallActivity.class, "ball_start"));
-		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
 		engines.add(new GameShakeEngine(this, playerAmount,"SHAKE IT OFF", ShakeActivity.class, "shake-start"));
+		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
 		engines.add(new NumericEngine(this, playerAmount, "WHERE IS MY NUMBER?", NumericActivity.class, "numeric_start"));
 		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
 		engines.add(new QAEngine(this, playerAmount, "ASK ME", context, QAActivity.class, "qa_start"));
 		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
+		engines.add(new BallEngine(this, playerAmount,"KEEP ON ROLLIN`", BallActivity.class, "ball_start"));
 		engines.add(new ResultEngine(this, playerAmount, "RESULT SCORE", ResultActivity.class, "result_start"));
-        engines.add(new EndEngine(this, playerAmount, "END ENGINE", EndActivity.class, "end_start"));
+		engines.add(new EndEngine(this, playerAmount, "END ENGINE", EndActivity.class, "end_start"));
 		engines.add(new BlankEngine(this, playerAmount, "BLANK ENGINE", BlankActivity.class, "blank_start"));
 
 
@@ -115,6 +115,10 @@ public class GameContext implements CommunicationListener{
         changeToNextEngine();
         if(engineIndex > engines.size()-1 )
             engineIndex = 0;
+	}
+
+	public void stopGameEngine(){
+		cm.close();
 	}
 
     public void changeToNextEngine(){

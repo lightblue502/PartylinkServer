@@ -1,5 +1,7 @@
 package pl.engine;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class EndEngine extends GameEngine {
 
     @Override
     public void endEngine() {
-
+        gc.nextEngine();
     }
 
     @Override
@@ -35,18 +37,15 @@ public class EndEngine extends GameEngine {
             gc.sendGameEvent(gc.getCurrentGameEngine().getClientStart());
             gameManager.initPlayerstoUI(teams);
         }else if(event.equals("end_ready")){
-            cntPlayer++;
             summaryScore();
-
-        }else if(event.equals("playerConfirm")){
+        }else if(event.equals("playerRestartGame")){
             playerConfirm(clientId);
-            cntPlayer++;
             onPlayerReady(playerAmount);
         }
     }
 
     public void summaryScore(){
-        if(cntPlayer == playerAmount){
+        if(++cntPlayer == playerAmount){
             String teamWin = ResultScore.getTeamWin(gc.getResultScores());
             resultScore();
 
@@ -79,21 +78,27 @@ public class EndEngine extends GameEngine {
     }
 
     public void playerConfirm(int clientId){
-        gc.getGameLister().onIncommingEvent("playerConfirm",new String[]{String.valueOf(clientId)});
+        gc.getGameLister().onIncommingEvent("playerConfirm", new String[]{String.valueOf(clientId)});
     }
 
     @Override
     public void onPlayerReady(int playerAmount) {
-        if(cntPlayer == playerAmount){
+        if(++cntPlayer == playerAmount){
+//            gc.stopGameEngine();
             Log.d("DEBUG", "ResultEngine : Player Ready");
             gameManager.countDownGameReady(5);
             gameManager.setOnGameReadyListener(new GameManager.OnGameReadyListener() {
                 @Override
                 public void ready() {
                     Log.d("DEBUG","call endEngine");
+//                    gc.sendGameEvent("restartGame");
+//                    gc.getGameLister().onIncommingEvent("restartGame", new String[]{});
+
                     endEngine();
                 }
             });
         }
     }
+
+
 }

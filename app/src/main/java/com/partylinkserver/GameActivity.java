@@ -49,8 +49,13 @@ public abstract class GameActivity extends AppCompatActivity {
             }
         };
 
+
         Intent intent = new Intent(this, GameCommunicationService.class);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        try {
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        }catch (Exception e){
+//            e.printStackTrace();
+        }
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override

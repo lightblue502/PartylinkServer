@@ -1,6 +1,9 @@
 package com.partylinkserver;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,7 +40,7 @@ private WebView wv;
 
             @Override
             public void backDoor(String num) {
-                onGameEvent("back_Door",new String[]{num});
+                onGameEvent("back_Door", new String[]{num});
             }
 
             @Override
@@ -49,8 +52,8 @@ private WebView wv;
 
     @Override
     public void onGameEvent(String event, String[] params){
-        super.onGameEvent(event,params);
-        Log.d("DEBUG_inEndActivity","onGameEvent"+ event);
+        super.onGameEvent(event, params);
+        Log.d("DEBUG_inEndActivity", "onGameEvent" + event);
         if(params ==  null){
             return;
         }else if(event.equals("change_engine")){
@@ -70,6 +73,28 @@ private WebView wv;
             wv.loadUrl("javascript:getTeamWin('"+params[0]+"')");
         }else if(event.equals("getCountdown")){
             wv.loadUrl("javascript:getCountdown('"+params[0]+"')");
+        }else if(event.equals("restartGame")){
+            restartGame();
         }
+    }
+
+    public void restartGame(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                getBaseContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //Following code will restart your application after 2 seconds
+        AlarmManager mgr = (AlarmManager) getBaseContext()
+                .getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 5000,
+                pendingIntent);
+
+        //This will finish your activity manually
+        this.finish();
+
+        //This will stop your application and take out from it.
+        System.exit(2);
     }
 }

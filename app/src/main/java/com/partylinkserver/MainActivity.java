@@ -19,7 +19,7 @@ public class MainActivity extends GameActivity {
     private String ip;
     private WebView wv;
     private GameContext gc;
-    private int playerAmount = 1;
+    private int playerAmount = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

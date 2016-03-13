@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Random;
 
 public class BallEngine extends GameEngine{
-    private int roundAmount = 1;
-    private int times = 10;
+    private int roundAmount = 3;
+    private int times = 30;
     private int playerAmount;
     private int cntPlayer = 0;
     private int cntResumePlayer = 0;
@@ -63,6 +63,7 @@ public class BallEngine extends GameEngine{
             if(gameManager.getRound() <= roundAmount) {
                     Log.d("DEBUG", "NEW ROUND");
                     init();
+                    gameManager.printScoreToNumber();
                     gc.getGameLister().onIncommingEvent("playerTeam", new String[]{players.getName()});
                     gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
                     createBombs();
@@ -147,13 +148,13 @@ public class BallEngine extends GameEngine{
         enemys = temp;
     }
     public void sendEventToTeams(){
-        swapTeams();
         sendEventStartToEnemy();
         sendEventStartToPlayer();
         gameManager.resetTimer();
 //        gameManager.stopTimer();
         Utils.debug("================== first Timer Start & count 20sec ==================");
         gameManager.startTimer(times, "change_ball");
+        swapTeams();
 
 
         cntPlayer = 0;

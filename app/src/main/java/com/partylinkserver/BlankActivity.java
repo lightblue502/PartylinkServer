@@ -26,7 +26,8 @@ private WebView wv;
         javaScriptInterface.init(this);
 
         wv.addJavascriptInterface(javaScriptInterface, "Android");
-        Log.d("end", "This is blank activity");
+        Log.d("DEBUG", "This is blank activity");
+
 
         javaScriptInterface.setOnGameReadyListener(new JavaScriptInterface.onUiReadyListener() {
             @Override
