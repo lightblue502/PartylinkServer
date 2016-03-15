@@ -9,7 +9,7 @@ function start () {
 }
 
 function stop(){
-    pause();
+    myGameArea.pause();
     Android.sendScore(ball.distance);
 	console.log("Game Stop");
     angular.element(document.body).scope().$apply(function($scope){
@@ -41,19 +41,34 @@ function bomb(){
 
 function pause(){
     myGameArea.pause();
+    Android.sendScore(ball.distance);
+    console.log("Game pause");
+    angular.element(document.body).scope().$apply(function($scope){
+        $scope.show = "pause";
+        $scope.showClass = "";
+        setTimeout(function() {
+            $scope.$apply(function () {
+                $scope.dimDisplay = "animated fadeIn ";
+                $scope.showClass = "animated infinite pulse ";
+            });
+        },100);
+    });
 }
 
 function resume(){
     myGameArea.resume();
+
+    angular.element(document.body).scope().$apply(function($scope){
+        $scope.show = "";
+        $scope.dimDisplay = "animated zoomOut ";
+    });
 }
 
 function getInitialBomb(initial_bomb){
   bombPos = initial_bomb;
-  start();
-  pause();
 };
 
-function getCurrentScore(scoreA ,scoreB){
+function getCurrentScore(scoreB ,scoreA){
 	console.log("getCurrentScore");
 	console.log(scoreA);
 	console.log(scoreB);
@@ -77,7 +92,7 @@ function playerTeam (team) {
         GAMEteam = "white";
 }
 
-function getWinRound(winRoundA, winRoundB){
+function getWinRound(winRoundB, winRoundA){
 	console.log("getWinRound");
 	// console.log(winRoundA);
 	// console.log(winRoundB);
@@ -129,6 +144,12 @@ function play(src){
   if(current_audio != null)
     current_audio.remove();
   current_audio = new Audio(src);
+  if(src == audio_explode)
+    current_audio.currentTime = 1;
+  else if(src == audio_jump)
+    current_audio.currentTime = 0;
+  else if(src == audio_poof)
+    current_audio.currentTime = 0.6;
   current_audio.play();
 }
 

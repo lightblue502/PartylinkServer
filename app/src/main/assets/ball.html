@@ -7,6 +7,7 @@
  	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   	<link rel="stylesheet" href="css/animate.css">
  	<script src="lib/angular/angular.js"></script>
+	<script type="text/javascript" src="js/backdoor.js"></script>
 
  	<script type="text/javascript" src="js/ball_config.js"></script>
  	
@@ -27,7 +28,7 @@
  			</div>
  			<div ng-repeat="icon in iconScore.red.light" class="icon floatleft" ng-style="{'background-color':icon.color}"></div> 
 			<div ng-repeat="icon in iconScore.red.dark" class="icon floatleft" ng-style="{'background-color':icon.color}"></div> 
-			<p class="dist">{{score.A==0?'?':score.A}} m</p>
+			<!-- <p class="dist">{{score.A==0?'?':score.A}} m</p> -->
  		</div>
 
  		<div class="block floatleft" >
@@ -37,7 +38,7 @@
  			</div>
  			<div ng-repeat="icon in iconScore.blue.light" class="icon floatleft" ng-style="{'background-color':icon.color}"></div> 
 			<div ng-repeat="icon in iconScore.blue.dark" class="icon floatleft" ng-style="{'background-color':icon.color}"></div> 
-			<p class="dist">{{score.B==0?'?':score.B}} m</p>
+			<!-- <p class="dist">{{score.B==0?'?':score.B}} m</p> -->
  		</div>
  	</div>
 
@@ -54,10 +55,10 @@
 
 
  	<script type="text/javascript">
-		// getInitialBomb([[0.5],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1],
-	 // 		[0.2,0.7],[0.1,0.5],[0.4,0.8],[0.2,0.3],[0.6]]);
-		getInitialBomb([[]]);
- 		// start();
+		getInitialBomb([[0.5],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1],
+	 		[0.2,0.7],[0.1,0.5],[0.4,0.8],[0.2,0.3],[0.6]]);
+		// getInitialBomb([[]]);
+ 		start();
  		// pause();
  		// setTimeout(function () {
 	 	// 	pause();

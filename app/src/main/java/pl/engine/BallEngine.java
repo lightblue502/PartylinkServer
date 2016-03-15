@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Random;
 
 public class BallEngine extends GameEngine{
-    private int roundAmount = 3;
-    private int times = 30;
+    private int roundAmount = 2;
+    private int times = 20;
     private int playerAmount;
     private int cntPlayer = 0;
     private int cntResumePlayer = 0;
@@ -65,7 +65,7 @@ public class BallEngine extends GameEngine{
                     init();
                     gameManager.printScoreToNumber();
                     gc.getGameLister().onIncommingEvent("playerTeam", new String[]{players.getName()});
-                    gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
+//                    gc.getGameLister().onIncommingEvent("game_pause", new String[]{});
                     createBombs();
 
                     gameManager.printReportRound();

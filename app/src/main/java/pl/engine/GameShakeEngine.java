@@ -22,7 +22,7 @@ public class GameShakeEngine extends GameEngine{
 	public GameShakeEngine(GameContext gc, int playerAmount, String name, Class activityClass, String clientStart) {
 		super(gc, name,activityClass,clientStart);
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, 5, roundAmount);
+		this.gameManager = new GameManager(resultScore, gc, 3, roundAmount);
 	}
 	
 	@Override
