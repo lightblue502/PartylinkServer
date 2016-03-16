@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class BallEngine extends GameEngine{
     private int roundAmount = 2;
-    private int times = 20;
+    private int times = 60;
     private int playerAmount;
     private int cntPlayer = 0;
     private int cntResumePlayer = 0;

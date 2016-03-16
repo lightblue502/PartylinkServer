@@ -12,7 +12,7 @@ public class NumericEngine extends GameEngine{
 	private Integer answer;
 	private int cntPlayer = 0;
 	private int cntResumePlayer = 0;
-	private int topicPerPlayer = 1;
+	private int topicPerPlayer = 2;
     private boolean firstTime = false;
 	private boolean isPlaying = false;
 	private List<Team> teams = gc.getTeams();
@@ -23,7 +23,7 @@ public class NumericEngine extends GameEngine{
 		super(gc, name, activityClass,clientStart);
 		this.answer = null;
 		this.playerAmount = playerAmount;
-		this.gameManager = new GameManager(resultScore, gc, /*topicPerPlayer*playerAmount*/3, roundAmount);
+		this.gameManager = new GameManager(resultScore, gc, topicPerPlayer*playerAmount, roundAmount);
 	}
 
 	@Override
